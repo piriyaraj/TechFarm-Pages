@@ -1,4 +1,9 @@
 var directWaLink = 1;
+var groupNumber = 1;
+var showTable=1;
+var showPreArti=0;
+var showPostArti=0;
+
 var firebaseConfig = {
     apiKey: "AIzaSyBLD6K3MZOIc-8CCh1bd3miCp1sp09oPJI",
     authDomain: "whatsapp-group-linker.firebaseapp.com",
@@ -12,12 +17,48 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var groupNumber = 1;
 
+function controller(){
+    if(showPreArti){
+        document.getElementById('prearti').style.display='block';
+    }
+    if(showTable){
+        document.getElementById("tableDiv").style.display = "block";
+    }
+    if (showPreArti) {
+        document.getElementById('postarti').style.display = 'block';
+    }
+}
+
 function initMove(){
     var mainContent = document.getElementById("root");
     newSection = document.createElement('section'); //create a div
     newSection.className = "loading";
     newSection.id = "loading";
     var tag = `<div class="w3-light-grey"><div id="myBar" class="w3-container w3-green w3-center" style="width:0%;max-height:20px ;">0%</div></div>`;
+    newSection.innerHTML = tag;
+    mainContent.appendChild(newSection); //append to the doc.body
+    mainContent.insertBefore(newSection, mainContent.lastChild)
+}
+
+function initPreArti(){
+    var mainContent = document.getElementById("root");
+    newSection = document.createElement('section'); //create a div
+    newSection.className = "prearti";
+    newSection.id = "prearti";
+    newSection.style.display = 'none';
+    var tag = `<p>pre Artical</p>`;
+    newSection.innerHTML = tag;
+    mainContent.appendChild(newSection); //append to the doc.body
+    mainContent.insertBefore(newSection, mainContent.lastChild)
+}
+
+function initPostArti() {
+    var mainContent = document.getElementById("root");
+    newSection = document.createElement('section'); //create a div
+    newSection.className = "postarti";
+    newSection.id = "postarti";
+    newSection.style.display='none';
+    var tag = `<p>post Artical</p>`;
     newSection.innerHTML = tag;
     mainContent.appendChild(newSection); //append to the doc.body
     mainContent.insertBefore(newSection, mainContent.lastChild)
@@ -55,7 +96,7 @@ function insertRow(groupName, groupLink) {
     var tbody = document.getElementById("tableBody");
     newtr = document.createElement('tr');   //create a div
     // newdiv.id=sectionId;
-    var tag = "<td class=\"tdClass\"><img class=\"waimg\" src=\"https://web.whatsapp.com/invite/icon/" + groupId + "\"/>" + groupName + "</td><td><a href=\"" + groupLink + "\" target=\"_blank\"><button name=\"button\" type=\"button\">Join Now</button></a></td>";
+    var tag = "<td class=\"tdClass\"><img class=\"waimg\" src=\"https://web.whatsapp.com/invite/icon/" + groupId + "\"/></td><td>" + groupName + "</td><td><a href=\"" + groupLink + "\" target=\"_blank\"><button name=\"button\" type=\"button\">Join Now</button></a></td>";
     groupNumber++;
     newtr.innerHTML = tag;                    //add an id
     tbody.appendChild(newtr);                 //append to the doc.body
@@ -104,6 +145,7 @@ function loadMorelink(lastcount) {
         // console.log(tableRow);
     });
 }
+
 function loadLinks() {
     var i = document.title.split(" Whats")[0];
     document.getElementById("tableHead").innerText = i;
@@ -152,6 +194,7 @@ function loadLinks() {
     });
 
 }
+
 function move() {
     var elem = document.getElementById("myBar");
     var width = 0;
@@ -160,7 +203,7 @@ function move() {
     function frame() {
         if (width >= 100) {
             clearInterval(id);
-            document.getElementById("tableDiv").style.display = "block";
+            controller();
             elem.style.display = "none";
         } else {
             width++;
@@ -170,7 +213,10 @@ function move() {
         }
     }
 }
+
 initMove();
+initPreArti();
 initTable();
+initPostArti();
 move();
 loadLinks();
