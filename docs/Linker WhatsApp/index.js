@@ -247,6 +247,7 @@ function initPostArti() {
     newSection.innerHTML = tag;
     mainContent.appendChild(newSection); //append to the doc.body
     mainContent.insertBefore(newSection, mainContent.lastChild)
+    loadLinks();
 }
 
 function initTable() {
@@ -404,4 +405,3 @@ initPreArti();
 initTable();
 initPostArti();
 move();
-loadLinks();
