@@ -11,15 +11,51 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 var groupNumber = 1;
+
+function initMove(){
+    var mainContent = document.getElementById("root");
+    newSection = document.createElement('section'); //create a div
+    newSection.className = "loading";
+    newSection.id = "loading";
+    var tag = `<div class="w3-light-grey"><div id="myBar" class="w3-container w3-green w3-center" style="width:0%;max-height:20px ;">0%</div></div>`;
+    newSection.innerHTML = tag;
+    mainContent.appendChild(newSection); //append to the doc.body
+    mainContent.insertBefore(newSection, mainContent.lastChild)
+}
+
+function initTable() {
+    var mainContent = document.getElementById("root");
+    newSection = document.createElement('section'); //create a div
+    newSection.className = "tables";
+    newSection.id = "tables";
+    var tag = `<div id="tableDiv" style="display: none;">
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th colspan="2" id="tableHead"></th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+    <button style="display: none;" id="loadmoreGroup" name="button" type="button" onclick="loadMorelink();">LoadMore
+        Groups</button>
+
+</div>`;
+    newSection.innerHTML = tag;
+    mainContent.appendChild(newSection); //append to the doc.body
+    mainContent.insertBefore(newSection, mainContent.lastChild)
+}
+
 function insertRow(groupName, groupLink) {
     tableName = document.title.split(" Whats")[0];
     // groupLink=groupLink+"?wa"
     // alert(sectionId);
-    groupName = tableName + " Group " + groupNumber;
+    // groupName = tableName + " Group " + groupNumber;
+    groupId=groupLink.split('.com/')[1];
     var tbody = document.getElementById("tableBody");
     newtr = document.createElement('tr');   //create a div
     // newdiv.id=sectionId;
-    var tag = "<td>" + groupName + "</td><td> <a href=\"" + groupLink + "\" target=\"_blank\"><button name=\"button\" type=\"button\">Join Now</button></a></td>";
+    var tag = "<td class=\"tdClass\"><img class=\"waimg\" src=\"https://web.whatsapp.com/invite/icon/" + groupId + "\"/>" + groupName + "</td><td><a href=\"" + groupLink + "\" target=\"_blank\"><button name=\"button\" type=\"button\">Join Now</button></a></td>";
     groupNumber++;
     newtr.innerHTML = tag;                    //add an id
     tbody.appendChild(newtr);                 //append to the doc.body
@@ -134,5 +170,7 @@ function move() {
         }
     }
 }
+initMove();
+initTable();
 move();
 loadLinks();
