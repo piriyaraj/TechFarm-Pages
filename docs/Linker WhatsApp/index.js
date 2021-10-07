@@ -1,4 +1,9 @@
 var directWaLink = 1;
+var groupNumber = 1;
+var showTable=1;
+var showPreArti=1;
+var showPostArti=0;
+
 var firebaseConfig = {
     apiKey: "AIzaSyBLD6K3MZOIc-8CCh1bd3miCp1sp09oPJI",
     authDomain: "whatsapp-group-linker.firebaseapp.com",
@@ -12,12 +17,110 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var groupNumber = 1;
 
+preArtical =`<div class="entry-content" itemprop="text">
+
+    <h2>1000+ Active PostTitle WhatsApp Group Links in PostYear engaged Whatsapp Group Links</h2>
+
+
+
+    <p><strong>If you are Searching For Active&nbsp;<strong>PostTitle&nbsp;<a data-wpel-link="internal" href="/" title="WhatsApp Group Links">Whatsapp group links</a></strong>&nbsp;don’t worry about it this site always share active Whatsapp group link only
+        </strong>
+    </p>
+
+
+
+    <p><strong>Here you can find&nbsp;<strong>PostTitle WhatsApp group links to Join links</strong>, Our&nbsp;<strong>site</strong>&nbsp;will Daily upload More than 500+ <a data-wpel-link="internal" href="/" title="WhatsApp Group Links">Whatsapp Group Links</a>,
+        you can easily join by just click the join button.</strong>
+    </p>
+
+
+
+    <p><strong><span style="text-decoration: underline;">PostTitle <a data-wpel-link="internal" href="/" title="WhatsApp Group Links">WhatsApp Group Links</a>:</span></strong> <strong>Hey! PostTitle&nbsp;WhatsApp Group</strong>&nbsp;fan to hitch within the&nbsp;<strong>Sri Lanka&nbsp;<a data-wpel-link="internal" href="/" title="WhatsApp Group Links">WhatsApp group links</a></strong>&nbsp;simply
+        click on the below links and take part in the chosen us WhatsApp groups among them. </p>
+
+
+
+    <p>Still, before entering within the&nbsp;<strong>PostTitle&nbsp;<a data-wpel-link="internal" href="/" title="WhatsApp Group Links">WhatsApp group links</a></strong>&nbsp;you’d want to know bound Laws and guidance unless you’ll be away from the group. The
+        main focus of planning this website is only to Give&nbsp;<a data-wpel-link="internal" href="/" title="WhatsApp Group Links">Whatsapp Group Links</a> for all Whatsapp group users.</p>
+
+    <p>Here you can see the current group icon and their name so you can find the suitable group for your work or entertainment perfuse.</p>
+
+
+
+    <p>Yes, after you join the WhatsApp group you can get more details about what you wanted and make new things also. so you this platform to get more benifte.</p>
+
+    <h2>Active PostTitle WhatsApp Group Links Collection</h2>
+
+
+
+    <p>Shortly&nbsp;<strong>Whatsapp</strong> Groups are so much popular, everyone uses WhatsApp for talking, getting new friends, sharing, chat with their loved ones, for office meetings, and lots of things. Our Site&nbsp;<a href="/"><strong>linker WhatsApp</strong></a>&nbsp;is
+        the most trusted, fast, and genuine site to provide all kinds of Whatsapp Groups links for our visitors feel free to join all groups and get benefits. This is the right place for finding most of the category WhatsApp group. so today we are gonna
+        back with another WhatsApp group link post which is known as the&nbsp;<strong>PostTitle <a data-wpel-link="internal" href="/" title="WhatsApp Group Links">WhatsApp Group Links</a></strong>.</p>
+
+    <p>Lots of people are searching on the internet&nbsp;for the best <strong>invite</strong> <strong>links to PostTitle <a data-wpel-link="internal" href="/" title="WhatsApp Group Links">WhatsApp Group Links</a></strong>. if you are also here for that then
+        stay here. In this post, you can get&nbsp;&nbsp;<strong>Best PostTitle <a data-wpel-link="internal" href="/" title="WhatsApp Group Links">WhatsApp Group Links</a></strong>&nbsp;of Girls, Jobs, Tourism, News, Tvale places, friendship, and a lot more
+        groups. Let’s check it out below.</p>
+
+
+
+    <h2>What Is PostTitle WhatsApp Group Links?</h2>
+
+
+
+    <p>PostTitle <a data-wpel-link="internal" href="/" title="WhatsApp Group Links">WhatsApp Group Links</a> is the group where people share entertaining related images, videos, and other related content. Because these groups are made for public use and get
+        benefit from it</p>
+
+
+    <h2>Why PostTitle WhatsApp Group Links</h2>
+
+
+
+    <p>Most of the people interest to join the PostTitle WhatsApp group for getting more details and related things for their wants in this post you can get the most popular WhatsApp group links for PostTitle.</p>
+</div>`;
+
+postArtical=``;
+function controller(){
+    if(showPreArti){
+        document.getElementById('prearti').style.display='block';
+    }
+    if(showTable){
+        document.getElementById("tableDiv").style.display = "block";
+    }
+    if (showPostArti) {
+        document.getElementById('postarti').style.display = 'block';
+    }
+}
+
 function initMove(){
     var mainContent = document.getElementById("root");
     newSection = document.createElement('section'); //create a div
     newSection.className = "loading";
     newSection.id = "loading";
     var tag = `<div class="w3-light-grey"><div id="myBar" class="w3-container w3-green w3-center" style="width:0%;max-height:20px ;">0%</div></div>`;
+    newSection.innerHTML = tag;
+    mainContent.appendChild(newSection); //append to the doc.body
+    mainContent.insertBefore(newSection, mainContent.lastChild)
+}
+
+function initPreArti(){
+    var mainContent = document.getElementById("root");
+    newSection = document.createElement('section'); //create a div
+    newSection.className = "prearti";
+    newSection.id = "prearti";
+    newSection.style.display = 'none';
+    var tag = preArtical.replaceAll("PostTitle", document.title.split(" Whats")[0]).replaceAll("PostYear", new Date().getFullYear());
+    newSection.innerHTML = tag;
+    mainContent.appendChild(newSection); //append to the doc.body
+    mainContent.insertBefore(newSection, mainContent.lastChild)
+}
+
+function initPostArti() {
+    var mainContent = document.getElementById("root");
+    newSection = document.createElement('section'); //create a div
+    newSection.className = "postarti";
+    newSection.id = "postarti";
+    newSection.style.display='none';
+    var tag = postArtical.replaceAll("PostTitle", document.title.split(" Whats")[0]);
     newSection.innerHTML = tag;
     mainContent.appendChild(newSection); //append to the doc.body
     mainContent.insertBefore(newSection, mainContent.lastChild)
@@ -55,7 +158,7 @@ function insertRow(groupName, groupLink) {
     var tbody = document.getElementById("tableBody");
     newtr = document.createElement('tr');   //create a div
     // newdiv.id=sectionId;
-    var tag = "<td class=\"tdClass\"><img class=\"waimg\" src=\"https://web.whatsapp.com/invite/icon/" + groupId + "\"/>" + groupName + "</td><td><a href=\"" + groupLink + "\" target=\"_blank\"><button name=\"button\" type=\"button\">Join Now</button></a></td>";
+    var tag = "<td class=\"tdClass\"><img class=\"waimg\" src=\"https://web.whatsapp.com/invite/icon/" + groupId + "\"/></td><td>" + groupName + "</td><td><a href=\"" + groupLink + "\" target=\"_blank\"><button name=\"button\" type=\"button\">Join Now</button></a></td>";
     groupNumber++;
     newtr.innerHTML = tag;                    //add an id
     tbody.appendChild(newtr);                 //append to the doc.body
@@ -104,6 +207,7 @@ function loadMorelink(lastcount) {
         // console.log(tableRow);
     });
 }
+
 function loadLinks() {
     var i = document.title.split(" Whats")[0];
     document.getElementById("tableHead").innerText = i;
@@ -152,6 +256,7 @@ function loadLinks() {
     });
 
 }
+
 function move() {
     var elem = document.getElementById("myBar");
     var width = 0;
@@ -160,7 +265,7 @@ function move() {
     function frame() {
         if (width >= 100) {
             clearInterval(id);
-            document.getElementById("tableDiv").style.display = "block";
+            controller();
             elem.style.display = "none";
         } else {
             width++;
@@ -170,7 +275,10 @@ function move() {
         }
     }
 }
+
 initMove();
+initPreArti();
 initTable();
+initPostArti();
 move();
 loadLinks();

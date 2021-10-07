@@ -53,6 +53,8 @@ button {
     margin-bottom: 5%;
     text-align: center;
     width: 100%;
+    padding: 10;
+    font: revert;
 }
 
 button:hover {
@@ -93,9 +95,10 @@ button:focus {
     background-color: #B9C9C5;
 }
 
-.styled-table tbody td:nth-of-type(odd) {
+
+/* .styled-table tbody td:nth-of-type(odd) {
     width: 75%;
-}
+} */
 
 .styled-table tbody td {}
 
