@@ -54,6 +54,7 @@ button {
     text-align: center;
     width: 100%;
     padding: 10;
+    font: revert;
 }
 
 button:hover {
