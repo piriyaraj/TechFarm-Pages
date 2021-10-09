@@ -1,0 +1,63 @@
+<style>
+    .proimg {
+        height: 130px;
+        width: 130px;
+        border-radius: 50%;
+    }
+    
+    .cate {
+        color: #9b9b9b;
+        font-size: 12px;
+        vertical-align: middle;
+        display: inline-block;
+    }
+    
+    .btn {
+        background-color: #01E675;
+        color: white;
+        padding: 10px;
+        border-radius: 5px
+    }
+    
+    .icon {
+        height: 14px;
+        width: 14px;
+        vertical-align: middle;
+        display: inline-block;
+        padding-right: 3px;
+    }
+    
+    .waroot {
+        border: 1rem solid;
+        /* width:max-content; */
+        margin: 0 auto;
+        padding: 20px;
+    }
+</style>
+<div style="text-align: center" class="waroot">
+
+    <img class="proimg" id="img" src="" />
+    <div>
+        <b style="font-size: 22px;word-wrap: normal" id='name'></b>
+    </div>
+
+
+    <div style="margin-bottom: 20px">
+    </div>
+
+    <div>
+        <a href="" target="_blank" class="btn" rel="nofollow" id='join'>Join group</a>
+        <!-- <a class="btn" id='share' href="" data-action="share/whatsapp/share" rel="nofollow">Share group</a> -->
+    </div>
+    <br>
+</div>
+<script>
+    url = decodeURI(document.location.href);
+    waCode = url.split("?walink=")[1].split("&")[0];
+    waName = url.split("&name=")[1];
+    shareHref = "whatsapp://send?text=Follow this link to Join my Whatsapp group : " + url + " %0A %0AFind more WhatsApp Group at: https://walinking.link/ "
+    document.getElementById('img').setAttribute('src', 'https://web.whatsapp.com/invite/icon/' + waCode);
+    document.getElementById('join').setAttribute('href', 'https://chat.whatsapp.com/invite/' + waCode);
+    // document.getElementById('share').setAttribute('href', shareHref);
+    document.getElementById('name').innerText = waName;
+</script>

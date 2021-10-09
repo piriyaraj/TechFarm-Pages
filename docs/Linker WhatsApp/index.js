@@ -196,7 +196,7 @@ postArtical =`<div class="entry-content" itemprop="text">
         </div>
     </section>
 
-    <h2>PostTitle WhatsApp Group Links conclusion</h2>
+    <h3>PostTitle WhatsApp Group Links conclusion</h3>
 
 
 
@@ -219,7 +219,7 @@ function initMove(){
     newSection = document.createElement('section'); //create a div
     newSection.className = "loading";
     newSection.id = "loading";
-    var tag = `<div class="w3-light-grey"><div id="myBar" class="w3-container w3-green w3-center" style="width:0%;max-height:20px ;">0%</div></div>`;
+    var tag = `<div class="w3-cyan"><div id="myBar" class="w3-container w3-green w3-center" style="width:0%;max-height:20px ;">0%</div></div>`;
     newSection.innerHTML = tag;
     mainContent.appendChild(newSection); //append to the doc.body
     mainContent.insertBefore(newSection, mainContent.lastChild)

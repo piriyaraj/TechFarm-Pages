@@ -1,0 +1,148 @@
+<style>
+    .addbtn {
+        color: white;
+        font-size: 20px;
+        background-color: #0088cc;
+        padding: 10px 30px;
+        border-radius: 5px;
+        text-decoration: none;
+        z-index: 100;
+    }
+    
+    .addbtn:hover {
+        background-color: #ffffff;
+        color: #18e618;
+        border: 1px solid #777;
+    }
+    
+    .open-button {
+        background-color: #555;
+        color: white;
+        padding: 16px 20px;
+        border: none;
+        cursor: pointer;
+        opacity: 0.8;
+        position: fixed;
+        bottom: 23px;
+        right: 28px;
+        width: 280px;
+    }
+    /* The popup form - hidden by default */
+    
+    .form-popup {
+        background: rgb(214, 214, 241);
+        display: none;
+        /* margin: auto; */
+        width: fit-content;
+        border: 3px solid rgb(154, 185, 252);
+        padding: 10px;
+        margin: 0;
+        margin-top: 50px;
+        position: absolute;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%);
+        z-index: 100;
+    }
+    /* Add styles to the form container */
+    
+    .form-container {
+        max-width: 300px;
+        padding: 10px;
+        background-color: white;
+    }
+    /* Full-width input fields */
+    
+    .form-container input[type=text],
+    .form-container input[type=password] {
+        width: 100%;
+        padding: 15px;
+        margin: 5px 0 22px 0;
+        border: none;
+        background: #f1f1f1;
+    }
+    /* When the inputs get focus, do something */
+    
+    .form-container input[type=text]:focus,
+    .form-container input[type=password]:focus {
+        background-color: #ddd;
+        outline: none;
+    }
+    /* Set a style for the submit/login button */
+    
+    .form-container .btn {
+        background-color: #0845eb;
+        color: white;
+        padding: 16px 20px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        margin-bottom: 10px;
+        opacity: 0.8;
+    }
+    /* Add a red background color to the cancel button */
+    
+    .form-container .cancel {
+        background-color: red;
+    }
+    /* Add some hover effects to buttons */
+    
+    .form-container .btn:hover,
+    .open-button:hover {
+        opacity: 1;
+    }
+    
+    .selector {
+        width: -webkit-fill-available;
+        margin: 20px;
+        height: 50px;
+        border: 1px solid rgb(15, 0, 151);
+        text-align: center;
+    }
+</style>
+<div style="position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 101;">
+    <a class="addbtn" href="#" title="Add New Whatsapp Group" onclick="openForm()">Filtter</a>
+</div>
+
+<div class="form-popup" id="myForm">
+    <h2>Select the category</h2>
+    <form action="javascript:handleIt()" class="form-container">
+        <select name="selector" id="selector" class="selector"></select>
+        <br /><br />
+        <input type="submit" value="Go" class="btn" />
+        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+
+    </form>
+</div>
+
+
+<script>
+    function openForm() {
+        document.getElementById("myForm").style.display = "block";
+    }
+
+    function closeForm() {
+        document.getElementById("myForm").style.display = "none";
+    }
+
+    function handleIt() {
+        var e = document.getElementById("selector");
+        var getValue = e.value;
+        window.location.href = getValue;
+
+    }
+    var cateArray = {
+        '/2021/10/auto-parts.html': 'Auto Parts',
+        '/2021/10/austria-malayalam-auto-vehicle.html': 'Austria Malayalam Auto Vehicle',
+        '/2021/10/austria-hindi-dating-flirting-chatting.html': 'Austria Hindi Dating Flirting Chatting',
+        '/2021/10/austria-english-business-advertising.html': 'Austria English Business Advertising Marketing'
+    };
+
+    var select = document.getElementById("selector");
+    for (index in cateArray) {
+        select.options[select.options.length] = new Option(cateArray[index], index);
+    }
+</script>
