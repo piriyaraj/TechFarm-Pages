@@ -34,7 +34,7 @@ function insertRow(groupName, groupLink) {
     tableName = document.title.split(" Whats")[0];
     // groupLink=groupLink+"?wa"
     // alert(sectionId);
-    groupLink ="https://chat.whatsapp.com/KVh3eakiodaCYqecX3Txlu";
+    // groupLink ="https://chat.whatsapp.com/KVh3eakiodaCYqecX3Txlu";
     orgName=groupName;
     groupName = tableName+" Group "+groupNumber;
     var tbody = document.getElementById("tableBody");
