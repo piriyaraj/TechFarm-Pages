@@ -130,12 +130,11 @@ button:focus {
 .waimg {
     display: none;
     width: inherit;
-    min-width: 50;
+    min-width: 50px;
     /* display: none; */
     /* width: 100%; */
     border-radius: 50%;
-    /* margin-right: 0; */
-    /* border: 2px solid rgb(44, 170, 192);
+    /* margin-right: 0;
 }
 
 tr {
@@ -249,10 +248,10 @@ input:checked+.slider:before {
 }
 
 .imageToggle {
-    margin-left: 20px;
+    margin-left: 5px;
 }
 
 .nameToggle {
     position: absolute;
-    right: 20px;
+    right: 5px;
 }
