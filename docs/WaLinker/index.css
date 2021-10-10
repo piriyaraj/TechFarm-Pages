@@ -128,9 +128,11 @@ button:focus {
 }
 
 .waimg {
+    display: none;
     width: 100%;
     border-radius: 50%;
     margin-right: 0;
+    max-width: 50px;
 }
 
 tr {
@@ -204,10 +206,6 @@ input:checked+.slider:before {
     border-radius: 50%;
 }
 
-.waimg {
-    display: none;
-}
-
 .originalName {
     display: none;
 }
@@ -239,6 +237,7 @@ input:checked+.slider:before {
 #tableBody>tr>td:nth-last-child(1) {
     /* background-color: #b1168a; */
     width: 30%;
+    padding: 0;
 }
 
 .Toggles {
