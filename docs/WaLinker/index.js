@@ -150,7 +150,7 @@ function move() {
             clearInterval(id);
             document.getElementById("tableDiv").style.display = "block";
             elem.style.display = "none";
-            // initToggles();
+            initToggles();
         } else {
             width++;
             elem.style.width = width + '%';
