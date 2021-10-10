@@ -16,16 +16,16 @@ function initToggles() {
     newSection = document.createElement('section'); //create a div
     newSection.className = "Toggles";
     newSection.id = "Toggles";
-    var tag = ` <span>Show Image</span>
+    var tag = ` <span class='imageToggle'>Show Image
     <label class="switch"> 
         <input type="checkbox" id='checkboxImage' onclick="toggleImage()">
         <span class="slider round"></span>
-    </label>
-    <span>Show Name</span>
+    </label></span>
+    <span class='nameToggle'>Show Name
     <label class="switch"> 
         <input type="checkbox" id='checkboxName' onclick="toggleName()">
         <span class="slider round"></span>
-    </label><br/><br/>`;
+    </label></span><br/><br/>`;
     newSection.innerHTML = tag;
     mainContent.appendChild(newSection); //append to the doc.body
     mainContent.insertBefore(newSection, mainContent.firstChild)
