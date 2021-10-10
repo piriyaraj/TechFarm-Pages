@@ -128,9 +128,9 @@ button:focus {
 }
 
 .waimg {
-    width: 50px;
+    width: 100%;
     border-radius: 50%;
-    margin-right: 10px;
+    margin-right: 0;
 }
 
 tr {
@@ -210,4 +210,43 @@ input:checked+.slider:before {
 
 .originalName {
     display: none;
+}
+
+
+/* image */
+
+#tableBody>tr>td:nth-last-child(3) {
+    /* background-color: #16b149; */
+    width: 60px;
+}
+
+
+/* title */
+
+#tableBody>tr>td:nth-last-child(2) {
+    /* background-color: #163ab1; */
+    width: 65%;
+    padding-left: 20px;
+}
+
+
+/* join button */
+
+#tableBody>tr>td:nth-last-child(1) {
+    /* background-color: #b1168a; */
+    width: 30%;
+}
+
+.Toggles {
+    background-color: teal;
+    color: white;
+}
+
+.imageToggle {
+    margin-left: 20px;
+}
+
+.nameToggle {
+    position: absolute;
+    right: 20px;
 }
