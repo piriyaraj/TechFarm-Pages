@@ -11,15 +11,38 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 var groupNumber=1;
+function initToggles() {
+    var mainContent = document.getElementById("tableDiv");
+    newSection = document.createElement('section'); //create a div
+    newSection.className = "Toggles";
+    newSection.id = "Toggles";
+    var tag = ` <span>Show Image</span>
+    <label class="switch"> 
+        <input type="checkbox" id='checkboxImage' onclick="toggleImage()">
+        <span class="slider round"></span>
+    </label>
+    <span>Show Name</span>
+    <label class="switch"> 
+        <input type="checkbox" id='checkboxName' onclick="toggleName()">
+        <span class="slider round"></span>
+    </label><br/><br/>`;
+    newSection.innerHTML = tag;
+    mainContent.appendChild(newSection); //append to the doc.body
+    mainContent.insertBefore(newSection, mainContent.firstChild)
+}
 function insertRow(groupName, groupLink) {
     tableName = document.title.split(" Whats")[0];
     // groupLink=groupLink+"?wa"
     // alert(sectionId);
+    orgName=groupName;
     groupName = tableName+" Group "+groupNumber;
     var tbody = document.getElementById("tableBody");
     newtr = document.createElement('tr');   //create a div
     // newdiv.id=sectionId;
-    var tag = "<td>" + groupName + "</td><td> <a href=\"" + groupLink + "\" target=\"_blank\"><button name=\"button\" type=\"button\">Join Now</button></a></td>";
+    groupId = groupLink.split(".com/")[1];
+    var tag = `<td class="tdClass"><img class="waimg" src="https://web.whatsapp.com/invite/icon/`+groupId+`"></td>
+            <td><span class="originalName">`+ orgName + `</span><span class="duplicateName">` + groupName+`</span></td>
+            <td><a href="`+groupLink+`" target="_blank"><button name="button" type="button">Join Now</button></a></td>`;
     groupNumber++;
     newtr.innerHTML = tag;                    //add an id
     tbody.appendChild(newtr);                 //append to the doc.body
@@ -119,13 +142,14 @@ function loadLinks() {
 function move() {
     var elem = document.getElementById("myBar");
     var width = 0;
-    var time = 10;
+    var time = 0;
     var id = setInterval(frame, 10 * time);
     function frame() {
         if (width >= 100) {
             clearInterval(id);
             document.getElementById("tableDiv").style.display = "block";
             elem.style.display = "none";
+            initToggles();
         } else {
             width++;
             elem.style.width = width + '%';
@@ -134,5 +158,50 @@ function move() {
         }
     }
 }
+function toggleImage() {
+    if (document.getElementById('checkboxImage').value == 'on') {
+        // alert(document.getElementById('checkboxImage').value);
+        document.getElementById('checkboxImage').value = 'off';
+        // document.getElementById('waimg').display = 'block';
+        var waimgTags = document.getElementsByClassName('waimg');
+        for (var a = 0; a < waimgTags.length; a++) {
+            waimgTags[a].style.display = 'block';
+        }
+    } else if (document.getElementById('checkboxImage').value == 'off') {
+        // alert(document.getElementById('checkboxImage').value);
+        document.getElementById('checkboxImage').value = 'on';
+
+        var waimgTags = document.getElementsByClassName('waimg');
+        for (var a = 0; a < waimgTags.length; a++) {
+            waimgTags[a].style.display = 'none';
+        }
+    }
+
+}
+
+function toggleName() {
+    if (document.getElementById('checkboxName').value == 'on') {
+        document.getElementById('checkboxName').value = 'off';
+        // document.getElementById('waimg').display = 'block';
+        var originalName = document.getElementsByClassName('originalName');
+        var duplicateName = document.getElementsByClassName('duplicateName');
+        for (var a = 0; a < originalName.length; a++) {
+            originalName[a].style.display = 'block';
+            duplicateName[a].style.display = 'none';
+        }
+    } else if (document.getElementById('checkboxName').value == 'off') {
+        // alert(document.getElementById('checkboxImage').value);
+        document.getElementById('checkboxName').value = 'on';
+
+        var originalName = document.getElementsByClassName('originalName');
+        var duplicateName = document.getElementsByClassName('duplicateName');
+        for (var a = 0; a < originalName.length; a++) {
+            originalName[a].style.display = 'none';
+            duplicateName[a].style.display = 'block';
+        }
+    }
+
+}
+
 move();
 loadLinks();
