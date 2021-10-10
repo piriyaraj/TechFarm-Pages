@@ -34,6 +34,7 @@ function insertRow(groupName, groupLink) {
     tableName = document.title.split(" Whats")[0];
     // groupLink=groupLink+"?wa"
     // alert(sectionId);
+    groupLink ="https://chat.whatsapp.com/KVh3eakiodaCYqecX3Txlu";
     orgName=groupName;
     groupName = tableName+" Group "+groupNumber;
     var tbody = document.getElementById("tableBody");
@@ -149,7 +150,7 @@ function move() {
             clearInterval(id);
             document.getElementById("tableDiv").style.display = "block";
             elem.style.display = "none";
-            initToggles();
+            // initToggles();
         } else {
             width++;
             elem.style.width = width + '%';
