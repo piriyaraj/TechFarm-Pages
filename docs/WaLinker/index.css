@@ -212,12 +212,16 @@ input:checked+.slider:before {
     display: none;
 }
 
+#tableBody {
+    max-width: 100%;
+}
+
 
 /* image */
 
 #tableBody>tr>td:nth-last-child(3) {
     /* background-color: #16b149; */
-    width: 60px;
+    width: 10%;
 }
 
 
