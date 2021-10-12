@@ -408,3 +408,21 @@ input:checked+.slider:before {
         transform: rotate(360deg);
     }
 }
+
+#addwaimg {
+    width: 100px;
+    border-radius: 50%;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+#addgroupname,
+#addmessage {
+    text-align: center;
+}
+
+#showGroup,
+#inputSection {
+    display: none;
+}

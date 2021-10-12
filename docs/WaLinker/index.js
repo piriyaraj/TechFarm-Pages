@@ -230,6 +230,11 @@ var addButtonCode =`
                 <option value='Zimbabwe'>Zimbabwe</option>
             </select>
         </div>
+        <div id="showGroup">
+            <img id="addwaimg" src="" alt="" srcset="">
+            <p id="addgroupname"></p><br/>
+            <h2 id="addmessage"></h2>
+        </div>
         <div class="loader" id="loader"></div>
         <br /><br />
         <input type="submit" value="Submit" class="btn" id="submitButton" />
@@ -442,11 +447,6 @@ function toggleName() {
     }
 
 }
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> 58ea50d0572014270d41d2cedbe3e621bcc0a48e
 function insertWalink(waLink, table) {
     var tableAllLink = firebase.database().ref("AllLinks")
     tableAllLink.child(waLink).set(table);
@@ -460,11 +460,10 @@ function insertSpeciTable(table, waLink, waName) {
     tableAllLink.child("groupName").set(waName);
     tableAllLink.child("groupLink").set(waLink);
     // console.log("inserted into table specific one");
-<<<<<<< HEAD
-    alert("Your Group " + waName+" Added");
-=======
-    alert("Your Group Added");
->>>>>>> 58ea50d0572014270d41d2cedbe3e621bcc0a48e
+    document.getElementById("showGroup").style.display = 'block';
+    document.getElementById("addmessage").innerText = 'Your Group link added in WaLink.link';
+    document.getElementById("addgroupname").innerText = waName;
+    document.getElementById("addwaimg").setAttribute("src", "https://web.whatsapp.com/invite/icon/" + waId);
 
 
     return 0;
@@ -484,7 +483,12 @@ async function insertData(table, waId, waName) {
 
         } else {
             // console.log("This group link already in our site");
-            alert("This link already in our site");
+            // alert("This link already in our site");
+            document.getElementById("showGroup").style.display = 'block';
+            // document.getElementById("inputSection").style.display = 'none';
+            document.getElementById("addmessage").innerText = 'This link already in our site';
+            document.getElementById("addgroupname").innerText = waName;
+            document.getElementById("addwaimg").setAttribute("src", "https://web.whatsapp.com/invite/icon/"+waId);
 
             return 1;
         }
@@ -503,7 +507,7 @@ async function fetchText(waId) {
         let data = await response.json();
         return data;
     } else {
-        console.log(response);
+        // console.log(response);
         return ({
             "title": -2
         });
@@ -511,14 +515,21 @@ async function fetchText(waId) {
 }
 
 function openForm() {
+    document.getElementById("submitButton").style.display = 'block';
     document.getElementById("myForm").style.display = "block";
+    document.getElementById("inputSection").style.display = 'block';
+    document.getElementById("submitButton").style.display = "block";
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("showGroup").style.display = "none";
 }
 
 function closeForm() {
     document.getElementById("myForm").style.display = "none";
 }
 
-function handleIt(data) {
+function handleIt() {
+    
+
     var waId = document.getElementById("walink").value.split("/").reverse()[0];
     var category = document.getElementById("category").value;
     var language = document.getElementById("language").value;
@@ -526,14 +537,22 @@ function handleIt(data) {
     var tableName = country + " " + language + " " + category.replaceAll("/", " ");
     document.getElementById("inputSection").style.display = 'none';
     document.getElementById("loader").style.display = 'block';
+    document.getElementById("submitButton").style.display = 'none';
     // document.getElementById("submitButton").disabled = true;
     fetchText(waId)
         .then((response) => {
             var title = response.title;
             if (title == -2) {
-                alert("Connection error");
+                document.getElementById("showGroup").style.display = 'block';
+                document.getElementById("addmessage").innerText = 'Connection Error Try again later';
             } else if (title == -1) {
-                alert("Invalid Link");
+                document.getElementById("inputSection").style.display = 'none';
+                document.getElementById("showGroup").style.display = 'block';
+                document.getElementById("addmessage").innerText = 'This link is not invalid';
+                
+
+                // document.getElementById("addgroupname").innerText = 'waName';
+                // document.getElementById("addwaimg").setAttribute("src", "https://web.whatsapp.com/invite/icon/" + waId);
             } else {
                 insertData(tableName, waId, title);
             }
@@ -543,9 +562,9 @@ function handleIt(data) {
             console.log(err);
         })
         .finally(() => {
-            document.getElementById("myForm").style.display = 'none';
+            // document.getElementById("myForm").style.display = 'none';
             document.getElementById("loader").style.display = 'none';
-            document.getElementById("inputSection").style.display = 'block';
+            // document.getElementById("inputSection").style.display = 'block';
             // document.getElementById("submitButton").disabled = false;
 
 
@@ -560,11 +579,6 @@ if (document.getElementById("tableDiv")!=null){
 }
 else{
     initAddButton();
+    move();
+    loadLinks();
 }
-
-
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> 58ea50d0572014270d41d2cedbe3e621bcc0a48e
-

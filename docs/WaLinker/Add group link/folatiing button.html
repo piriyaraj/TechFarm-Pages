@@ -133,6 +133,27 @@
             transform: rotate(360deg);
         }
     }
+    
+    #inputSection {
+        display: none;
+    }
+    
+    #addwaimg {
+        width: 100px;
+        border-radius: 50%;
+        position: relative;
+        left: 50%;
+        transform: translate(-50%);
+    }
+    
+    #addgroupname,
+    #addmessage {
+        text-align: center;
+    }
+    
+    #showGroup {
+        display: none;
+    }
 </style>
 <div style="height: 1000px;"></div>
 <div style="position: fixed;
@@ -357,6 +378,11 @@
                 <option value='Zimbabwe'>Zimbabwe</option>
             </select>
         </div>
+        <div id="showGroup">
+            <h2 id="addmessage"></h2>
+            <img id="addwaimg" src="" alt="" srcset="">
+            <p id="addgroupname"></p>
+        </div>
         <div class="loader" id="loader"></div>
         <br /><br />
         <input type="submit" value="Submit" class="btn" id="submitButton" />
@@ -368,6 +394,12 @@
 <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
 <script>
+    document.getElementById("showGroup").style.display = 'block';
+    document.getElementById("addmessage").innerText = 'your group is added';
+    document.getElementById("addgroupname").innerText = 'groupName';
+    document.getElementById("addwaimg").setAttribute("src", "https://web.whatsapp.com/invite/icon/IEl9IiBrK6W2HjgjEx8P6Q");
+
+
     // https://chat.whatsapp.com/IEl9IiBrK6W2HjgjEx8P6Q
     // https://chat.whatsapp.com/7fJLySN7pOzFaj8ssb3seL
 
