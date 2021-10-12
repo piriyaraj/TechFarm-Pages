@@ -242,7 +242,7 @@ var addButtonCode =`
 firebase.initializeApp(firebaseConfig);
 var groupNumber=1;
 function initAddButton() {
-    tableDiv = document.getElementById("tableDiv");
+    tableDiv = document.body;
     newSection = document.createElement("section");
     newSection.id = "addButton";
     newSection.innerHTML = addButtonCode;
@@ -510,17 +510,6 @@ function closeForm() {
 }
 
 function handleIt(data) {
-    // var firebaseConfig = {
-    //     apiKey: "AIzaSyBLD6K3MZOIc-8CCh1bd3miCp1sp09oPJI",
-    //     authDomain: "whatsapp-group-linker.firebaseapp.com",
-    //     databaseURL: "https://whatsapp-group-linker-default-rtdb.firebaseio.com",
-    //     projectId: "whatsapp-group-linker",
-    //     storageBucket: "whatsapp-group-linker.appspot.com",
-    //     messagingSenderId: "270969542509",
-    //     appId: "1:270969542509:web:78da8857670dd47a42ec64"
-    // };
-    // Initialize Firebase
-    // firebase.initializeApp(firebaseConfig);
     var waId = document.getElementById("walink").value.split("/").reverse()[0];
     var category = document.getElementById("category").value;
     var language = document.getElementById("language").value;
@@ -555,8 +544,14 @@ function handleIt(data) {
         })
 
 }
-initAddButton();
-move();
-loadLinks();
+if (document.getElementById("tableDiv")!=null){
+    initAddButton();
+    move();
+    loadLinks();
+}
+else{
+    initAddButton();
+}
+
 
 
