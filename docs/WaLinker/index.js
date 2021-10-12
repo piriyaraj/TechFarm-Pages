@@ -202,6 +202,121 @@ function toggleName() {
     }
 
 }
+<<<<<<< Updated upstream
+=======
+function insertWalink(waLink, table) {
+    var tableAllLink = firebase.database().ref("AllLinks")
+    tableAllLink.child(waLink).set(table);
+    // console.log("inserted into table allLink");
+    return 0;
+}
+// isAvailable("PJ1");
+// insert link in specific table
+function insertSpeciTable(table, waLink, waName) {
+    var tableAllLink = firebase.database().ref(table).push();
+    tableAllLink.child("groupName").set(waName);
+    tableAllLink.child("groupLink").set(waLink);
+    // console.log("inserted into table specific one");
+    alert("Your Group " + waName+" Added");
+
+
+    return 0;
+}
+
+// link available checking
+async function insertData(table, waId, waName) {
+    database = firebase.database();
+    var ref = await database.ref("AllLinks/" + waId);
+    // console.log(ref.key);
+    ref.once("value", function (tableValue) {
+        var dataRow = tableValue.val();
+        if (dataRow == null) {
+            // console.log("Not in database");
+            insertWalink(waId, table);
+            insertSpeciTable(table, waId, waName)
+
+        } else {
+            // console.log("This group link already in our site");
+            alert("This link already in our site");
+
+            return 1;
+        }
+    });
+}
+
+async function fetchText(waId) {
+    let response = await fetch('https://addwalink.herokuapp.com/check/' + waId);
+
+    // console.log(response.status); // 200
+    // console.log(response.statusText); // OK
+
+    if (response.status === 200) {
+        // console.log(response);
+
+        let data = await response.json();
+        return data;
+    } else {
+        console.log(response);
+        return ({
+            "title": -2
+        });
+    }
+}
+
+function openForm() {
+    document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+    document.getElementById("myForm").style.display = "none";
+}
+
+function handleIt(data) {
+    var waId = document.getElementById("walink").value.split("/").reverse()[0];
+    var category = document.getElementById("category").value;
+    var language = document.getElementById("language").value;
+    var country = document.getElementById("country").value;
+    var tableName = country + " " + language + " " + category.replaceAll("/", " ");
+    document.getElementById("inputSection").style.display = 'none';
+    document.getElementById("loader").style.display = 'block';
+    // document.getElementById("submitButton").disabled = true;
+    fetchText(waId)
+        .then((response) => {
+            var title = response.title;
+            if (title == -2) {
+                alert("Connection error");
+            } else if (title == -1) {
+                alert("Invalid Link");
+            } else {
+                insertData(tableName, waId, title);
+            }
+
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+        .finally(() => {
+            document.getElementById("myForm").style.display = 'none';
+            document.getElementById("loader").style.display = 'none';
+            document.getElementById("inputSection").style.display = 'block';
+            // document.getElementById("submitButton").disabled = false;
+
+
+
+        })
+
+}
+if (document.getElementById("tableDiv")!=null){
+    initAddButton();
+    move();
+    loadLinks();
+}
+else{
+    initAddButton();
+}
+
+
+>>>>>>> Stashed changes
 
 move();
 loadLinks();
