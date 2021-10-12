@@ -1,0 +1,54 @@
+<body>
+    <h1>hello world</h1>
+</body>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyCS4okSW3m4HAjyrUyuzTTVSIp7w4INCMU",
+        authDomain: "smart-shopping-cart-ssc.firebaseapp.com",
+        databaseURL: "https://smart-shopping-cart-ssc-default-rtdb.firebaseio.com",
+        projectId: "smart-shopping-cart-ssc",
+        storageBucket: "smart-shopping-cart-ssc.appspot.com",
+        messagingSenderId: "160224436712",
+        appId: "1:160224436712:web:fd9c34e6c8467a34a3845d"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // insert link in all link table
+    function insertWalink(waLink) {
+        var tableAllLink = firebase.database().ref("AllLinks")
+        tableAllLink.child(waLink).set('1');
+        console.log("inserted into table allLink");
+        return 0;
+    }
+    // isAvailable("PJ1");
+    // insert link in specific table
+    function insertSpeciTable(table, waLink, waName) {
+        var tableAllLink = firebase.database().ref(table).push();
+        tableAllLink.child("groupName").set(waName);
+        tableAllLink.child("groupLink").set(waLink);
+        console.log("inserted into table specific one");
+
+        return 0;
+    }
+
+    // link available checking
+    async function insertData(table, waId, waName) {
+        database = firebase.database();
+        var ref = await database.ref("AllLinks/" + waLink);
+        // console.log(ref.key);
+        ref.once("value", function(tableValue) {
+            var dataRow = tableValue.val();
+            if (dataRow == null) {
+                console.log("Not in database");
+                insertWalink(waId);
+                insertSpeciTable(table, waId, waName)
+            } else {
+                console.log("Link in database");
+                return 1;
+            }
+        });
+    }
+</script>
