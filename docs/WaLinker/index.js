@@ -2122,6 +2122,4 @@ if (document.getElementById("tableDiv")!=null){
 }
 else{
     initAddButton();
-    move();
-    loadLinks();
 }
