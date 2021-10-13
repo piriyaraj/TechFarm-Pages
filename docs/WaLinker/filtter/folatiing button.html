@@ -1,14 +1,14 @@
 <link rel="stylesheet" href="../index.css">
 <div style="position: fixed;
     bottom: 20px;
-    left: 20px;
+    right: 20px;
     z-index: 101;">
-    <a class="addbtn" href="#" title="Add New Whatsapp Group" onclick="openForm()">Filtter</a>
+    <a class="addbtn" href="#" title="Add New Whatsapp Group" onclick="openerFilltForm()">Filtter</a>
 </div>
 
-<div class="form-popup" id="myForm">
-    <h2>Add your Whatsapp Group</h2>
-    <form action="javascript:handleIt(this)" class="form-container">
+<div class="form-popup" id="myFillteForm">
+    <h2>Choose the categories</h2>
+    <form action="javascript:handleFillter(this)" class="form-container">
         <div id='inputSection' style="display: block;">
             <select name="category" id="category" class="selector" required>
             <option value="">Any Category</option>
@@ -220,23 +220,23 @@
             </select>
         </div>
         <br /><br />
-        <input type="submit" value="Submit" class="btn" id="submitButton" />
-        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        <input type="submit" value="Find" class="btn" id="submitButton" />
+        <button type="button" class="btn cancel" onclick="closeFillterForm()">Close</button>
 
     </form>
 </div>
 
 
 <script>
-    function openForm() {
-        document.getElementById("myForm").style.display = "block";
+    function openerFilltForm() {
+        document.getElementById("myFillteForm").style.display = "block";
     }
 
-    function closeForm() {
-        document.getElementById("myForm").style.display = "none";
+    function closeFillterForm() {
+        document.getElementById("myFillteForm").style.display = "none";
     }
 
-    function handleIt() {
+    function handleFillter() {
         var category = document.getElementById("category").value;
         var language = document.getElementById("language").value;
         var country = document.getElementById("country").value;
