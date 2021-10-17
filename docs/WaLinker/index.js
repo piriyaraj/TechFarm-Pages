@@ -2260,10 +2260,11 @@ if (document.getElementById("tableDiv")!=null){
     initAddButton();
     move();
     loadLinks();
-} else if (document.getElementById("showlatest") != null){
-    loadLatest();
-    // document.getElementById("showlatest").innerText="good morning";
 }
 else{
     initAddButton();
+}
+if (document.getElementById("showlatest") != null){
+    loadLatest();
+    // document.getElementById("showlatest").innerText="good morning";
 }
