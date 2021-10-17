@@ -426,3 +426,26 @@ input:checked+.slider:before {
 #inputSection {
     display: none;
 }
+
+.single {
+    background-color: aliceblue;
+    margin: 5px;
+}
+
+.singleimage {
+    border-radius: 50%;
+    width: 30%;
+    margin: 7px;
+}
+
+.singletext {
+    display: inline;
+}
+
+.singlebtn {
+    background-color: darkcyan;
+    color: white;
+    padding: 0 20px;
+    margin-top: 20px;
+    margin-right: 20;
+}
