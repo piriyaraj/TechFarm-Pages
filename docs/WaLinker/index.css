@@ -429,12 +429,14 @@ input:checked+.slider:before {
 
 .single {
     background-color: aliceblue;
-    margin: 5px;
+    margin: 10px;
+    border-radius: 20px;
+    border: 2px solid rgb(43, 116, 134);
 }
 
 .singleimage {
     border-radius: 50%;
-    width: 30%;
+    width: 100px;
     margin: 7px;
 }
 
@@ -447,5 +449,9 @@ input:checked+.slider:before {
     color: white;
     padding: 0 20px;
     margin-top: 20px;
-    margin-right: 20;
+    margin-right: 20px;
+}
+
+#singlecategroy {
+    display: inherit;
 }
