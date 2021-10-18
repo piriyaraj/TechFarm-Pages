@@ -1,4 +1,21 @@
 var directWaLink=1;
+var singleGroup =`<div class="single">
+            <span>
+                <img class="singleimage" src=" https://web.whatsapp.com/invite/icon/IEl9IiBrK6W2HjgjEx8P6Q " />
+            </span>
+            <span style="display: inline-block;">
+                <h3 id="singlename">Tamanna group</h3>
+                <div id="singlecategroy">
+                    <a href="/">Actress</a>
+                </div>
+                <a href="" id="groupLink">
+                    <input type="button" class="singlebtn" value="join"/>
+                </a>
+                <a href="whatsapp://send?text=Follow%20this%20link%20to%20Join%20my%20Whatsapp%20group%20:%20https://walinking.link">
+                    <input type="button" class="singlebtn" value="Share">
+                </a>
+            </span>
+        </div>`
 var firebaseConfig = {
     apiKey: "AIzaSyBLD6K3MZOIc-8CCh1bd3miCp1sp09oPJI",
     authDomain: "whatsapp-group-linker.firebaseapp.com",
@@ -2115,6 +2132,130 @@ var cateArray = {
     'Freelancer': 'https://www.walinking.link/2016/07/freelancer-whatsapp-group-links.html'
 };
 
+function insertlatest(groupName, groupCategory, groupLink) {
+    var tbody = document.getElementById("showlatest");
+    newdiv = document.createElement('div');   //create a div
+    newdiv.className  ="single";
+    var tag = `<span>
+                <img class="singleimage" src=" https://web.whatsapp.com/invite/icon/`+ groupLink+` " />
+            </span>
+            <span style="display: inline-block;">
+                <h3 id="singlename">`+ groupName+`</h3>
+                <div id="singlecategroy">
+                    <a href="`+ cateArray[groupCategory]+`">`+ groupCategory+`</a>
+                </div>
+                <a href="https://chat.whatsapp.com/`+ groupLink+`" id="groupLink">
+                    <input type="button" class="singlebtn" value="join"/>
+                </a>
+                <a href="whatsapp://send?text=Follow%20this%20link%20to%20Join%20my%20Whatsapp%20group%20:%20https://walinking.link">
+                    <input type="button" class="singlebtn" value="Share">
+                </a>
+            </span>`;
+    newdiv.innerHTML = tag;                    //add an id
+    tbody.appendChild(newdiv);                 //append to the doc.body
+    tbody.insertBefore(newdiv, tbody.lastChild)
+}
+function loadLatestMorelink(lastcount) {
+    tableName = "latestUpdates";
+
+    firebase.database().ref(tableName).once("value", function (tableValue) {
+        var dataRow = tableValue.val();
+        var tableRow = Object.keys(dataRow);
+        // console.log(tableRow.length, lastcount);
+
+        // console.log(tableValue);
+        // alert(tableRow.length);
+        for (var t = lastcount; t >= -1; t--) {
+            // console.log("main", t);
+
+            if (t == -1) {
+                // alert(t + " last link");
+                var loadMoreButton = document.getElementById("loadmoreGroup");
+                loadMoreButton.style.display = "none";
+                break;
+            }
+            if (t == lastcount - 8) {
+                // alert(t);
+                var loadMoreButton = document.getElementById("loadmoreGroup");
+                tag = "loadLatestMorelink('" + t + "')";
+                loadMoreButton.setAttribute('onclick', tag);
+
+                // addLoadMoreButton(tableName+"buttonid",t+"sectionId");
+                break;
+            }
+            var k = tableRow[t];
+            var groupName = dataRow[k].groupName;
+            var groupLink = dataRow[k].groupLink;
+            var groupCategory = dataRow[k].groupCategory;
+            // var cateLink = dataRow[k].cateLink;
+            // var image = dataRow[k].groupImage;
+            // if (directWaLink == 1) {
+            //     var url = "https://chat.whatsapp.com/" + groupLink;
+            // }
+            if (typeof groupName == 'undefined') {
+                var imgUrl = dataRow[k].url;
+                if (typeof imgUrl != 'undefined')
+                    imgTag = document.getElementById("postImg")
+                imgTag.src = imgUrl;
+
+                imgTag.style.display = "block";
+                continue;
+            }
+            insertlatest(groupName, groupCategory, groupLink);
+            // console.log(name, url);
+
+        }
+        // console.log(tableRow);
+    });
+}
+function loadLatest() {
+    var i = "latestUpdates";
+    database = firebase.database();
+    var ref = database.ref(i);
+    ref.once("value", function (tableValue) {
+        // console.log(tableValue.val());
+        var dataRow = tableValue.val();
+        var tableRow = Object.keys(dataRow);
+        // console.log(tableRow);
+        // console.log(tableValue);
+        for (var t = tableRow.length - 1; t >= 0; t--) {
+            // console.log("main",t);
+
+            if (t == tableRow.length - 9) {
+                // alert("hello");
+                // console.log("sub",t);
+                document.getElementById("loadmoreGroup").style.display = "block";
+                var loadMoreButton = document.getElementById("loadmoreGroup");
+                tag = "loadLatestMorelink('" + t + "')";
+                loadMoreButton.setAttribute('onclick', tag);
+                break;
+            }
+            var k = tableRow[t];
+            //                 var url = "https://bikespeci.blogspot.com/p/gateway.html?walink=" + dataRow[k].groupLink;
+            // var url = "https://chat.whatsapp.com/" + dataRow[k].groupLink;
+            var groupName = dataRow[k].groupName;
+            var groupLink = dataRow[k].groupLink;
+            var groupCategory = dataRow[k].groupCategory;
+            // var cateLink = dataRow[k].cateLink;
+            // var image = dataRow[k].groupImage;
+            // if (directWaLink == 1) {
+            //     var url = "https://chat.whatsapp.com/" + groupLink;
+            // }
+            if (typeof groupName == 'undefined') {
+                var imgUrl = dataRow[k].url;
+                if (typeof imgUrl != 'undefined')
+                    imgTag = document.getElementById("postImg")
+                imgTag.src = imgUrl;
+
+                imgTag.style.display = "block";
+                continue;
+            }
+            insertlatest(groupName, groupCategory, groupLink);
+        }
+        // console.log(tableRow);
+    });
+
+}
 if (document.getElementById("tableDiv")!=null){
     initAddButton();
     move();
@@ -2122,4 +2263,8 @@ if (document.getElementById("tableDiv")!=null){
 }
 else{
     initAddButton();
+}
+if (document.getElementById("showlatest") != null){
+    loadLatest();
+    // document.getElementById("showlatest").innerText="good morning";
 }
