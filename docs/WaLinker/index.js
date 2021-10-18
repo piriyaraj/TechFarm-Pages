@@ -2156,7 +2156,7 @@ function insertlatest(groupName, groupCategory, groupLink) {
     tbody.insertBefore(newdiv, tbody.lastChild)
 }
 function loadLatestMorelink(lastcount) {
-    tableName = "Actress";
+    tableName = "latestUpdates";
 
     firebase.database().ref(tableName).once("value", function (tableValue) {
         var dataRow = tableValue.val();
@@ -2209,7 +2209,7 @@ function loadLatestMorelink(lastcount) {
     });
 }
 function loadLatest() {
-    var i = "Actress";
+    var i = "latestUpdates";
     database = firebase.database();
     var ref = database.ref(i);
     ref.once("value", function (tableValue) {
