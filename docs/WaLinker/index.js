@@ -262,8 +262,8 @@ var addButtonCode =`
     <h2>Add your Whatsapp Group</h2>
     <form action="javascript:handleIt(this)" class="form-container">
         <div id='inputSection'>
-            <input type="text" id="walink" placeholder="Enter the group link" required />
-            <select name="category" id="category" class="selector" required>
+            <input type="text" id="addwalink" placeholder="Enter the group link" required />
+            <select name="category" id="addcategory" class="selector" required>
             <option value="">Any Category</option>
             </option>
             <option value='Adult/18+/Hot'>Adult/18+/Hot</option>
@@ -295,7 +295,7 @@ var addButtonCode =`
             <option value='Thoughts/Quotes/Jokes'>Thoughts/Quotes/Jokes</option>
             <option value='ravel/Local/Place'>ravel/Local/Place</option>
             </select>
-            <select name="language" id="language" class="selector" required>
+            <select name="language" id="addlanguage" class="selector" required>
                 <option value="">Any Language</option>
                 <option value='Afrikaans'>Afrikaans</option>
                 <option value='Albanian'>Albanian</option>
@@ -369,7 +369,7 @@ var addButtonCode =`
                 <option value='Vietnamese'>Vietnamese</option>
                 <option value='Zulu'>Zulu</option>
             </select>
-            <select name="country" id="country" class="selector" required>
+            <select name="country" id="addcountry" class="selector" required>
                 <option value="">Any Country</option>
                 <option value='Algeria'>Algeria</option>
                 <option value='Argentina'>Argentina</option>
@@ -703,10 +703,25 @@ function insertSpeciTable(table, waLink, waName) {
     tableAllLink.child("groupName").set(waName);
     tableAllLink.child("groupLink").set(waLink);
     // console.log("inserted into table specific one");
+    // document.getElementById("showGroup").style.display = 'block';
+    // document.getElementById("addmessage").innerText = 'Your Group link added in WaLink.link';
+    // document.getElementById("addgroupname").innerText = waName;
+    // document.getElementById("addwaimg").setAttribute("src", "https://web.whatsapp.com/invite/icon/" + waId);
+
+
+    return 0;
+}
+
+function insertLatestTable(table, waLink, waName,category) {
+    var tableAllLink = firebase.database().ref(table).push();
+    tableAllLink.child("groupName").set(waName);
+    tableAllLink.child("groupLink").set(waLink);
+    tableAllLink.child("groupCategory").set(category);
+    // console.log("inserted into table specific one");
     document.getElementById("showGroup").style.display = 'block';
     document.getElementById("addmessage").innerText = 'Your Group link added in WaLink.link';
     document.getElementById("addgroupname").innerText = waName;
-    document.getElementById("addwaimg").setAttribute("src", "https://web.whatsapp.com/invite/icon/" + waId);
+    document.getElementById("addwaimg").setAttribute("src", "https://web.whatsapp.com/invite/icon/" + waLink);
 
 
     return 0;
@@ -714,6 +729,7 @@ function insertSpeciTable(table, waLink, waName) {
 
 // link available checking
 async function insertData(table, waId, waName) {
+    // alert(table);
     database = firebase.database();
     var ref = await database.ref("AllLinks/" + waId);
     // console.log(ref.key);
@@ -722,7 +738,10 @@ async function insertData(table, waId, waName) {
         if (dataRow == null) {
             // console.log("Not in database");
             insertWalink(waId, table);
-            insertSpeciTable(table, waId, waName)
+            insertSpeciTable(table, waId, waName);
+            if(table.match("Hot")==null){
+                insertLatestTable("latestUpdates", waId, waName, table);
+            }
 
         } else {
             // console.log("This group link already in our site");
@@ -770,14 +789,14 @@ function closeForm() {
     document.getElementById("myForm").style.display = "none";
 }
 
-function handleIt() {
+const handleIt=async ()=> {
     
 
-    var waId = document.getElementById("walink").value.split("/").reverse()[0];
-    var category = document.getElementById("category").value;
-    var language = document.getElementById("language").value;
-    var country = document.getElementById("country").value;
-    var tableName = country + " " + language + " " + category.replaceAll("/", " ");
+    var waId = await document.getElementById("addwalink").value.split("/").reverse()[0];
+    var category = await document.getElementById("addcategory").value;
+    var language = await document.getElementById("addlanguage").value;
+    var country = await document.getElementById("addcountry").value;
+    var tableName = await country + " " + language + " " + category.replaceAll("/", " ");
     document.getElementById("inputSection").style.display = 'none';
     document.getElementById("loader").style.display = 'block';
     document.getElementById("submitButton").style.display = 'none';
@@ -797,6 +816,7 @@ function handleIt() {
                 // document.getElementById("addgroupname").innerText = 'waName';
                 // document.getElementById("addwaimg").setAttribute("src", "https://web.whatsapp.com/invite/icon/" + waId);
             } else {
+                // alert(tableName);
                 insertData(tableName, waId, title);
             }
 
