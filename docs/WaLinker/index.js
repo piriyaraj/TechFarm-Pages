@@ -613,7 +613,7 @@ function loadLinks() {
                 var imgUrl = dataRow[k].url;
                 if (typeof imgUrl != 'undefined')
                     imgTag = document.getElementById("postImg")
-                imgTag.src = imgUrl;
+                    imgTag.src = imgUrl;
 
                 imgTag.style.display = "block";
                 continue;
