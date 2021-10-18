@@ -432,6 +432,10 @@ input:checked+.slider:before {
     margin: 10px;
     border-radius: 20px;
     border: 2px solid rgb(43, 116, 134);
+    width: 270px;
+    display: -webkit-inline-box;
+    height: 300px;
+    text-align: center;
 }
 
 .singleimage {
@@ -454,4 +458,13 @@ input:checked+.slider:before {
 
 #singlecategroy {
     display: inherit;
+    height: 32px;
+}
+
+#singlename {
+    height: 72px;
+}
+
+#showlatest {
+    text-align: center;
 }
