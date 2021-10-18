@@ -2170,13 +2170,13 @@ function loadLatestMorelink(lastcount) {
 
             if (t == -1) {
                 // alert(t + " last link");
-                var loadMoreButton = document.getElementById("loadmoreGroup");
+                var loadMoreButton = document.getElementById("loadLatestMorelink");
                 loadMoreButton.style.display = "none";
                 break;
             }
             if (t == lastcount - 8) {
                 // alert(t);
-                var loadMoreButton = document.getElementById("loadmoreGroup");
+                var loadMoreButton = document.getElementById("loadLatestMorelink");
                 tag = "loadLatestMorelink('" + t + "')";
                 loadMoreButton.setAttribute('onclick', tag);
 
@@ -2224,8 +2224,8 @@ function loadLatest() {
             if (t == tableRow.length - 9) {
                 // alert("hello");
                 // console.log("sub",t);
-                document.getElementById("loadmoreGroup").style.display = "block";
-                var loadMoreButton = document.getElementById("loadmoreGroup");
+                document.getElementById("loadLatestMorelink").style.display = "block";
+                var loadMoreButton = document.getElementById("loadLatestMorelink");
                 tag = "loadLatestMorelink('" + t + "')";
                 loadMoreButton.setAttribute('onclick', tag);
                 break;
