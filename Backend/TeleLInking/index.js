@@ -1,6 +1,6 @@
 const express=require("express");
 const getDetail=require("./checkTelelinks");
-const cors=require("./cors");
+const cors=require("cors");
 let port = process.env.PORT || 3000;
 
 const app = express();
