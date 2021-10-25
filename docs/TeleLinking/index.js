@@ -221,9 +221,6 @@ var addButtonCode = `
             </select>
         </div>
         <div id="showGroup">
-            <img id="addwaimg" src="" alt="" srcset="">
-            <p id="addgroupname"></p><br/>
-            <h2 id="addmessage"></h2>
         </div>
         <div class="loader" id="loader"></div>
         <br /><br />
@@ -364,7 +361,6 @@ function insertBlock(groupName, groupLink, groupLogo, groupCount, groupType, gro
     tag = tag.replaceAll('groupDescri', groupDescri);
     tag = tag.replaceAll('currentPostLink', document.location.href);
 
-
     newDiv.innerHTML = tag; //add an id
     resultDiv.appendChild(newDiv); //append to the doc.body
     resultDiv.insertBefore(newDiv, resultDiv.lastChild)
@@ -494,8 +490,8 @@ const handleIt = async () => {
     // document.getElementById("submitButton").disabled = true;
     fetchText(waId)
         .then((response) => {
-            console.log(response);
-            var title = response.title;
+            // console.log(response);
+            var title = response[0];
             if (title == -2) {
                 document.getElementById("showGroup").style.display = 'block';
                 document.getElementById("addmessage").innerText = 'Connection Error Try again later';
@@ -508,7 +504,19 @@ const handleIt = async () => {
                 // document.getElementById("addgroupname").innerText = 'waName';
                 // document.getElementById("addwaimg").setAttribute("src", "https://web.whatsapp.com/invite/icon/" + waId);
             } else {
-                alert(tableName);
+                // alert(tableName);
+                var showgroupdiv=document.getElementById("showGroup");
+                showgroupdiv.style.display="block";
+                var tag = groupBlock;
+                tag = tag.replaceAll('groupName', response[0]);
+                tag = tag.replaceAll('groupLogo', response[2]);
+                tag = tag.replaceAll('groupLink', "https://t.me/"+waId);
+                tag = tag.replaceAll('groupCount', response[3]);
+                tag = tag.replaceAll('groupType', response[1]);
+                tag = tag.replaceAll('grouplinkText', waId);
+                tag = tag.replaceAll('groupDescri', response[4]);
+                tag = tag.replaceAll('currentPostLink', document.location.href);
+                showgroupdiv.innerHTML=tag;
                 // insertData(tableName, waId, title);
             }
 
@@ -531,8 +539,8 @@ async function fetchText(waId) {
     console.log('https://telelinking.herokuapp.com/groupetails/' + waId)
     let response = await fetch('https://telelinking.herokuapp.com/groupetails/' + waId);
 
-    console.log(response.status); // 200
-    console.log(response.statusText); // OK
+    // console.log(response.status); // 200
+    // console.log(response.statusText); // OK
 
     if (response.status === 200) {
         // console.log(response);
