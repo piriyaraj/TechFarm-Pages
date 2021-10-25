@@ -1,7 +1,10 @@
 const express=require("express");
-const app=express();
 const getDetail=require("./checkTelelinks");
+const cors=require("./cors");
 let port = process.env.PORT || 3000;
+
+const app = express();
+app.use(cors())
 
 app.get("/",(req,res)=>{
     res.send("hello telegram backend home")
