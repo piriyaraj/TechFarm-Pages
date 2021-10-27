@@ -375,9 +375,15 @@ function loadMorelink(lastcount) {
         var tableRow = Object.keys(dataRow);
         // console.log(tableValue);
         // alert(tableRow.length);
-        for (var t = lastcount; t < tableRow.length; t++) {
+        for (var t = lastcount; t >= -1; t--) {
+            if (t == -1) {
+                // alert(t + " last link");
+                var loadMoreButton = document.getElementById("LoadMoreLink");
+                loadMoreButton.style.display = "none";
+                break;
+            }
 
-            if (t == lastcount + 8) {
+            if (t == lastcount - 8) {
                 var loadMoreButton = document.getElementById("LoadMoreLink");
                 tag = "loadMorelink('" + t + "')";
                 loadMoreButton.setAttribute('onclick', tag);
@@ -395,12 +401,7 @@ function loadMorelink(lastcount) {
             // insertRow(groupName, groupLink);
             insertBlock(groupName, groupLink, groupLogo, groupCount, groupType, groupDescri)
             // console.log(name, url);
-            if (t == tableRow.length - 1) {
-                // alert(t+" last link");
-                var loadMoreButton = document.getElementById("LoadMoreLink");
-                loadMoreButton.style.display = "none";
-                break;
-            }
+            
         }
         // console.log(tableRow);
     });
@@ -417,8 +418,8 @@ function loadLinks() {
         var tableRow = Object.keys(dataRow);
         // console.log(tableRow);
         // console.log(tableValue);
-        for (var t = 0; t < tableRow.length; t++) {
-            if (t == 8) {
+        for (var t = tableRow.length - 1; t >= 0; t--) {
+            if (t == tableRow.length - 9) {
                 // alert("hello");
                 document.getElementById("LoadMoreLink").style.display = "block";
                 var loadMoreButton = document.getElementById("LoadMoreLink");
@@ -555,7 +556,7 @@ async function fetchText(waId) {
     }
 }
 
-// var postSection = document.getElementById("mainContent");
+// var postSection = document.getElementById(articalSectionId);
 // if(postSection!=null){
     
 // }
