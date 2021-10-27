@@ -1,4 +1,4 @@
-var articalSectionId = "mainContent";
+var articalSectionId = "root";
 var addButtonCode = `
     <div style="position: fixed;
         bottom: 20px;
@@ -554,6 +554,11 @@ async function fetchText(waId) {
         });
     }
 }
+
+// var postSection = document.getElementById("mainContent");
+// if(postSection!=null){
+    
+// }
 initAddButton();
 move();
 loadLinks();
