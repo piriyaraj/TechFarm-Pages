@@ -244,7 +244,7 @@ var groupBlock = `
 <div class="block2">
     <div class="post-basic-info">
         <div style="color:#0088cc;">
-            <a style="font-weight: 600;" href="groupLink" title="Telegram Chaneel invite link: groupName"
+            <a style="font-weight: 600;" href="groupLink" title="Telegram channel invite link: groupName"
                 target="_blank">@grouplinkText</a>
         </div>
         <span style="padding-right:20px;">Category: groupType</span>
@@ -274,12 +274,12 @@ var groupBlock = `
 </div>
 `;
 var description =`
-<p class="postDescri">If you are looking for groupName Telegram group link, then use the list to get your desired one. Here we have shared the complete list of groupName Telegram groups. Use the group links to participate in a community.</p>
+<p class="postDescri">If you are looking for <b>groupName Telegram groups and channels link</b>, then use the list to get your desired one. Here we have shared the complete list of groupName Telegram groups. Use the group links to participate in a community.</p>
 `;
 var preArticalContent=``;
 var PostArticalContent=`
 <h2 class="postfaq">
-    <em>FAQ of groupName telegram groups and chaneels</em></h2>
+    <em>FAQ of groupName telegram groups and channels</em></h2>
 <ol>
     <li>
         <h2>Why groupName telegram group and channel links?</h2>
@@ -298,7 +298,7 @@ var PostArticalContent=`
     </li>
     <li>
         <h2>What is the difference between a groupName channel and a groupName group on Telegram?</h2>
-        <p>The key difference between the groupName group and the channel is how to interact with it. in channel admin only can share their content but in the groupName group, you also can share your content.</p>
+        <p>The key difference between the groupName group and the channel is how to interact with it. In channel admin only can share their content but in the groupName group, you also can share your content.</p>
     </li>
     <li>
         <h2>Conclusion</h2>
