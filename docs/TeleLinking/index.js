@@ -1,47 +1,47 @@
 var articalSectionId = "root";
 var addButtonCode = `
-    <div style="position: fixed;
+<div style="position: fixed;
         bottom: 20px;
         left: 20px;
         z-index: 101;">
-        <a class="addbtn" href="#" title="Add New telegram Group" onclick="openForm()">+</a>
-    </div>
-    <div class="form-popup" id="myForm">
+    <a class="addbtn" href="#" title="Add New telegram Group" onclick="openForm()">+Add</a>
+</div>
+<div class="form-popup" id="myForm">
     <h2>Add your telegram link</h2>
     <form action="javascript:handleIt(this)" class="form-container">
         <div id='inputSection'>
             <input type="text" id="addwalink" placeholder="Enter the link" required />
             <select name="category" id="addcategory" class="selector" required>
-            <option value="">Any Category</option>
-            </option>
-            <option value='Adult/18+/Hot'>Adult/18+/Hot</option>
-            <option value='Art/Design/Photography'>Art/Design/Photography</option>
-            <option value='Auto/Vehicle'>Auto/Vehicle</option>
-            <option value='Business/Advertising/Marketing'>Business/Advertising/Marketing</option>
-            <option value='Comedy/Funny'>Comedy/Funny</option>
-            <option value='Dating/Flirting/Chatting'>Dating/Flirting/Chatting</option>
-            <option value='Education/School'>Education/School</option>
-            <option value='Entertainment/Masti'>Entertainment/Masti</option>
-            <option value='Family/Relationships'>Family/Relationships</option>
-            <option value='Fan Club/Celebrities'>Fan Club/Celebrities</option>
-            <option value='Fashion/Style/Clothing'>Fashion/Style/Clothing</option>
-            <option value='Film/Animation'>Film/Animation</option>
-            <option value='Food/Drinks'>Food/Drinks</option>
-            <option value='Gaming/Apps'>Gaming/Apps</option>
-            <option value='Health/Beauty/Fitness'>Health/Beauty/Fitness</option>
-            <option value='Jobs/Career'>Jobs/Career</option>
-            <option value='Money/Earning'>Money/Earning</option>
-            <option value='Music/Audio/Songs'>Music/Audio/Songs</option>
-            <option value='News/Magazines/Politics'>News/Magazines/Politics</option>
-            <option value='Pets/Animals/Nature'>Pets/Animals/Nature</option>
-            <option value='Roleplay/Comics'>Roleplay/Comics</option>
-            <option value='Science/Technology'>Science/Technology</option>
-            <option value='Shopping/Buy/Sell'>Shopping/Buy/Sell</option>
-            <option value='Social/Friendship/Community'>Social/Friendship/Community</option>
-            <option value='Spiritual/Devotional'>Spiritual/Devotional</option>
-            <option value='Sports/Games'>Sports/Games</option>
-            <option value='Thoughts/Quotes/Jokes'>Thoughts/Quotes/Jokes</option>
-            <option value='ravel/Local/Place'>ravel/Local/Place</option>
+                <option value="">Any Category</option>
+                </option>
+                <option value='Adult/18+/Hot'>Adult/18+/Hot</option>
+                <option value='Art/Design/Photography'>Art/Design/Photography</option>
+                <option value='Auto/Vehicle'>Auto/Vehicle</option>
+                <option value='Business/Advertising/Marketing'>Business/Advertising/Marketing</option>
+                <option value='Comedy/Funny'>Comedy/Funny</option>
+                <option value='Dating/Flirting/Chatting'>Dating/Flirting/Chatting</option>
+                <option value='Education/School'>Education/School</option>
+                <option value='Entertainment/Masti'>Entertainment/Masti</option>
+                <option value='Family/Relationships'>Family/Relationships</option>
+                <option value='Fan Club/Celebrities'>Fan Club/Celebrities</option>
+                <option value='Fashion/Style/Clothing'>Fashion/Style/Clothing</option>
+                <option value='Film/Animation'>Film/Animation</option>
+                <option value='Food/Drinks'>Food/Drinks</option>
+                <option value='Gaming/Apps'>Gaming/Apps</option>
+                <option value='Health/Beauty/Fitness'>Health/Beauty/Fitness</option>
+                <option value='Jobs/Career'>Jobs/Career</option>
+                <option value='Money/Earning'>Money/Earning</option>
+                <option value='Music/Audio/Songs'>Music/Audio/Songs</option>
+                <option value='News/Magazines/Politics'>News/Magazines/Politics</option>
+                <option value='Pets/Animals/Nature'>Pets/Animals/Nature</option>
+                <option value='Roleplay/Comics'>Roleplay/Comics</option>
+                <option value='Science/Technology'>Science/Technology</option>
+                <option value='Shopping/Buy/Sell'>Shopping/Buy/Sell</option>
+                <option value='Social/Friendship/Community'>Social/Friendship/Community</option>
+                <option value='Spiritual/Devotional'>Spiritual/Devotional</option>
+                <option value='Sports/Games'>Sports/Games</option>
+                <option value='Thoughts/Quotes/Jokes'>Thoughts/Quotes/Jokes</option>
+                <option value='ravel/Local/Place'>ravel/Local/Place</option>
             </select>
             <select name="language" id="addlanguage" class="selector" required>
                 <option value="">Any Language</option>
@@ -226,10 +226,55 @@ var addButtonCode = `
         <br /><br />
         <input type="submit" value="Submit" class="btn" id="submitButton" />
         <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-
     </form>
-    </div>`;
+</div>
+`;
+var groupBlock = `
+<div>
+    <a style="color: #5a5a5a" target="_blank" href="groupLink" title="Telegram group invite link: groupName">
+        <span>
+            <img src="groupLogo" onerror="imgError(this);" class="image" alt="groupName">
+        </span>
+    </a>
+    <a style="color: #5a5a5a;font-family: fantasy;" target="_blank" href="groupLink"
+        title="Telegram group invite link: groupName">
+        <h2>groupName</h2>
+    </a>
+</div>
+<div class="block2">
+    <div class="post-basic-info">
+        <div style="color:#0088cc;">
+            <a style="font-weight: 600;" href="groupLink" title="Telegram Chaneel invite link: groupName"
+                target="_blank">@grouplinkText</a>
+        </div>
+        <span style="padding-right:20px;">Category: groupType</span>
+        <span>subscribe/members: groupCount</span>
+        <p class="descri" style="margin-bottom: 0px">groupDescri</p>
+    </div>
+    <div class="post-info-rate-share"> <span class="joinbtn"><a class="joinbtn" href="groupLink" target="_blank"
+                title="Click here to join groupName Telegram group" rel="nofollow">Join group</a></span>
+        <div class="post-share">
+            <div>
 
+                <a class="joinbtn" style="vertical-align:top"
+                    href="whatsapp://send?text=Follow this link to Join my Telegram group : groupLink %0A %0AFind more Telegram group at: https://groupsor.link/ "
+                    data-action="share/whatsapp/share" rel="nofollow">Share on</a>
+                <a href="whatsapp://send?text=Follow this link to Join my Telegram group : currentPostLink"
+                    data-action="share/whatsapp/share">
+                    <img src="https://groupsor.link/assets/images/whatsapp.png" width="24" height="24"
+                        alt="Share on Whatsapp" title="Share on Whatsapp" rel="nofollow"></a>
+
+                <a href="https://twitter.com/intent/tweet?text=Follow this link to Join my Telegram group : &amp;url=currentPostLink"
+                    target="_blank" rel="nofollow">
+                    <img src="https://groupsor.link/assets/images/twitter.jpg" width="24" height="24"
+                        alt="Share on Twitter" title="Share on Twitter"></a>
+            </div>
+        </div>
+    </div>
+</div>
+`;
+var description =`<p class="postDescri">If you are looking for groupName Telegram group link, then use the list to get your desired one. Here we have shared the complete list of groupName Telegram groups. Use the group links to participate in a community.</p>`;
+var preArticalContent=``;
 function initAddButton() {
     tableDiv = document.body;
     newSection = document.createElement("section");
@@ -259,13 +304,13 @@ function initGroupLinks() {
     mainContent.insertBefore(newSection, mainContent.lastChild)
 }
 
-function initPreArtical() {
+function initPreArtical(groupName) {
     var mainContent = document.getElementById(articalSectionId);
     newSection = document.createElement('section'); //create a div
     newSection.className = "preArtical";
     newSection.id = "preArtical"
     // var tag = `<div id="results" style="display: none;">`;
-    // newSection.innerHTML = tag;
+    newSection.innerHTML = description.replaceAll("groupName",groupName);
     mainContent.appendChild(newSection); //append to the doc.body
     mainContent.insertBefore(newSection, mainContent.lastChild)
 }
@@ -303,41 +348,7 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-var groupBlock = `
-  <div>
-                      <a style="color: #5a5a5a" target="_blank" href="groupLink" title="Telegram group invite link: groupName">
-                          <span>
-                              <img src="groupLogo" onerror="imgError(this);" class="image"  alt="groupName">
-                          </span>
-                      </a>
-                      <a style="color: #5a5a5a;font-family: fantasy;" target="_blank" href="groupLink" title="Telegram group invite link: groupName">
-                          <h2>groupName</h2>
-                      </a>
-                  </div>
-                  <div class="block2">
-                      <div class="post-basic-info"> 
-                          <div style="color:#0088cc;">
-                          <a style="font-weight: 600;"href="groupLink" title="Telegram Chaneel invite link: groupName" target="_blank">@grouplinkText</a>
-                          </div>
-                          <span style="padding-right:20px;">Category: groupType</span>
-                          <span>subscribe/members: groupCount</span>
-                          <p class="descri" style="margin-bottom: 0px">groupDescri</p>
-                      </div>
-                      <div class="post-info-rate-share"> <span class="joinbtn"><a class="joinbtn" href="groupLink" target="_blank" title="Click here to join groupName Telegram group" rel="nofollow">Join group</a></span>
-                          <div class="post-share">
-                              <div>
 
-                                  <a class="joinbtn" style="vertical-align:top" href="whatsapp://send?text=Follow this link to Join my Telegram group : groupLink %0A %0AFind more Telegram group at: https://groupsor.link/ " data-action="share/whatsapp/share" rel="nofollow">Share on</a>
-                                  <a href="whatsapp://send?text=Follow this link to Join my Telegram group : currentPostLink" data-action="share/whatsapp/share">
-                                      <img src="https://groupsor.link/assets/images/whatsapp.png" width="24" height="24" alt="Share on Whatsapp" title="Share on Whatsapp" rel="nofollow"></a>
-
-                                  <a href="https://twitter.com/intent/tweet?text=Follow this link to Join my Telegram group : &amp;url=currentPostLink" target="_blank" rel="nofollow">
-                                      <img src="https://groupsor.link/assets/images/twitter.jpg" width="24" height="24" alt="Share on Twitter" title="Share on Twitter"></a>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-  `;
 function imgError(image) {
     image.onerror = "";
     image.src = "https://w7.pngwing.com/pngs/419/837/png-transparent-telegram-icon-telegram-logo-computer-icons-telegram-blue-angle-triangle-thumbnail.png";
@@ -403,8 +414,8 @@ function loadMorelink(lastcount) {
     });
 }
 
-function loadLinks() {
-    var i = document.title.split(" Telegram")[0];
+function loadLinks(groupName) {
+    var i = groupName;
     // document.getElementById("tableHead").innerText = i;
     database = firebase.database();
     var ref = database.ref(i);
@@ -552,16 +563,20 @@ async function fetchText(waId) {
     }
 }
 
-var postSection = document.getElementById(articalSectionId);
-if(postSection!=null){
-    initPreArtical();
-    initLoading();
-    initGroupLinks();
-    initLoadMoreLink()
-    initPostArtical();
-    initAddButton();
-    move();
-    loadLinks();
-}else{
-    initAddButton();
+const main=async()=>{
+    var postSection = document.getElementById(articalSectionId);
+    if (postSection != null) {
+        var groupName = await document.title.split(" Telegram")[0];
+        initPreArtical(groupName);         // insert per artical section
+        initLoading();            // insert loading bar section
+        initGroupLinks(groupName);         // insert groups section
+        initLoadMoreLink()        // insert load button
+        initPostArtical();        // insert post artical section
+        initAddButton();          // insert add group button
+        move();
+        loadLinks(groupName);
+    } else {
+        initAddButton();
+    }
 }
+main();

@@ -308,3 +308,12 @@ body {
         transform: rotate(360deg);
     }
 }
+
+.postDescri {
+    margin: 20px;
+    background-color: #0088cc;
+    color: white;
+    font-weight: bold;
+    border: 2px solid;
+    padding: 5px;
+}
