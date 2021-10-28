@@ -556,10 +556,11 @@ async function fetchText(waId) {
     }
 }
 
-// var postSection = document.getElementById(articalSectionId);
-// if(postSection!=null){
-    
-// }
-initAddButton();
-move();
-loadLinks();
+var postSection = document.getElementById(articalSectionId);
+if(postSection!=null){
+    initAddButton();
+    move();
+    loadLinks();
+}else{
+    initAddButton();
+}
