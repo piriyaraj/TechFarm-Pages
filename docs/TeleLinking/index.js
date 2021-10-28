@@ -346,13 +346,13 @@ function initPreArtical(groupName) {
     mainContent.insertBefore(newSection, mainContent.lastChild)
 }
 
-function initPostArtical(postName) {
+function initPostArtical(groupName) {
     var mainContent = document.getElementById(articalSectionId);
     newSection = document.createElement('section'); //create a div
     newSection.className = "PostArtical";
     newSection.id = "PostArtical"
     // var tag = `<div id="results" style="display: none;">`;
-    newSection.innerHTML = PostArticalContent.replaceAll("postName",postName);
+    newSection.innerHTML = PostArticalContent.replaceAll("groupName", groupName );
     mainContent.appendChild(newSection); //append to the doc.body
     mainContent.insertBefore(newSection, mainContent.lastChild)
 }
