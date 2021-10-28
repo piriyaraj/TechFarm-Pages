@@ -318,3 +318,10 @@ body {
     padding: 5px;
     border-radius: 20px;
 }
+
+.postfaq {
+    text-align: center;
+    color: #ffffff;
+    background-color: #0088cc;
+    border-radius: 10px;
+}
