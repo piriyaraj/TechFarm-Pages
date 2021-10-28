@@ -257,16 +257,16 @@ var groupBlock = `
             <div>
 
                 <a class="joinbtn" style="vertical-align:top"
-                    href="whatsapp://send?text=Follow this link to Join my Telegram group : groupLink %0A %0AFind more Telegram group at: https://groupsor.link/ "
+                    href="whatsapp://send?text=Follow this link to Join my Telegram group : groupLink %0A %0AFind more Telegram group at: https://telelinking.link/ "
                     data-action="share/whatsapp/share" rel="nofollow">Share on</a>
                 <a href="whatsapp://send?text=Follow this link to Join my Telegram group : currentPostLink"
                     data-action="share/whatsapp/share">
-                    <img src="https://groupsor.link/assets/images/whatsapp.png" width="24" height="24"
+                    <img src="https://blogger.googleusercontent.com/img/a/AVvXsEhTnjPPSaPWBDQm0ncL81muw5AzruAGfFqq3_54tuTTOmhvWGoUyDA_VUHe427uOZhiE0n1skiz8WTVNDg8npnpBKvs2MLw8uFK3TmhSYW3NJcyRQ2d2wvnBa_iw5EblF513vQRCNgVW9TFylu0ndAwM7FgXEmAC3M_gQux4bhlAy916RfrbYPzKotQZg=s32" width="24" height="24"
                         alt="Share on Whatsapp" title="Share on Whatsapp" rel="nofollow"></a>
 
                 <a href="https://twitter.com/intent/tweet?text=Follow this link to Join my Telegram group : &amp;url=currentPostLink"
                     target="_blank" rel="nofollow">
-                    <img src="https://groupsor.link/assets/images/twitter.jpg" width="24" height="24"
+                    <img src="https://blogger.googleusercontent.com/img/a/AVvXsEjJ8hLWR1a3RR4uoDXOez0eQ06bMeZUKmJz10RoChM0gB5G7scdIPRl7l19OPesfEb01rOP6KApEa5XEMjixJrKKCGQ3tr1Lt7WCI9kcT4qZxx_cCL_bVPtaEMJ6Wg4n6WCMMnTkkdxY51tB4rGHNWPQi-JjUupvCTWY0lDUwCfoW2G0C1gNjn2ELVVog" width="24" height="24"
                         alt="Share on Twitter" title="Share on Twitter"></a>
             </div>
         </div>
@@ -743,6 +743,7 @@ function loadLatest() {
 }
 
 const main=async()=>{
+    initAddButton();
     var postSection = document.getElementById(articalSectionId);
     if (postSection != null) {
         var groupName = await document.title.split(" Telegram")[0];
@@ -751,14 +752,14 @@ const main=async()=>{
         initGroupLinks(groupName);         // insert groups section
         initLoadMoreLink()        // insert load button
         initPostArtical(groupName);        // insert post artical section
-        initAddButton();          // insert add group button
+                 // insert add group button
         move();
         loadLinks(groupName);
     } else if (document.getElementById("showlatest") != null) {
         initLoadLatestMoreLink();
         loadLatest();
     }else {
-        initAddButton();
+        
     }
 }
 main();
