@@ -274,9 +274,10 @@ var groupBlock = `
 </div>
 `;
 var description =`
-<p class="postDescri">If you are looking for <b>groupName Telegram groups and channels link</b>, then use the list to get your desired one. Here we have shared the complete list of groupName Telegram groups. Use the group links to participate in a community.</p>
+<p class="postDescri">If you are looking for <b>groupName Telegram groups and channels links</b>, then use the list to get your desired one. Here we have shared the complete list of groupName Telegram groups. Use the group links to participate in a community.</p>
 `;
 var preArticalContent=``;
+
 var PostArticalContent=`
 <h2 class="postfaq">
     <em>FAQ of groupName telegram groups and channels</em></h2>
@@ -306,6 +307,7 @@ var PostArticalContent=`
         that submit after that it will be added to our website.</li>
 </ol>
 `;
+
 function initAddButton() {
     tableDiv = document.body;
     newSection = document.createElement("section");
@@ -593,6 +595,152 @@ async function fetchText(waId) {
         });
     }
 }
+// show latest
+function initLoadLatestMoreLink() {
+    var mainContent = document.getElementById("loadlatestmorebutton");
+    newSection = document.createElement('section'); //create a div
+    newSection.className = "LoadMoreLink";
+    // newSection.id = "LoadMoreLink";
+    var tag = `<button id="LoadMoreLink" class="LoadMoreLink" style="display: none;">Load More Groups</button>`;
+    newSection.innerHTML = tag;
+    mainContent.appendChild(newSection); //append to the doc.body
+    mainContent.insertBefore(newSection, mainContent.lastChild)
+}
+
+function insertLatestBlock(groupName, groupLink, groupLogo, groupCount, groupType, groupDescri) {
+    var resultDiv = document.getElementById("showlatest");
+    newDiv = document.createElement('div'); //create a div
+    newDiv.className = "maindiv";
+    var tag = groupBlock;
+    tag = tag.replaceAll('groupName', groupName);
+    tag = tag.replaceAll('groupLogo', groupLogo);
+    tag = tag.replaceAll('groupLink', groupLink);
+    tag = tag.replaceAll('groupCount', groupCount);
+    tag = tag.replaceAll('groupType', groupType);
+    tag = tag.replaceAll('grouplinkText', groupLink.split("/").pop());
+    tag = tag.replaceAll('groupDescri', groupDescri);
+    tag = tag.replaceAll('currentPostLink', document.location.href);
+
+    newDiv.innerHTML = tag; //add an id
+    resultDiv.appendChild(newDiv); //append to the doc.body
+    resultDiv.insertBefore(newDiv, resultDiv.lastChild)
+}
+
+function loadLatestMorelink(lastcount) {
+    //     alert(tableName,loadButtonid);
+    tableName = "latestUpdates";
+
+    firebase.database().ref(tableName).once("value", function (tableValue) {
+        var dataRow = tableValue.val();
+        var tableRow = Object.keys(dataRow);
+        // console.log(tableValue);
+        // alert(tableRow.length);
+        for (var t = lastcount; t >= -1; t--) {
+            if (t == -1) {
+                // alert(t + " last link");
+                var loadMoreButton = document.getElementById("LoadMoreLink");
+                loadMoreButton.style.display = "none";
+                break;
+            }
+
+            if (t == lastcount - 8) {
+                var loadMoreButton = document.getElementById("LoadMoreLink");
+                tag = "loadLatestMorelink('" + t + "')";
+                loadMoreButton.setAttribute('onclick', tag);
+
+                // addLoadMoreButton(tableName+"buttonid",t+"sectionId");
+                break;
+            }
+            var k = tableRow[t];
+            var groupName = dataRow[k].groupName;
+            var groupLink = "https://t.me/" + dataRow[k].groupLink;
+            var groupLogo = dataRow[k].groupLogo;
+            var groupCount = dataRow[k].groupCount;
+            var groupType = dataRow[k].groupType;
+            var groupDescri = dataRow[k].groupDescri;
+            // insertRow(groupName, groupLink);
+            insertLatestBlock(groupName, groupLink, groupLogo, groupCount, groupType, groupDescri)
+            // console.log(name, url);
+
+        }
+        // console.log(tableRow);
+    });
+}
+
+function loadLatestLinks(groupName) {
+    var i = groupName;
+    // document.getElementById("tableHead").innerText = i;
+    database = firebase.database();
+    var ref = database.ref(i);
+    ref.once("value", function (tableValue) {
+        // console.log(tableValue.val());
+        var dataRow = tableValue.val();
+        var tableRow = Object.keys(dataRow);
+        // console.log(tableRow);
+        // console.log(tableValue);
+        for (var t = tableRow.length - 1; t >= 0; t--) {
+            if (t == tableRow.length - 9) {
+                // alert("hello");
+                document.getElementById("LoadMoreLink").style.display = "block";
+                var loadMoreButton = document.getElementById("LoadMoreLink");
+                tag = "loadLatestMorelink('" + t + "')";
+                loadMoreButton.setAttribute('onclick', tag);
+                break;
+            }
+            var k = tableRow[t];
+            // var url = "https://bikespeci.blogspot.com/p/gateway.html?telelink=" + dataRow[k].groupLink;
+            //                 var url = "https://chat.whatsapp.com/" + dataRow[k].groupLink;
+            var groupName = dataRow[k].groupName;
+            var groupLink = "https://t.me/" + dataRow[k].groupLink;
+            var groupLogo = dataRow[k].groupLogo;
+            var groupCount = dataRow[k].groupCount;
+            var groupType = dataRow[k].groupType;
+            var groupDescri = dataRow[k].groupDescri;
+            // insertRow(groupName, groupLink);
+            insertBlock(groupName, groupLink, groupLogo, groupCount, groupType, groupDescri)
+            // console.log(name, url);
+        }
+        // console.log(tableRow);
+    });
+
+}
+
+function loadLatest() {
+    var i = "latestUpdates";
+    // document.getElementById("tableHead").innerText = i;
+    database = firebase.database();
+    var ref = database.ref(i);
+    ref.once("value", function (tableValue) {
+        // console.log(tableValue.val());
+        var dataRow = tableValue.val();
+        var tableRow = Object.keys(dataRow);
+        // console.log(tableRow);
+        // console.log(tableValue);
+        for (var t = tableRow.length - 1; t >= 0; t--) {
+            if (t == tableRow.length - 9) {
+                // alert("hello");
+                document.getElementById("LoadMoreLink").style.display = "block";
+                var loadMoreButton = document.getElementById("LoadMoreLink");
+                tag = "loadLatestMorelink('" + t + "')";
+                loadMoreButton.setAttribute('onclick', tag);
+                break;
+            }
+            var k = tableRow[t];
+            // var url = "https://bikespeci.blogspot.com/p/gateway.html?telelink=" + dataRow[k].groupLink;
+            //                 var url = "https://chat.whatsapp.com/" + dataRow[k].groupLink;
+            var groupName = dataRow[k].groupName;
+            var groupLink = "https://t.me/" + dataRow[k].groupLink;
+            var groupLogo = dataRow[k].groupLogo;
+            var groupCount = dataRow[k].groupCount;
+            var groupType = dataRow[k].groupType;
+            var groupDescri = dataRow[k].groupDescri;
+            // insertRow(groupName, groupLink);
+            insertLatestBlock(groupName, groupLink, groupLogo, groupCount, groupType, groupDescri)
+            // console.log(name, url);
+        }
+        // console.log(tableRow);
+    });
+}
 
 const main=async()=>{
     var postSection = document.getElementById(articalSectionId);
@@ -606,7 +754,10 @@ const main=async()=>{
         initAddButton();          // insert add group button
         move();
         loadLinks(groupName);
-    } else {
+    } else if (document.getElementById("showlatest") != null) {
+        initLoadLatestMoreLink();
+        loadLatest();
+    }else {
         initAddButton();
     }
 }
