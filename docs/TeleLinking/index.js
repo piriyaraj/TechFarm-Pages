@@ -291,11 +291,7 @@ function initLoadMoreLink() {
     mainContent.appendChild(newSection); //append to the doc.body
     mainContent.insertBefore(newSection, mainContent.lastChild)
 }
-initPreArtical();
-initLoading();
-initGroupLinks();
-initLoadMoreLink()
-initPostArtical();
+
 var firebaseConfig = {
     apiKey: "AIzaSyCNPje1QfnH8Pg8oLzKYj_Guy1GaiiyWLs",
     authDomain: "telelinking-techfarm.firebaseapp.com",
@@ -558,6 +554,11 @@ async function fetchText(waId) {
 
 var postSection = document.getElementById(articalSectionId);
 if(postSection!=null){
+    initPreArtical();
+    initLoading();
+    initGroupLinks();
+    initLoadMoreLink()
+    initPostArtical();
     initAddButton();
     move();
     loadLinks();
