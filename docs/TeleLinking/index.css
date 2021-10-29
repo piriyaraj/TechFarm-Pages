@@ -326,3 +326,11 @@ body {
     border-radius: 10px;
     margin: 50px 20px;
 }
+
+#addmessage {
+    text-align: center;
+    background-color: #0088cc;
+    color: white;
+    border-radius: 10px;
+    font-size: larger;
+}

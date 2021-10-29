@@ -220,8 +220,8 @@ var addButtonCode = `
                 <option value='Zimbabwe'>Zimbabwe</option>
             </select>
         </div>
-        <div id="showGroup">
-        </div>
+        <h2 id="addmessage"></h2>
+        <div id="showGroup"></div>
         <div class="loader" id="loader"></div>
         <br /><br />
         <input type="submit" value="Submit" class="btn" id="submitButton" />
@@ -506,6 +506,76 @@ function move() {
 }
 
 // add new group section
+function insertWalink(teleId, table) {
+    var tableAllLink = firebase.database().ref("AllLinks")
+    tableAllLink.child(teleId).set(table);
+    // console.log("inserted into table allLink");
+    return 0;
+}
+// isAvailable("PJ1");
+// insert link in specific table
+function insertSpeciTable(table, waLink, response) {
+    var tableAllLink = firebase.database().ref(table).push();
+    tableAllLink.child("groupName").set(response[0]);
+    tableAllLink.child("groupLink").set(waLink);
+    tableAllLink.child("groupDescri").set(response[4]);
+    tableAllLink.child("groupLogo").set(response[2]);
+    tableAllLink.child("groupType").set(response[1]);
+    tableAllLink.child("groupCount").set(response[3]);
+    // console.log("inserted into table specific one");
+    // document.getElementById("showGroup").style.display = 'block';
+    // document.getElementById("addmessage").innerText = 'Your Group link added in WaLink.link';
+    // document.getElementById("addgroupname").innerText = waName;
+    // document.getElementById("addwaimg").setAttribute("src", "https://web.whatsapp.com/invite/icon/" + waId);
+
+
+    return 0;
+}
+async function insertData(table, waId, response) {
+    // alert(table);
+    database = firebase.database();
+    var ref = await database.ref("AllLinks/" + waId);
+    // console.log(ref.key);
+    ref.once("value", function (tableValue) {
+        var dataRow = tableValue.val();
+        if (dataRow == null) {
+            // console.log("Not in database");
+            insertWalink(waId, table);
+            insertSpeciTable(table, waId, response);
+            if (table.match("Hot") == null) {
+                insertLatestTable("latestUpdates", waId, response);
+            }
+
+        } else {
+            // console.log("This group link already in our site");
+            // alert("This link already in our site");
+            document.getElementById("showGroup").style.display = 'block';
+            // document.getElementById("inputSection").style.display = 'none';
+            document.getElementById("addmessage").innerText = 'This link already in our site';
+            // document.getElementById("addgroupname").innerText = waName;
+            // document.getElementById("addwaimg").setAttribute("src", "https://web.whatsapp.com/invite/icon/" + waId);
+
+            return 1;
+        }
+    });
+}
+
+function insertLatestTable(table, waLink, response) {
+    var tableAllLink = firebase.database().ref(table).push();
+    tableAllLink.child("groupName").set(response[0]);
+    tableAllLink.child("groupLink").set(waLink);
+    tableAllLink.child("groupDescri").set(response[4]);
+    tableAllLink.child("groupLogo").set(response[2]);
+    tableAllLink.child("groupType").set(response[1]);
+    tableAllLink.child("groupCount").set(response[3]);
+    // console.log("inserted into table specific one");
+    document.getElementById("showGroup").style.display = 'block';
+    document.getElementById("addmessage").innerText = 'Your Group link added in telelinking.link';
+
+
+    return 0;
+}
+
 function openForm() {
     document.getElementById("submitButton").style.display = 'block';
     document.getElementById("myForm").style.display = "block";
@@ -516,7 +586,10 @@ function openForm() {
 }
 function closeForm() {
     document.getElementById("myForm").style.display = "none";
+    document.getElementById("addmessage").innerText = "";
 }
+
+
 const handleIt = async () => {
 
 
@@ -528,18 +601,20 @@ const handleIt = async () => {
     document.getElementById("inputSection").style.display = 'none';
     document.getElementById("loader").style.display = 'block';
     document.getElementById("submitButton").style.display = 'none';
+    console.log(tableName);
     // document.getElementById("submitButton").disabled = true;
     fetchText(waId)
         .then((response) => {
             // console.log(response);
             var title = response[0];
             if (title == -2) {
-                document.getElementById("showGroup").style.display = 'block';
+                // document.getElementById("showGroup").style.display = 'block';
                 document.getElementById("addmessage").innerText = 'Connection Error Try again later';
-            } else if (title == -1) {
+            } else if (title == undefined) {
                 document.getElementById("inputSection").style.display = 'none';
-                document.getElementById("showGroup").style.display = 'block';
-                document.getElementById("addmessage").innerText = 'This link is not invalid';
+                // document.getElementById("showGroup").style.display = 'block';
+                // document.getElementById("showGroup").innerHTML="";
+                document.getElementById("addmessage").innerText = 'This link is invalid';
 
 
                 // document.getElementById("addgroupname").innerText = 'waName';
@@ -548,7 +623,7 @@ const handleIt = async () => {
                 // alert(tableName);
                 var showgroupdiv=document.getElementById("showGroup");
                 showgroupdiv.style.display="block";
-                var tag = groupBlock;
+                var tag =groupBlock;
                 tag = tag.replaceAll('groupName', response[0]);
                 tag = tag.replaceAll('groupLogo', response[2]);
                 tag = tag.replaceAll('groupLink', "https://t.me/"+waId);
@@ -558,7 +633,7 @@ const handleIt = async () => {
                 tag = tag.replaceAll('groupDescri', response[4]);
                 tag = tag.replaceAll('currentPostLink', document.location.href);
                 showgroupdiv.innerHTML=tag;
-                // insertData(tableName, waId, title);
+                insertData(tableName, waId, response);
             }
 
         })
@@ -587,6 +662,11 @@ async function fetchText(waId) {
         // console.log(response);
 
         let data = await response.json();
+        console.log(data);
+        if(data[0]==0){
+            // alert(data[0]);
+            return({"title": -1});
+        }
         return data;
     } else {
         // console.log(response);
