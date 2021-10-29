@@ -195,6 +195,9 @@ const uploadWaLink = async (tableName, data) => {
     await set(ref(db, tableName + "/" + newPostKey), data)
 }
 
+const updateLogo=async(tableName,url)=>{
+    return;
+}
 
 // control all functions
 const main = async () => {
@@ -204,7 +207,14 @@ const main = async () => {
     // console.log(lastchekedtable);
     // console.log(lastchekedtable);
     // console.log(allTableName.length);
+    
     for (var i = lastchekedtable; i < allTableName.length; i++) {
+        if (i == allTableName.length-1){
+            await insertData("ScrapData/lastchekedtable", 0, format = "patch")
+        }else{
+            await insertData("ScrapData/lastchekedtable", i, format = "patch")
+        }
+
         // console.log(allTableName[i]);
         if (allTableName[i] == "scrapData" | allTableName[i] == "AAgroupsorDetail" | allTableName[i] == "AllLinks") {
             continue;
@@ -217,20 +227,21 @@ const main = async () => {
         await getWaLinkKey(allTableName[i]);
         for (var j = 0; j < waLinkKeys.length; j++) {
             await singleGroup(allTableName[i] + "/" + waLinkKeys[j]);
-            console.log(groupData);
+            
+            // console.log(groupData);     count,descri,link,logo,name,type
             var titles = await check("https://t.me/" + groupData[2]);
             if (titles[0] == -1) {
-                await insertData("scrapData", { lastchekedtable: i }, format = "post")
+                await insertData("ScrapData/lastchekedtable", i ,format = "patch")
                 console.log("stopped !")
                 break;
             }
             if (titles[0] == "") {
-                // await deleteTabelData(allTableName[i] + "/" + waLinkKeys[j])
-                // await deleteTabelData("AllLinks/" + groupData[0]);
-                console.log("=====>", groupData[0], "Invalid", groupData[1], j, '/', waLinkKeys.length);
-                break;
+                await deleteTabelData(allTableName[i] + "/" + waLinkKeys[j])
+                await deleteTabelData("AllLinks/" + groupData[0]);
+                console.log("=====>", j+1, '/', waLinkKeys.length, "Invalid || ", groupData[2]," || ");
             } else {
-                await getalllinkscheck(groupData[0]);
+
+                await getalllinkscheck(groupData[2]);
                 if (alllinkscheck == 0) {
                     var waid = groupData[2];
                     // [groupName, groupType, groupLogo, groupCount, groupDescri]
@@ -247,10 +258,11 @@ const main = async () => {
 
                     alllinkscheck = -1;
                 }
-                console.log("=====>", groupData[0], "Valid", groupData[1], j, '/', waLinkKeys.length);
+                insertData(allTableName[i] + "/" + waLinkKeys[j] + "/groupLogo", titles[2], format = "patch");
+                console.log("=====>", j+1, '/', waLinkKeys.length, "Valid || ", groupData[2], " || ");
+
             }
         }
     }
 }
-main()
 module.exports.run = main;
