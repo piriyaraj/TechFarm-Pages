@@ -858,6 +858,11 @@ const main=async()=>{
             tag = tag.replaceAll('currentPostLink', document.location.href);
             document.getElementById("main").innerHTML = tag;
             document.getElementsByTagName("h1")[0].innerText = data['groupName'];
+            document.title = data['groupName'] + " telegram " + data['groupType']+" link TeleLinking";
+            var meta = document.createElement('meta');
+            meta.name = "if you are looking for " + data['groupName'] + " telegram " + data['groupType'] + " link, TeleLinking provide useful " + data['groupName']+" links";
+            meta.content = "IE=edge";
+            document.head.appendChild(meta);
         })
         
     }
