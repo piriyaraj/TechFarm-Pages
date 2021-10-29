@@ -7,85 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
     <title>Telegram Links</title>
-    <style>
-        #main {
-            background-color: rgb(179, 210, 214);
-            width: 80%;
-            height: 500px;
-            margin: 0 auto;
-            text-align-last: center;
-        }
-        
-        .imgDiv {
-            margin: 10px auto;
-            border-radius: 50%;
-            width: 20%;
-            border: 2px solid #0088cc;
-        }
-        
-        #joinshare {
-            position: absolute;
-            bottom: 60 px;
-        }
-    </style>
 </head>
 
 <body>
-    <h1 id="heading">how are you</h1>
-    <div id="main"></div>
+    <h1></h1>
+    <div id="main" class="maindiv"></div>
+    <!-- <div id="gateway"></div>/ -->
     <div style="height:600px;"></div>
-    <script>
-        var groupBlock = `
-<div>
-    <a style="color: #5a5a5a" target="_blank" href="groupLink" title="Telegram group invite link: groupName">
-        <span>
-            <img src="groupLogo" onerror="imgError(this);" class="image" alt="groupName">
-        </span>
-    </a>
-    <a style="color: #5a5a5a;font-family: fantasy;" target="_blank" href="groupLink"
-        title="Telegram group invite link: groupName">
-        <h2>groupName</h2>
-    </a>
-</div>
-<div class="block2">
-    <div class="post-basic-info">
-        <div style="color:#0088cc;">
-            <a style="font-weight: 600;" href="groupLink" title="Telegram channel invite link: groupName"
-                target="_blank">@grouplinkText</a>
-        </div>
-        <span style="padding-right:20px;">Category: groupType</span>
-        <span>subscribe/members: groupCount</span>
-        <p class="descri" style="margin-bottom: 0px">groupDescri</p>
-    </div>
-    <div class="post-info-rate-share"> <span class="joinbtn"><a class="joinbtn" href="groupLink" target="_blank"
-                title="Click here to join groupName Telegram group" rel="nofollow">Join group</a></span>
-        <div class="post-share">
-            <div>
-
-                <a class="joinbtn" style="vertical-align:top"
-                    href="whatsapp://send?text=Follow this link to Join my Telegram group : groupLink %0A %0AFind more Telegram group at: https://telelinking.link/ "
-                    data-action="share/whatsapp/share" rel="nofollow">Share on</a>
-                <a href="whatsapp://send?text=Follow this link to Join my Telegram group : currentPostLink"
-                    data-action="share/whatsapp/share">
-                    <img src="https://blogger.googleusercontent.com/img/a/AVvXsEhTnjPPSaPWBDQm0ncL81muw5AzruAGfFqq3_54tuTTOmhvWGoUyDA_VUHe427uOZhiE0n1skiz8WTVNDg8npnpBKvs2MLw8uFK3TmhSYW3NJcyRQ2d2wvnBa_iw5EblF513vQRCNgVW9TFylu0ndAwM7FgXEmAC3M_gQux4bhlAy916RfrbYPzKotQZg=s32" width="24" height="24"
-                        alt="Share on Whatsapp" title="Share on Whatsapp" rel="nofollow"></a>
-
-                <a href="https://twitter.com/intent/tweet?text=Follow this link to Join my Telegram group : &amp;url=currentPostLink"
-                    target="_blank" rel="nofollow">
-                    <img src="https://blogger.googleusercontent.com/img/a/AVvXsEjJ8hLWR1a3RR4uoDXOez0eQ06bMeZUKmJz10RoChM0gB5G7scdIPRl7l19OPesfEb01rOP6KApEa5XEMjixJrKKCGQ3tr1Lt7WCI9kcT4qZxx_cCL_bVPtaEMJ6Wg4n6WCMMnTkkdxY51tB4rGHNWPQi-JjUupvCTWY0lDUwCfoW2G0C1gNjn2ELVVog" width="24" height="24"
-                        alt="Share on Twitter" title="Share on Twitter"></a>
-            </div>
-        </div>
-    </div>
-</div>
-`;
-
-        var main = document.getElementById("main");
-        var h1tag = document.getElementsByTagName("h1")[0];
-        h1tag.innerText = "good morning";
-        main.innerHTML = groupBlock;
-        // main.innerText = "good morning";
-    </script>
-</body>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js "></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js "></script>
+    <script src="index.js"></script>
 
 </html>
