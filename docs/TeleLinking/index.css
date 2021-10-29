@@ -108,7 +108,8 @@ body {
 
 .post-info-rate-share {
     border-top: 1px solid rgba(183, 181, 181, .36);
-    padding-top: 2px
+    padding-top: 2px;
+    text-align-last: auto;
 }
 
 .post-share {
@@ -307,4 +308,30 @@ body {
     100% {
         transform: rotate(360deg);
     }
+}
+
+.postDescri {
+    margin: 20px;
+    background-color: #0088cc;
+    color: white;
+    /* font-weight: bold; */
+    border: 2px solid;
+    padding: 5px;
+    border-radius: 20px;
+}
+
+.postfaq {
+    text-align: center;
+    color: #ffffff;
+    background-color: #0088cc;
+    border-radius: 10px;
+    margin: 50px 20px;
+}
+
+#addmessage {
+    text-align: center;
+    background-color: #0088cc;
+    color: white;
+    border-radius: 10px;
+    font-size: larger;
 }
