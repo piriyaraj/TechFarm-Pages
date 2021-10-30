@@ -433,7 +433,8 @@ function loadMorelink(lastcount) {
             }
             var k = tableRow[t];
             var groupName = dataRow[k].groupName;
-            var groupLink = "https://t.me/" + dataRow[k].groupLink;
+            // var groupLink = "https://t.me/" + dataRow[k].groupLink;
+            var groupLink = "/p/telegram-links.html?tablename=" + tableName + "/" + tableRow[t];
             var groupLogo = dataRow[k].groupLogo;
             var groupCount = dataRow[k].groupCount;
             var groupType = dataRow[k].groupType;
@@ -447,8 +448,8 @@ function loadMorelink(lastcount) {
     });
 }
 
-function loadLinks(groupName) {
-    var i = groupName;
+function loadLinks(tableName) {
+    var i = tableName;
     // document.getElementById("tableHead").innerText = i;
     database = firebase.database();
     var ref = database.ref(i);
@@ -471,7 +472,8 @@ function loadLinks(groupName) {
             // var url = "https://bikespeci.blogspot.com/p/gateway.html?telelink=" + dataRow[k].groupLink;
             //                 var url = "https://chat.whatsapp.com/" + dataRow[k].groupLink;
             var groupName = dataRow[k].groupName;
-            var groupLink = "https://t.me/" + dataRow[k].groupLink;
+            // var groupLink = "https://t.me/" + dataRow[k].groupLink;
+            var groupLink = "/p/telegram-links.html?tablename=" + tableName + "/" + tableRow[t];
             var groupLogo = dataRow[k].groupLogo;
             var groupCount = dataRow[k].groupCount;
             var groupType = dataRow[k].groupType;
@@ -838,7 +840,30 @@ const main=async()=>{
     } else if (document.getElementById("showlatest") != null) {
         initLoadLatestMoreLink();
         loadLatest();
-    }else {
+    } else if (document.getElementById("main") != null){
+        var tableName = document.URL.split("?tablename=")[1];
+        database = firebase.database();
+        var ref = database.ref(tableName);
+        ref.once("value",function(groupDetails){
+            var data = groupDetails.val();
+            // console.log(groupDetails.val());
+            var tag = groupBlock;
+            tag = tag.replaceAll('groupName', data['groupName']);
+            tag = tag.replaceAll('groupLogo', data['groupLogo']);
+            tag = tag.replaceAll('groupLink', "https://t.me/"+data['groupLink']);
+            tag = tag.replaceAll('groupCount', data['groupCount']);
+            tag = tag.replaceAll('groupType', data['groupType']);
+            tag = tag.replaceAll('grouplinkText', data['groupLink']);
+            tag = tag.replaceAll('groupDescri', data['groupDescri']);
+            tag = tag.replaceAll('currentPostLink', document.location.href);
+            document.getElementById("main").innerHTML = tag;
+            document.getElementsByTagName("h1")[0].innerText = data['groupName'];
+            document.title = data['groupName'] + " telegram " + data['groupType']+" link TeleLinking";
+            var meta = document.createElement('meta');
+            meta.name = "if you are looking for " + data['groupName'] + " telegram " + data['groupType'] + " link, TeleLinking provide useful " + data['groupName']+" links";
+            meta.content = "IE=edge";
+            document.head.appendChild(meta);
+        })
         
     }
 }
