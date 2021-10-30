@@ -820,7 +820,6 @@ function loadLatest() {
     var ref = database.ref(i);
 
     ref.once("value", function (tableValue) {
-        { alert('Count: ' + tableValue.numChildren()); }
         document.getElementById("loadermain").style.display = "none";
         // console.log(tableValue.val());
         var dataRow = tableValue.val();
