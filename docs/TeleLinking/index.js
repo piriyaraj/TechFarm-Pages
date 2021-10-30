@@ -319,13 +319,37 @@ function initAddButton() {
 function initLoading() {
     var mainContent = document.getElementById(articalSectionId);
     newSection = document.createElement('section'); //create a div
-    newSection.className = "w3-light-grey";
+    newSection.id = "w3-light-grey";
     var tag = `<div id="myBar" class="w3-container w3-cyan w3-center" style="width:0%;max-height:20px ;">0%</div>`;
     newSection.innerHTML = tag;
     mainContent.appendChild(newSection); //append to the doc.body
     mainContent.insertBefore(newSection, mainContent.lastChild)
 }
-
+function initmainloader(){  // wait until load group details from firebase
+    var mainContent = document.getElementById("showlatest");
+    newSection = document.createElement('section'); //create a div
+    newSection.id = "loadermain";
+    var tag = `<svg class="pl" viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="pl-grad1" x1="1" y1="0.5" x2="0" y2="0.5">
+                    <stop offset="0%" stop-color="hsl(313,90%,55%)" />
+                    <stop offset="100%" stop-color="hsl(223,90%,55%)" />
+                </linearGradient>
+                <linearGradient id="pl-grad2" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="hsl(313,90%,55%)" />
+                    <stop offset="100%" stop-color="hsl(223,90%,55%)" />
+                </linearGradient>
+            </defs>
+            <circle class="pl__ring" cx="100" cy="100" r="82" fill="none" stroke="url(#pl-grad1)" stroke-width="36"
+                stroke-dasharray="0 257 1 257" stroke-dashoffset="0.01" stroke-linecap="round"
+                transform="rotate(-90,100,100)" />
+            <line class="pl__ball" stroke="url(#pl-grad2)" x1="100" y1="18" x2="100.01" y2="182" stroke-width="36"
+                stroke-dasharray="1 165" stroke-linecap="round" />
+        </svg>`;
+    newSection.innerHTML = tag;
+    mainContent.appendChild(newSection); //append to the doc.body
+    mainContent.insertBefore(newSection, mainContent.lastChild)
+}
 function initGroupLinks() {
     var mainContent = document.getElementById(articalSectionId);
     newSection = document.createElement('section'); //create a div
@@ -754,7 +778,9 @@ function loadLatestLinks(groupName) {
     // document.getElementById("tableHead").innerText = i;
     database = firebase.database();
     var ref = database.ref(i);
+
     ref.once("value", function (tableValue) {
+
         // console.log(tableValue.val());
         var dataRow = tableValue.val();
         var tableRow = Object.keys(dataRow);
@@ -792,13 +818,17 @@ function loadLatest() {
     // document.getElementById("tableHead").innerText = i;
     database = firebase.database();
     var ref = database.ref(i);
+
     ref.once("value", function (tableValue) {
+        { alert('Count: ' + tableValue.numChildren()); }
+        document.getElementById("loadermain").style.display = "none";
         // console.log(tableValue.val());
         var dataRow = tableValue.val();
         var tableRow = Object.keys(dataRow);
         // console.log(tableRow);
         // console.log(tableValue);
         for (var t = tableRow.length - 1; t >= 0; t--) {
+            
             if (t == tableRow.length - 9) {
                 // alert("hello");
                 document.getElementById("LoadMoreLink").style.display = "block";
@@ -838,8 +868,10 @@ const main=async()=>{
         move();
         loadLinks(groupName);
     } else if (document.getElementById("showlatest") != null) {
+        initmainloader();
         initLoadLatestMoreLink();
         loadLatest();
+        
     } else if (document.getElementById("main") != null){
         var tableName = document.URL.split("?tablename=")[1];
         database = firebase.database();
