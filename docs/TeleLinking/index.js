@@ -325,8 +325,9 @@ function initLoading() {
     mainContent.appendChild(newSection); //append to the doc.body
     mainContent.insertBefore(newSection, mainContent.lastChild)
 }
-function initmainloader(){  // wait until load group details from firebase
-    var mainContent = document.getElementById("showlatest");
+function initmainloader(tag){  // wait until load group details from firebase
+    console.log(tag)
+    var mainContent = document.getElementById(tag);
     newSection = document.createElement('section'); //create a div
     newSection.id = "loadermain";
     var tag = `<svg class="pl" viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
@@ -411,7 +412,7 @@ function imgError(image) {
     image.src = "https://w7.pngwing.com/pngs/419/837/png-transparent-telegram-icon-telegram-logo-computer-icons-telegram-blue-angle-triangle-thumbnail.png";
     return true;
 }
-function insertBlock(groupName, groupLink, groupLogo, groupCount, groupType, groupDescri) {
+function insertBlock(groupName, groupLink, groupLogo, groupCount, groupType, groupDescri,groupId) {
     var resultDiv = document.getElementById("results");
     newDiv = document.createElement('div'); //create a div
     newDiv.className = "maindiv";
@@ -421,7 +422,7 @@ function insertBlock(groupName, groupLink, groupLogo, groupCount, groupType, gro
     tag = tag.replaceAll('groupLink', groupLink);
     tag = tag.replaceAll('groupCount', groupCount);
     tag = tag.replaceAll('groupType', groupType);
-    tag = tag.replaceAll('grouplinkText', groupLink.split("/").pop());
+    tag = tag.replaceAll('grouplinkText', groupId);
     tag = tag.replaceAll('groupDescri', groupDescri);
     tag = tag.replaceAll('currentPostLink', document.location.href);
 
@@ -432,6 +433,8 @@ function insertBlock(groupName, groupLink, groupLogo, groupCount, groupType, gro
 
 function loadMorelink(lastcount) {
     //     alert(tableName,loadButtonid);
+    document.getElementById("loadermain").style.display = "block";
+
     tableName = document.title.split(" Telegram")[0];
 
     firebase.database().ref(tableName).once("value", function (tableValue) {
@@ -440,6 +443,8 @@ function loadMorelink(lastcount) {
         // console.log(tableValue);
         // alert(tableRow.length);
         for (var t = lastcount; t >= -1; t--) {
+            document.getElementById("loadermain").style.display = "none";
+
             if (t == -1) {
                 // alert(t + " last link");
                 var loadMoreButton = document.getElementById("LoadMoreLink");
@@ -464,7 +469,7 @@ function loadMorelink(lastcount) {
             var groupType = dataRow[k].groupType;
             var groupDescri = dataRow[k].groupDescri;
             // insertRow(groupName, groupLink);
-            insertBlock(groupName, groupLink, groupLogo, groupCount, groupType, groupDescri)
+            insertBlock(groupName, groupLink, groupLogo, groupCount, groupType, groupDescri, dataRow[k].groupLink)
             // console.log(name, url);
             
         }
@@ -484,6 +489,8 @@ function loadLinks(tableName) {
         // console.log(tableRow);
         // console.log(tableValue);
         for (var t = tableRow.length - 1; t >= 0; t--) {
+            document.getElementById("loadermain").style.display = "none";
+
             if (t == tableRow.length - 9) {
                 // alert("hello");
                 document.getElementById("LoadMoreLink").style.display = "block";
@@ -503,7 +510,7 @@ function loadLinks(tableName) {
             var groupType = dataRow[k].groupType;
             var groupDescri = dataRow[k].groupDescri;
             // insertRow(groupName, groupLink);
-            insertBlock(groupName, groupLink, groupLogo, groupCount, groupType, groupDescri)
+            insertBlock(groupName, groupLink, groupLogo, groupCount, groupType, groupDescri, dataRow[k].groupLink)
             // console.log(name, url);
         }
         // console.log(tableRow);
@@ -859,15 +866,20 @@ const main=async()=>{
     if (postSection != null) {
         var groupName = await document.title.split(" Telegram")[0];
         initPreArtical(groupName);         // insert per artical section
-        initLoading();            // insert loading bar section
+        //initLoading();            // insert loading bar section
+
         initGroupLinks(groupName);         // insert groups section
+        initmainloader(articalSectionId);
+
         initLoadMoreLink()        // insert load button
         initPostArtical(groupName);        // insert post artical section
                  // insert add group button
-        move();
+        // move();
         loadLinks(groupName);
+        document.getElementById("results").style.display = "block";
+
     } else if (document.getElementById("showlatest") != null) {
-        initmainloader();
+        initmainloader("showlatest");
         initLoadLatestMoreLink();
         loadLatest();
         

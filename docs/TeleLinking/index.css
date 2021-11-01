@@ -347,7 +347,7 @@ body {
 }
 
 #loadermain {
-    background: var(--bg);
+    /* background: var(--bg); */
     color: var(--fg);
     font: 1em/1.5 sans-serif;
     height: 100vh;
