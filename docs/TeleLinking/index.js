@@ -233,7 +233,7 @@ var groupBlock = `
 <div>
     <a style="color: #5a5a5a" target="_blank" href="groupLink" title="Telegram group invite link: groupName">
         <span>
-            <img src="groupLogo" onerror="imgError(this);" class="image" alt="groupName telegram groupType link">
+            <img src="groupLogo" onerror="imgError(this);" title="groupName telegram group and channel join link" class="image" alt="groupName telegram groupType link">
         </span>
     </a>
     <a style="color: #5a5a5a;font-family: fantasy;" target="_blank" href="groupLink"
