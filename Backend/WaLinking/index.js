@@ -27,12 +27,12 @@ app.get("/", (req, res) => {
     `);
 })
 app.get("/extractfromgroupsor",(req,res)=>{
-    res.sendFile("timepage.html", options)
+    res.sendFile("timepage.html", options);
     waTools.extractGroupsor();
     
 })
 app.get("/invalidcheck", (req, res) => {
-    res.send("<P id='status'>value</P>");
+    res.sendFile("timepagevalid.html", options)
     waTools.invalidChecker();
 
 })
