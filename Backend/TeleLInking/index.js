@@ -22,7 +22,7 @@ app.get("/groupetails/:link",async(req,res)=>{
 })
 app.get("/checkdatabase", async (req, res) => {
     databaseeCheck.run();
-    res.sendFile("home.html", options)
+    res.sendFile("timepage.html", options)
 
 })
 app.listen(port, () => {
