@@ -209,7 +209,7 @@ const main = async () => {
     // console.log(allTableName.length);
     
     for (var i = lastchekedtable; i < allTableName.length; i++) {
-        if (i == allTableName.length){
+        if (i == allTableName.length-1){
             await insertData("ScrapData/lastchekedtable", 0, format = "patch")
         }else{
             await insertData("ScrapData/lastchekedtable", i, format = "patch")
