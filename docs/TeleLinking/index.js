@@ -884,7 +884,7 @@ const main=async()=>{
         loadLatest();
         
     } else if (document.getElementById("main") != null){
-        var tableName = document.URL.split("?tablename=")[1];
+        var tableName = document.URL.split("?tablename=")[1].split("&")[0];
         database = firebase.database();
         var ref = database.ref(tableName);
         ref.once("value",function(groupDetails){
