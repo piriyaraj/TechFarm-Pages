@@ -253,7 +253,7 @@ const main = async () => {
                         "groupDescri": titles[4],
                         "groupLink": groupData[2]
                     }
-                    uploadWaLink("latestUpdates", data1);
+                    // uploadWaLink("latestUpdates", data1);
                     insertData("AllLinks/" + waid, allTableName[i], format = "patch")
 
                     alllinkscheck = -1;
@@ -264,5 +264,13 @@ const main = async () => {
             }
         }
     }
+    await getWaLinkKey("latestUpdates");
+    for(var i=0;i<waLinkKeys.length-100;i++){
+        await deleteTabelData("latestUpdates" + "/" + waLinkKeys[i]);
+        console.log(waLinkKeys[i]);
+
+    }
+
 }
+main()
 module.exports.run = main;
