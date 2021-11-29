@@ -208,7 +208,7 @@ const main = async () => {
     // console.log(lastchekedtable);
     // console.log(allTableName.length);
     
-    for (var i = lastchekedtable; i < allTableName.length; i++) {
+    for (var i = lastchekedtable+1; i < lastchekedtable+4; i++) {
         if (i == allTableName.length-1){
             await insertData("ScrapData/lastchekedtable", 0, format = "patch")
         }else{
@@ -272,5 +272,5 @@ const main = async () => {
     }
 
 }
-// main()S
+// main()
 module.exports.run = main;
