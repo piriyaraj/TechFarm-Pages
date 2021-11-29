@@ -272,5 +272,5 @@ const main = async () => {
     }
 
 }
-main()
+// main()S
 module.exports.run = main;
