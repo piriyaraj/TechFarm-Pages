@@ -14,13 +14,13 @@ var options = {
 let port = process.env.PORT || 3000;
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCS4okSW3m4HAjyrUyuzTTVSIp7w4INCMU",
-    authDomain: "smart-shopping-cart-ssc.firebaseapp.com",
-    databaseURL: "https://smart-shopping-cart-ssc-default-rtdb.firebaseio.com",
-    projectId: "smart-shopping-cart-ssc",
-    storageBucket: "smart-shopping-cart-ssc.appspot.com",
-    messagingSenderId: "160224436712",
-    appId: "1:160224436712:web:fd9c34e6c8467a34a3845d"
+    apiKey: "AIzaSyCNPje1QfnH8Pg8oLzKYj_Guy1GaiiyWLs",
+    authDomain: "telelinking-techfarm.firebaseapp.com",
+    databaseURL: "https://telelinking-techfarm-default-rtdb.firebaseio.com",
+    projectId: "telelinking-techfarm",
+    storageBucket: "telelinking-techfarm.appspot.com",
+    messagingSenderId: "344916823855",
+    appId: "1:344916823855:web:aff753138b8af5bb579bda"
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
