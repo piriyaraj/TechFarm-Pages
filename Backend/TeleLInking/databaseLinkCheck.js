@@ -13,19 +13,8 @@ var allTableName = ['13 reasons why', '4k movies', 'Abuja', 'Active', 'Actors', 
 var groupData;
 
 // const serviceAccount = require('./path/to/key.json');
-const firebaseConfig = {
-    apiKey: "AIzaSyCNPje1QfnH8Pg8oLzKYj_Guy1GaiiyWLs",
-    authDomain: "telelinking-techfarm.firebaseapp.com",
-    databaseURL: "https://telelinking-techfarm-default-rtdb.firebaseio.com",
-    projectId: "telelinking-techfarm",
-    storageBucket: "telelinking-techfarm.appspot.com",
-    messagingSenderId: "344916823855",
-    appId: "1:344916823855:web:aff753138b8af5bb579bda"
-};
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-
+var db;
 const getalllinkscheck = async (waid) => {
     starCountRef = await ref(db, '/');
     await get(child(starCountRef, "/AllLinks/" + waid)).then((snapshot) => {
@@ -200,7 +189,8 @@ const updateLogo=async(tableName,url)=>{
 }
 
 // control all functions
-const main = async () => {
+const main = async (db1) => {
+    db=db1
     titles = [0, 0, 0, 0, 0];
     // await getWaLinkKey('testing');
     await getLastCrewl();
