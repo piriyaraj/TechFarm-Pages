@@ -168,7 +168,7 @@ const main = async (db1) => {
         var type=sitemaps[i].split("/")[1].split(".")[0]
         await getLastCrewlLink(type)
         var postLinks = await sitemapExtract(sitemaps[i])
-        for(var j=0;j<1;j++){
+        for(var j=0;j<50;j++){
             
             allLinkAvailable="false"
             var cateAndId=await PostExtract(postLinks[j])
