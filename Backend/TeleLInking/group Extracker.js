@@ -163,16 +163,15 @@ function insertData(tableName, data, format = "post") {
 
 
 const main = async (db1) => {
-    db=db1
+    db=db1                                  // init firebase app
     for(var i=0;i<sitemaps.length;i++){
-        var type=sitemaps[i].split("/")[1].split(".")[0]
-        await getLastCrewlLink(type)
+        var type=sitemaps[i].split("/")[1].split(".")[0]     // get sitemap for channel or group
+        await getLastCrewlLink(type)                         // get last crewel data of channel and group
         var postLinks = await sitemapExtract(sitemaps[i])
         for(var j=0;j<postLinks.length;j++){
             
             allLinkAvailable="false"
             var cateAndId=await PostExtract(postLinks[j])
-            console.log()
             await isdataExist(cateAndId[1])
             if(allLinkAvailable){
                 console.log("Already Available")
@@ -211,4 +210,5 @@ const main = async (db1) => {
 const test = async () => {
     console.log(allLinkAvailable)
 }
+main()
 module.exports.run = main;
