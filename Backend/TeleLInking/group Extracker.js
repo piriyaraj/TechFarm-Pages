@@ -174,7 +174,7 @@ const main = async (db1) => {
             var cateAndId=await PostExtract(postLinks[j])
             await isdataExist(cateAndId[1])
             if(allLinkAvailable){
-                console.log(cateAndId[1],"=====>Already Available")
+                console.log("Already Available ===> ",j+1,"/",postLinks.length," ===> ",cateAndId[1])
                 continue
             }
             titles = await check("https://t.me/"+cateAndId[1])
