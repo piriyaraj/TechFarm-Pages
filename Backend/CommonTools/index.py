@@ -2,7 +2,7 @@ from flask import Flask,render_template
 import os
 from threading import Thread
 from AllBikeSpecification import Allbikespecification,ExtractPostLinks,PostMaker
-
+from Facebook import ActressGallery
 app = Flask(__name__)
 
 
@@ -30,6 +30,15 @@ def postmake():
     thread_a = Thread(target=PostMaker.Run, args=())
     thread_a.start()
     return render_template("timepage.html", title="All bike specification post Maker")
+
+
+
+# ========================= Facebook====================================================================
+@app.route('/facebook/actressgallery')
+def postmake():
+    thread_a = Thread(target=ActressGallery.Run, args=())
+    thread_a.start()
+    return render_template("timepage.html", title="Actress Gallery Image upload")
 
 
 
