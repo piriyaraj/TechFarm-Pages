@@ -216,7 +216,7 @@ def downloadImage(userName):
 #     # print(downloadImage())
 
 
-def downloadImages():
+def download():
     # print()
     # return 0
     noOfpost = 0
@@ -335,6 +335,6 @@ def uploadImage():
 
 
 def Run():
-    downloadImage()
+    download()
     time.sleep(60*10)
     uploadImage()
