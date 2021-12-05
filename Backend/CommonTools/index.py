@@ -35,7 +35,7 @@ def postmake():
 
 # ========================= Facebook====================================================================
 @app.route('/facebook/actressgallery')
-def postmake():
+def actressgallerypost():
     thread_a = Thread(target=ActressGallery.Run, args=())
     thread_a.start()
     return render_template("timepage.html", title="Actress Gallery Image upload")
