@@ -1,1 +1,1 @@
-web: python autopost.py
+web: python index.py
