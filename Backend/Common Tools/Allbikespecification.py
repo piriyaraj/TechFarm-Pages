@@ -124,20 +124,3 @@ def Run():
     print(str(count) + " post posted")
     return str(count)+ " post posted"
 
-def sample():
-    for i in range(10):
-        time.sleep(2)
-@app.route('/post')
-def post():
-    thread_a = Thread(target=Run, args=())
-    thread_a.start()
-    return render_template("timepage.html")
-
-@app.route('/')
-def hello():
-    return 'Home Page'
-
-if __name__ == '__main__':
-    # Bind to PORT if defined, otherwise default to 5000.
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
