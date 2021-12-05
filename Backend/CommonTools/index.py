@@ -26,7 +26,7 @@ def extract():
 
 
 @app.route('/allbikespecification/postmaker')
-def extract():
+def postmake():
     thread_a = Thread(target=PostMaker.Run, args=())
     thread_a.start()
     return render_template("timepage.html", title="All bike specification post Maker")
@@ -36,4 +36,4 @@ def extract():
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port,debug=True)
+    app.run(host='0.0.0.0', port=port)
