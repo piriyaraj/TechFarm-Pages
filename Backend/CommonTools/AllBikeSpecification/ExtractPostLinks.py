@@ -155,7 +155,7 @@ def insertData(tableName, data, dataBase, format="post"):
         result = dataBase.post(tableName, data)
 
 
-def run():
+def Run():
     global url
 
     # fileModlelinks = filemake("./data/models/modelsLinks.txt")
