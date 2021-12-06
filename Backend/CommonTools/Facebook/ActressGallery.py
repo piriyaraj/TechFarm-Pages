@@ -169,6 +169,97 @@ def updateInstaId():
         data["lastPost"] = lastPost
         insertData("ScrapData", data, dataBase, format="patch")
 
+# ====================================== upload images ======================================================
+
+# import firebaseSetup
+
+postTime1 = time.time()+10*60
+timeDivision = 10*60
+
+
+def postToFacebook(userName, fullName, imgList, noOfpost):
+    # print(timeDivision)
+    # print(postTime1)
+    imgFolderPath = "./"+userName+"/"
+    # Get Access token - Follow the video on how to get access token for your fb account
+    access_token = os.environ.get('FB_ACCESS', None)
+
+    # The Graph API allows you to read and write data to and from the Facebook social graph
+    asafb = fb.GraphAPI(access_token)
+
+    # Post a photo with captions
+    # asafb.put_photo(open("meme.jpg","rb"), message = "Automated meme post")
+
+    # asafb.put_object("me","feed",message =textQuote)
+    # if(noOfpost==0):
+    #     print("======>"+str(noOfpost)+" photos uploaded")
+    #     return 0
+
+    for i in range(noOfpost):
+        title = imgList[i].split(".")[0]
+        if(title.split("-") == "2021"):
+            title = ""
+        # tags=("#year_"+" #".join(title.split())).replace("-","_")
+        # print(tags,title)
+        message = fullName+"\n#"+fullName.replace(" ", " #")
+
+        # ,is_published=False,scheduled_publish_time=seconds)
+        try:
+            asafb.put_photo(open(imgFolderPath+imgList[i], "rb"), message=message)
+            os.remove(imgFolderPath+imgList[i])
+        except Exception as e:
+            return e
+        print("posted:", imgFolderPath+imgList[i])
+        # postTime=postTime+timeDivision
+    print("======>"+str(noOfpost), "photos uploaded")
+    return 0
+
+
+def getFullName(userName):
+    L = instaloader.Instaloader(
+        download_videos=False, save_metadata=False, post_metadata_txt_pattern='')
+    t = instaloader.Profile.from_username(L.context, userName)
+    return t.full_name
+# if __name__=="__main__":
+    # run(1)
+
+
+def uploadImage(userName):
+
+    imgFolderPath = "./"+userName+"/"
+    try:
+        imgList = (os.listdir(imgFolderPath))
+    except:
+        return 1
+    imgList.reverse()
+    # if(len(imgList)<noOfpost):
+    fullName = getFullName(userName)
+    noOfpost = len(imgList)
+    if(noOfpost == 0):
+        print("\n\n==>Start Facebook page posting " + fullName+">>"+str(i+1)+"/"+str(len(instaIds)))
+        print("======>"+str(noOfpost), "photos uploaded")
+        print("==>End  Facebook  page posting "+fullName)
+        return 1
+
+    # postToFacebook(userName,fullName)
+    # print(userName, fullName, imgList, noOfpost)
+    # if(noOfpost>0):
+    #     continue
+    try:
+        print("\n\n==>Start Facebook page posting "+fullName)
+        status=postToFacebook(userName, fullName, imgList, noOfpost)
+        if(status!=1):
+            print(status)
+            return 0
+        print("==>End  Facebook  page posting "+fullName)
+        os.rmdir(userName)
+
+
+    except Exception as e:
+        print(e)
+        return 0
+
+
 
 # =================================================Download image section===============================================
 
@@ -191,8 +282,7 @@ def downloadImage(userName):
     lastposttime = getLastCrawlingData(userName)
     # lastposttime=int(2021, 4, 20)
     if(lastposttime == None):
-      lastposttime = str(datetime.datetime.now() -
-                         datetime.timedelta(days=1)).split(".")[0]
+        lastposttime = str(datetime.datetime.now() -datetime.timedelta(days=1)).split(".")[0]
     SINCE = datetime.datetime.now()
 
     UNTIL = datetime.datetime.strptime(lastposttime[2:], "%y-%m-%d %H:%M:%S")
@@ -216,7 +306,7 @@ def downloadImage(userName):
 #     # print(downloadImage())
 
 
-def download():
+def downloadAndUpload():
     # print()
     # return 0
     noOfpost = 0
@@ -230,11 +320,14 @@ def download():
             # print(instaIds[i])
             # print(str(i+1))
             # print(str(len(instaIds)))
+            setLoopCount(loopCount)
+
             print("=============="+instaIds[i]+"==============\n==>Starting download "+str(
                 i+1)+"/"+str(len(instaIds)))
             t = instaIds[i]
-            threading.Thread(target=downloadImage, args=(t,)).start()
-            # downloadImage(t)
+            # threading.Thread(target=downloadImage, args=(t,)).start()
+            downloadImage(t)
+            uploadImage(t)
             # noOfpost+=downloadImage(instaIds[i].split("\n")[0])
             print("\n==>End Download\n\n")
     except Exception as e:
@@ -249,92 +342,6 @@ def download():
     return 1
 
 
-# ====================================== upload images ======================================================
-
-# import firebaseSetup
-
-postTime1 = time.time()+10*60
-timeDivision = 10*60
-
-
-def postToFacebook(userName, fullName, imgList, noOfpost):
-    # print(timeDivision)
-    # print(postTime1)
-    imgFolderPath = "./"+userName+"/"
-    # Get Access token - Follow the video on how to get access token for your fb account
-    access_token = "EAANEfkg9FMsBAMZBbAbFxbeprOIP4SMoV1JdIM3qhWXvALeprNtSq30ZCGUByeWt1FiaZA4ZBGuwuaoyC2bnkSYKrgCUujv7uBNQRYrSZAgm2B36rMkKvNxq489BXpF5vNowVRiwcWG9n6hrno7qUBLEdbpPk1CJyAcWL5NsFqtZCxysBn3PEY"
-
-    # The Graph API allows you to read and write data to and from the Facebook social graph
-    asafb = fb.GraphAPI(access_token)
-
-    # Post a photo with captions
-    # asafb.put_photo(open("meme.jpg","rb"), message = "Automated meme post")
-
-    # asafb.put_object("me","feed",message =textQuote)
-    # if(noOfpost==0):
-    #     print("======>"+str(noOfpost)+" photos uploaded")
-    #     return 0
-
-    for i in range(noOfpost):
-        title = imgList[i].split(".")[0]
-        if(title.split("-") == "2021"):
-            title = ""
-        # tags=("#year_"+" #".join(title.split())).replace("-","_")
-        # print(tags,title)
-        message = fullName+"\n#"+fullName.replace(" ", " #")
-
-        # ,is_published=False,scheduled_publish_time=seconds)
-        asafb.put_photo(open(imgFolderPath+imgList[i], "rb"), message=message)
-        os.remove(imgFolderPath+imgList[i])
-        print("posted:", imgFolderPath+imgList[i])
-        # postTime=postTime+timeDivision
-    print("======>"+str(noOfpost), "photos uploaded")
-
-
-def getFullName(userName):
-    L = instaloader.Instaloader(
-        download_videos=False, save_metadata=False, post_metadata_txt_pattern='')
-    t = instaloader.Profile.from_username(L.context, userName)
-    return t.full_name
-# if __name__=="__main__":
-    # run(1)
-
-
-def uploadImage():
-    instaIds = getInstaId()
-    for i in range(len(instaIds)):
-        userName = instaIds[i].split("\n")[0]
-        imgFolderPath = "./"+userName+"/"
-        try:
-            imgList = (os.listdir(imgFolderPath))
-        except:
-            continue
-        imgList.reverse()
-        # if(len(imgList)<noOfpost):
-        noOfpost = len(imgList)
-        if(noOfpost == 0):
-            print("\n\n==>Start Facebook page posting " + fullName+">>"+str(i+1)+"/"+str(len(instaIds)))
-            print("======>"+str(noOfpost), "photos uploaded")
-            print("==>End  Facebook  page posting "+fullName)
-            continue
-
-        fullName = getFullName(userName)
-        # postToFacebook(userName,fullName)
-        # print(userName, fullName, imgList, noOfpost)
-        # if(noOfpost>0):
-        #     continue
-        try:
-            print("\n\n==>Start Facebook page posting "+fullName)
-            postToFacebook(userName, fullName, imgList, noOfpost)
-            print("==>End  Facebook  page posting "+fullName)
-
-        except Exception as e:
-            print(e)
-            continue
-        os.rmdir(userName)
-
 
 def Run():
-    download()
-    time.sleep(60*10)
-    uploadImage()
+    downloadAndUpload()
