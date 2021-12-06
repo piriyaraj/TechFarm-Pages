@@ -40,7 +40,10 @@ def actressgallerypost():
     thread_a.start()
     return render_template("timepage.html", title="Actress Gallery Image upload")
 
-
+@app.route("/check")
+def testing():
+    accessToken = os.environ.get('FB_ACCESS', None)
+    print(accessToken)
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
