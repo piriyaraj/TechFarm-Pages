@@ -276,8 +276,7 @@ def downloadImage(userName):
     lastposttime = getLastCrawlingData(userName)
     # lastposttime=int(2021, 4, 20)
     if(lastposttime == None):
-      lastposttime = str(datetime.datetime.now() -
-                         datetime.timedelta(days=1)).split(".")[0]
+        lastposttime = str(datetime.datetime.now() -  datetime.timedelta(days=1)).split(".")[0]
     SINCE = datetime.datetime.now()
 
     UNTIL = datetime.datetime.strptime(lastposttime[2:], "%y-%m-%d %H:%M:%S")
@@ -318,7 +317,10 @@ def download():
             print("=============="+instaIds[i]+"==============\n==>Starting download "+str(
                 i+1)+"/"+str(len(instaIds)))
             t = instaIds[i]
-            threading.Thread(target=downloadImage, args=(t,)).start()
+            try:
+                threading.Thread(target=downloadImage, args=(t,)).start()
+            except:
+                pass
             # downloadImage(t)
             # noOfpost+=downloadImage(instaIds[i].split("\n")[0])
             print("\n==>End Download\n\n")
@@ -336,6 +338,9 @@ def download():
 
 
 def Run():
-    download()
+    try:
+        download()
+    except:
+        pass
     time.sleep(60*10)
     uploadImage()
