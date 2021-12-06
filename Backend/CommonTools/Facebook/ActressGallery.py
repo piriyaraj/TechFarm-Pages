@@ -204,15 +204,11 @@ def postToFacebook(userName, fullName, imgList, noOfpost):
         message = fullName+"\n#"+fullName.replace(" ", " #")
 
         # ,is_published=False,scheduled_publish_time=seconds)
-        try:
-            asafb.put_photo(open(imgFolderPath+imgList[i], "rb"), message=message)
-            os.remove(imgFolderPath+imgList[i])
-        except Exception as e:
-            return e
+        asafb.put_photo(open(imgFolderPath+imgList[i], "rb"), message=message)
+        os.remove(imgFolderPath+imgList[i])
         print("posted:", imgFolderPath+imgList[i])
         # postTime=postTime+timeDivision
     print("======>"+str(noOfpost), "photos uploaded")
-    return 0
 
 
 def getFullName(userName):
@@ -224,40 +220,38 @@ def getFullName(userName):
     # run(1)
 
 
-def uploadImage(userName):
+def uploadImage():
+    instaIds = getInstaId()
+    for i in range(len(instaIds)):
+        userName = instaIds[i].split("\n")[0]
+        imgFolderPath = "./"+userName+"/"
+        try:
+            imgList = (os.listdir(imgFolderPath))
+        except:
+            continue
+        imgList.reverse()
+        # if(len(imgList)<noOfpost):
+        noOfpost = len(imgList)
+        if(noOfpost == 0):
+            print("\n\n==>Start Facebook page posting " + fullName+">>"+str(i+1)+"/"+str(len(instaIds)))
+            print("======>"+str(noOfpost), "photos uploaded")
+            print("==>End  Facebook  page posting "+fullName)
+            continue
 
-    imgFolderPath = "./"+userName+"/"
-    try:
-        imgList = (os.listdir(imgFolderPath))
-    except:
-        return 1
-    imgList.reverse()
-    # if(len(imgList)<noOfpost):
-    fullName = getFullName(userName)
-    noOfpost = len(imgList)
-    if(noOfpost == 0):
-        print("\n\n==>Start Facebook page posting " + fullName+">>"+str(i+1)+"/"+str(len(instaIds)))
-        print("======>"+str(noOfpost), "photos uploaded")
-        print("==>End  Facebook  page posting "+fullName)
-        return 1
+        fullName = getFullName(userName)
+        # postToFacebook(userName,fullName)
+        # print(userName, fullName, imgList, noOfpost)
+        # if(noOfpost>0):
+        #     continue
+        try:
+            print("\n\n==>Start Facebook page posting "+fullName)
+            postToFacebook(userName, fullName, imgList, noOfpost)
+            print("==>End  Facebook  page posting "+fullName)
 
-    # postToFacebook(userName,fullName)
-    # print(userName, fullName, imgList, noOfpost)
-    # if(noOfpost>0):
-    #     continue
-    try:
-        print("\n\n==>Start Facebook page posting "+fullName)
-        status=postToFacebook(userName, fullName, imgList, noOfpost)
-        if(status!=1):
-            print(status)
-            return 0
-        print("==>End  Facebook  page posting "+fullName)
+        except Exception as e:
+            print(e)
+            continue
         os.rmdir(userName)
-
-
-    except Exception as e:
-        print(e)
-        return 0
 
 
 
@@ -282,7 +276,8 @@ def downloadImage(userName):
     lastposttime = getLastCrawlingData(userName)
     # lastposttime=int(2021, 4, 20)
     if(lastposttime == None):
-        lastposttime = str(datetime.datetime.now() -datetime.timedelta(days=1)).split(".")[0]
+      lastposttime = str(datetime.datetime.now() -
+                         datetime.timedelta(days=1)).split(".")[0]
     SINCE = datetime.datetime.now()
 
     UNTIL = datetime.datetime.strptime(lastposttime[2:], "%y-%m-%d %H:%M:%S")
@@ -306,7 +301,7 @@ def downloadImage(userName):
 #     # print(downloadImage())
 
 
-def downloadAndUpload():
+def download():
     # print()
     # return 0
     noOfpost = 0
@@ -320,14 +315,11 @@ def downloadAndUpload():
             # print(instaIds[i])
             # print(str(i+1))
             # print(str(len(instaIds)))
-            setLoopCount(loopCount)
-
             print("=============="+instaIds[i]+"==============\n==>Starting download "+str(
                 i+1)+"/"+str(len(instaIds)))
             t = instaIds[i]
-            # threading.Thread(target=downloadImage, args=(t,)).start()
-            downloadImage(t)
-            uploadImage(t)
+            threading.Thread(target=downloadImage, args=(t,)).start()
+            # downloadImage(t)
             # noOfpost+=downloadImage(instaIds[i].split("\n")[0])
             print("\n==>End Download\n\n")
     except Exception as e:
@@ -344,4 +336,6 @@ def downloadAndUpload():
 
 
 def Run():
-    downloadAndUpload()
+    download()
+    time.sleep(60*10)
+    uploadImage()
