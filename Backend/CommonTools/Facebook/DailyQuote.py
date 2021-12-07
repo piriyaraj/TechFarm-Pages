@@ -41,7 +41,7 @@ def postToFacebookImage():
     # The Graph API allows you to read and write data to and from the Facebook social graph
     asafb = fb.GraphAPI(access_token)
 
-    asafb.put_photo(open("Quote of the day.jpg", "rb"))
+    asafb.put_photo(open("Facebook/Quote of the day.jpg", "rb"))
     os.remove("Facebook/Quote of the day.jpg")
 
 def addLogo(logo,image):
@@ -74,11 +74,11 @@ def addLogo(logo,image):
 def downloadImage(imgUrl):
     res = requests.get(imgUrl)
 
-    file = open("Quote of the day.jpg",'wb')
+    file = open("Facebook/Quote of the day.jpg", 'wb')
     for chunk in res.iter_content(10000):
         file.write(chunk)
     file.close()
-    addLogo("testlogo.png", "Quote of the day.jpg")
+    addLogo("Facebook/testlogo.png", "Facebook/Quote of the day.jpg")
     
 
 def getTextQuotes(soup):
@@ -107,7 +107,7 @@ def Run():
     
     downloadImage(imgUrl)
     postToFacebookImage()
-    dailyQuotes = open("data/dailyQuotes.txt", "w")
+    dailyQuotes = open("Facebook/data/dailyQuotes.txt", "w")
     dailyQuotes.write(imgUrl)
     dailyQuotes.close()
 
