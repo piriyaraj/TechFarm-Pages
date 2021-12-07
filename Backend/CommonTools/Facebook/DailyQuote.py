@@ -11,7 +11,7 @@
 import os
 from bs4 import BeautifulSoup
 import requests
-from PIL import Image, ImageDraw,
+from PIL import Image, ImageDraw
 import facebook as fb
 
 url = "https://www.brainyquote.com/quote_of_the_day"
