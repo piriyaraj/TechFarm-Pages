@@ -1,7 +1,7 @@
-from flask import Flask,render_template
+from flask import Flask, render_template, send_from_directory
 import os
 from threading import Thread
-from AllBikeSpecification import Allbikespecification, ExtractPostLinks, PostMaker, send_from_directory
+from AllBikeSpecification import Allbikespecification, ExtractPostLinks, PostMaker
 from Facebook import ActressGallery
 app = Flask(__name__)
 
