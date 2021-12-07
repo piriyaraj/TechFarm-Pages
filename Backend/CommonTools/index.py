@@ -46,7 +46,7 @@ def actressgallerypost():
     return render_template("timepage.html", title="Actress Gallery Image upload")
 
 @app.route('/facebook/dailyQuotes')
-def actressgallerypost():
+def dailyQuotes():
     thread_a = Thread(target=DailyQuote.Run, args=())
     thread_a.start()
     return render_template("timepage.html", title="Daily Quotes")
