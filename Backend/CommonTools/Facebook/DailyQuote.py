@@ -97,7 +97,7 @@ def Run():
     soup = BeautifulSoup(reqs.text, 'html.parser')
     imgUrl = "https://www.brainyquote.com" + soup.find_all("a", {"class": "oncl_q"})[0].find_all("img")[0].get_attribute_list("src")[0]
 
-    dailyQuotes = open("data/dailyQuotes.txt", "r")
+    dailyQuotes = open("Facebook/data/dailyQuotes.txt", "r")
     lastImgUrl = dailyQuotes.readline()
     dailyQuotes.close()
 
