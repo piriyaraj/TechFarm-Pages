@@ -10,7 +10,7 @@ from threading import Thread
 
 app = Flask(__name__)
 
-noOfPost = 100
+noOfPost = 1
 databaseUrl = "https://colabfacebook-default-rtdb.firebaseio.com/"
 
 firebase = firebase.FirebaseApplication(databaseUrl, None)
@@ -124,3 +124,5 @@ def Run():
     print(str(count) + " post posted")
     return str(count)+ " post posted"
 
+if __name__=="__main__":
+    Run()

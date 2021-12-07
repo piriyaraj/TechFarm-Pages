@@ -13,7 +13,7 @@ def hello():
 
 @app.route('/favicon.ico')
 def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static'),'favicon.ico', mimetype='image/vnd.microsoft.icon')
+    return "hello"
 
 # all bike specification blogger autopost
 @app.route('/allbikespecification/autopost')
@@ -53,4 +53,4 @@ def testing():
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port,debug=True)
