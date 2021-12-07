@@ -1,7 +1,7 @@
 from flask import Flask,render_template
 import os
 from threading import Thread
-from AllBikeSpecification import Allbikespecification,ExtractPostLinks,PostMaker
+from AllBikeSpecification import Allbikespecification, ExtractPostLinks, PostMaker, send_from_directory
 from Facebook import ActressGallery
 app = Flask(__name__)
 
@@ -9,6 +9,11 @@ app = Flask(__name__)
 @app.route('/')
 def hello():
     return 'Home Page' 
+
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 # all bike specification blogger autopost
 @app.route('/allbikespecification/autopost')
