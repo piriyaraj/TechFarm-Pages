@@ -283,11 +283,14 @@ def downloadImage(userName):
 
     print("Start Time:", UNTIL, "\nEnd   Time:", SINCE)
     timeList = []
-    for post in takewhile(lambda p: p.date > UNTIL, dropwhile(lambda p: p.date > SINCE, posts)):
-        print(post.date)
+    try:
+        for post in takewhile(lambda p: p.date > UNTIL, dropwhile(lambda p: p.date > SINCE, posts)):
+            print(post.date)
 
-        timeList.append(str(post.date))
-        L.download_post(post, userName)
+            timeList.append(str(post.date))
+            L.download_post(post, userName)
+    except:
+        setLastCrawlingData(userName, timeList[0])
     if(len(timeList) > 0):
         setLastCrawlingData(userName, timeList[0])
         # totalPhotos=totalPhotos+len(timeList)
