@@ -17,6 +17,8 @@ import facebook as fb
 url = "https://www.brainyquote.com/quote_of_the_day"
 
 access_token = os.environ.get('FB_QUOTES_ACCESS', None)
+path = os.path.dirname(os.path.abspath(__file__))+"/"
+
 
 
 def postToFacebookText(postQuotes):
@@ -39,8 +41,8 @@ def postToFacebookImage():
     # The Graph API allows you to read and write data to and from the Facebook social graph
     asafb = fb.GraphAPI(access_token)
 
-    asafb.put_photo(open("Quote of the day.jpg", "rb"))
-    os.remove("Quote of the day.jpg")
+    asafb.put_photo(open(path+"Quote of the day.jpg", "rb"))
+    os.remove(path+"Quote of the day.jpg")
 
 def addLogo(logo,image):
 
@@ -73,14 +75,12 @@ def addLogo(logo,image):
 def downloadImage(imgUrl):
     res = requests.get(imgUrl)
 
-    file = open("Quote of the day.jpg",'wb')
+    file = open(path+"Quote of the day.jpg",'wb')
     for chunk in res.iter_content(10000):
         file.write(chunk)
     file.close()
-    addLogo("testlogo.png", "Quote of the day.jpg")
-    dailyQuotes=open("data/dailyQuotes.txt","w")
-    dailyQuotes.write(imgUrl)
-    dailyQuotes.close()
+    addLogo(path+"testlogo.png", path+"Quote of the day.jpg")
+    
 
 def getTextQuotes(soup):
     allDiv = soup.find_all("div", {"class": "qotd-q-cntr"})
@@ -98,7 +98,7 @@ def Run():
     soup = BeautifulSoup(reqs.text, 'html.parser')
     imgUrl = "https://www.brainyquote.com" + soup.find_all("a", {"class": "oncl_q"})[0].find_all("img")[0].get_attribute_list("src")[0]
 
-    dailyQuotes = open("data/dailyQuotes.txt", "r")
+    dailyQuotes = open(path+"data/dailyQuotes.txt", "r")
     lastImgUrl = dailyQuotes.readline()
     dailyQuotes.close()
 
@@ -108,10 +108,16 @@ def Run():
     
     downloadImage(imgUrl)
     postToFacebookImage()
+    dailyQuotes = open(path+"data/dailyQuotes.txt", "w")
+    dailyQuotes.write(imgUrl)
+    dailyQuotes.close()
+
     Quotes=getTextQuotes(soup)
     postToFacebookText(Quotes)
 
 if __name__=="__main__":
+    # path=os.path.dirname(os.path.abspath(__file__))
+    # print(path)
     Run()
 
 
