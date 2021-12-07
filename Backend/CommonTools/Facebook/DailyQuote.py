@@ -17,7 +17,7 @@ import facebook as fb
 url = "https://www.brainyquote.com/quote_of_the_day"
 
 access_token = os.environ.get('FB_QUOTES_ACCESS', None)
-path = os.path.dirname(os.path.abspath(__file__))+"/"
+path = ""
 
 
 
@@ -42,7 +42,7 @@ def postToFacebookImage():
     asafb = fb.GraphAPI(access_token)
 
     asafb.put_photo(open(path+"Quote of the day.jpg", "rb"))
-    os.remove(path+"Quote of the day.jpg")
+    os.remove("Facebook/Quote of the day.jpg")
 
 def addLogo(logo,image):
 
@@ -98,7 +98,7 @@ def Run():
     soup = BeautifulSoup(reqs.text, 'html.parser')
     imgUrl = "https://www.brainyquote.com" + soup.find_all("a", {"class": "oncl_q"})[0].find_all("img")[0].get_attribute_list("src")[0]
 
-    dailyQuotes = open(path+"data/dailyQuotes.txt", "r")
+    dailyQuotes = open("Facebook/data/dailyQuotes.txt", "r")
     lastImgUrl = dailyQuotes.readline()
     dailyQuotes.close()
 
