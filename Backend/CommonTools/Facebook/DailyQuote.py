@@ -105,6 +105,7 @@ def Run():
         print("No new updates")
         return
     
+    print("New Post available")
     downloadImage(imgUrl)
     postToFacebookImage()
     dailyQuotes = open("Facebook/data/dailyQuotes.txt", "w")
