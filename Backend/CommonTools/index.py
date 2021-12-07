@@ -2,7 +2,7 @@ from flask import Flask, render_template, send_from_directory
 import os
 from threading import Thread
 from AllBikeSpecification import Allbikespecification, ExtractPostLinks, PostMaker
-from Facebook import ActressGallery
+from Facebook import ActressGallery,DailyQuote
 app = Flask(__name__)
 
 
@@ -44,6 +44,12 @@ def actressgallerypost():
     thread_a = Thread(target=ActressGallery.Run, args=())
     thread_a.start()
     return render_template("timepage.html", title="Actress Gallery Image upload")
+
+@app.route('/facebook/dailyQuotes')
+def actressgallerypost():
+    thread_a = Thread(target=DailyQuote.Run, args=())
+    thread_a.start()
+    return render_template("timepage.html", title="Daily Quotes")
 
 @app.route("/check")
 def testing():
