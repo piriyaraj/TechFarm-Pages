@@ -5,8 +5,7 @@ const schedule = require('node-schedule');;
 const axios = require("axios");
 const cheerio = require("cheerio");
 // const groupsorExtract= require('./groupsorExtract');
-const mailer=require("./sentmail");
-const waTools=require("./tools");
+const waTools=require("./groupsorExtract");
 
 // const { default: scrap } = require("./src/scrap");
 const app = express();
@@ -28,21 +27,21 @@ app.get("/", (req, res) => {
 })
 app.get("/extractfromgroupsor",(req,res)=>{
     res.sendFile("timepage.html", options);
-    waTools.extractGroupsor();
+    waTools.run();
     
 })
-app.get("/invalidcheck", (req, res) => {
-    res.sendFile("timepagevalid.html", options)
-    waTools.invalidChecker();
+// app.get("/invalidcheck", (req, res) => {
+//     res.sendFile("timepagevalid.html", options)
+//     waTools.invalidChecker();
 
-})
-app.get("/getmail",(req,res)=>{
-    mailer.sent("piriyaraj1998@gmail.com", "Groupsor Extract started");
-    res.send("mail send");
-})
-app.get("/run", (req, res) => {
-    main();
-})
+// })
+// app.get("/getmail",(req,res)=>{
+//     mailer.sent("piriyaraj1998@gmail.com", "Groupsor Extract started");
+//     res.send("mail send");
+// })
+// app.get("/run", (req, res) => {
+//     main();
+// })
 app.listen(port, () => {
     console.log(`App lisition on the localhost port runing on http://localhost:${port}`)
 })

@@ -214,7 +214,8 @@ const test=async ()=>{
 }
 
 // test();
-main();
+module.exports.run = main;
+
 // setInterval(() => {
     // main();
 // }, 10*1000);

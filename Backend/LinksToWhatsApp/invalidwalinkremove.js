@@ -216,5 +216,5 @@ const test = async () => {
     
     console.log(allTableName)
 }
-main()
+// main()
 module.exports.run=main;
