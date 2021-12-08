@@ -147,7 +147,10 @@ const addLink = async (i, toPost)=>{
             var data = {
                 "groupLink": groupkey,
                 "groupName": groupName,
-                "groupDescri": groupDescri
+                "groupDescri": groupDescri,
+                "language": language,
+                "country": country,
+                "category": category,
             }
             
             // console.log(data);
@@ -158,6 +161,9 @@ const addLink = async (i, toPost)=>{
                     "groupLink": groupkey,
                     "groupName": groupName,
                     "groupDescri": groupDescri,
+                    "language": language,
+                    "country": country,
+                    "category": category,
                     "groupCategory": tableName,
                 }
                 uploadWaLink("latestUpdates", data1);
@@ -214,6 +220,7 @@ const test=async ()=>{
 }
 
 // test();
+main()
 module.exports.run = main;
 
 // setInterval(() => {
