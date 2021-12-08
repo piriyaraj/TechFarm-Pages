@@ -732,19 +732,23 @@ function initLoadLatestMoreLink() {
     mainContent.insertBefore(newSection, mainContent.lastChild)
 }
 
-function insertLatestBlock(groupName, groupLink, groupLogo, groupCount, groupType, groupDescri) {
+function insertLatestBlock(groupName, groupLink, groupLogo, groupLanguage, groupCategory, groupCountry, groupDescri, groupId) {
     var resultDiv = document.getElementById("showlatest");
     newDiv = document.createElement('div'); //create a div
     newDiv.className = "maindiv";
     var tag = groupBlock;
     tag = tag.replaceAll('groupName', groupName);
-    tag = tag.replaceAll('groupLogo', groupLogo);
+    tag = tag.replaceAll('groupLogo', 'https://web.whatsapp.com/invite/icon/' + groupId);
     tag = tag.replaceAll('groupLink', groupLink);
-    tag = tag.replaceAll('groupCount', groupCount);
-    tag = tag.replaceAll('groupType', groupType);
-    tag = tag.replaceAll('grouplinkText', groupLink.split("/").pop());
+    tag = tag.replaceAll('groupCountry', groupCountry);
+    tag = tag.replaceAll('groupLanguage', groupLanguage);
+    tag = tag.replaceAll('groupCategory', groupCategory);
+    tag = tag.replaceAll('grouplinkText', groupId);
     tag = tag.replaceAll('groupDescri', groupDescri);
     tag = tag.replaceAll('currentPostLink', document.location.href);
+    tag = tag.replaceAll('languageLink', "/");
+    tag = tag.replaceAll('countryLink', "/");
+    tag = tag.replaceAll('categoryLink', "/");
 
     newDiv.innerHTML = tag; //add an id
     resultDiv.appendChild(newDiv); //append to the doc.body
@@ -777,15 +781,21 @@ function loadLatestMorelink(lastcount) {
                 break;
             }
             var k = tableRow[t];
-            var groupName = dataRow[k].groupName;
-            var groupLink = "https://t.me/" + dataRow[k].groupLink;
-            var groupLogo = dataRow[k].groupLogo;
-            var groupCount = dataRow[k].groupCount;
-            var groupType = dataRow[k].groupType;
-            var groupDescri = dataRow[k].groupDescri;
+            
             // insertRow(groupName, groupLink);
-            insertLatestBlock(groupName, groupLink, groupLogo, groupCount, groupType, groupDescri)
+            // insertLatestBlock(groupName, groupLink, groupLogo, groupCount, groupType, groupDescri)
             // console.log(name, url);
+            var groupName = dataRow[k].groupName;
+            // var groupLink = "https://t.me/" + dataRow[k].groupLink;
+            var groupLink = "/p/telegram-links.html?tablename=" + tableName + "/" + tableRow[t];
+            var groupLogo = dataRow[k].groupLogo;
+            var groupLanguage = dataRow[k].language;
+            var groupCategory = dataRow[k].category;
+            var groupDescri = dataRow[k].groupDescri;
+            var groupCountry = dataRow[k].country;
+
+            // insertRow(groupName, groupLink);
+            insertBlock(groupName, groupLink, groupLogo, groupLanguage, groupCategory, groupCountry, groupDescri, dataRow[k].groupLink)
 
         }
         // console.log(tableRow);
@@ -859,13 +869,16 @@ function loadLatest() {
             // var url = "https://bikespeci.blogspot.com/p/gateway.html?telelink=" + dataRow[k].groupLink;
             //                 var url = "https://chat.whatsapp.com/" + dataRow[k].groupLink;
             var groupName = dataRow[k].groupName;
-            var groupLink = "https://t.me/" + dataRow[k].groupLink;
+            // var groupLink = "https://t.me/" + dataRow[k].groupLink;
+            var groupLink = "/p/telegram-links.html?tablename=" + i + "/" + tableRow[t];
             var groupLogo = dataRow[k].groupLogo;
-            var groupCount = dataRow[k].groupCount;
-            var groupType = dataRow[k].groupType;
+            var groupLanguage = dataRow[k].language;
+            var groupCategory = dataRow[k].category;
             var groupDescri = dataRow[k].groupDescri;
+            var groupCountry = dataRow[k].country;
+
             // insertRow(groupName, groupLink);
-            insertLatestBlock(groupName, groupLink, groupLogo, groupCount, groupType, groupDescri)
+            insertLatestBlock(groupName, groupLink, groupLogo, groupLanguage, groupCategory, groupCountry, groupDescri, dataRow[k].groupLink)
             // console.log(name, url);
         }
         // console.log(tableRow);
