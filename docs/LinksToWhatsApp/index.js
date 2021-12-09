@@ -107,13 +107,13 @@ function initLoadMoreLink() {
 }
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCS4okSW3m4HAjyrUyuzTTVSIp7w4INCMU",
-    authDomain: "smart-shopping-cart-ssc.firebaseapp.com",
-    databaseURL: "https://smart-shopping-cart-ssc-default-rtdb.firebaseio.com",
-    projectId: "smart-shopping-cart-ssc",
-    storageBucket: "smart-shopping-cart-ssc.appspot.com",
-    messagingSenderId: "160224436712",
-    appId: "1:160224436712:web:fd9c34e6c8467a34a3845d"
+    apiKey: "AIzaSyDVwUfxkzIfeDgav_ZWwukDDy81-hIGmfs",
+    authDomain: "links-to-whatsapp.firebaseapp.com",
+    databaseURL: "https://links-to-whatsapp-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "links-to-whatsapp",
+    storageBucket: "links-to-whatsapp.appspot.com",
+    messagingSenderId: "1098223504691",
+    appId: "1:1098223504691:web:354efcc9747e6a0ad14246"
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
