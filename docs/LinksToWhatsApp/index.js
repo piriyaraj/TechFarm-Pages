@@ -178,15 +178,19 @@ function loadMorelink(lastcount) {
                 break;
             }
             var k = tableRow[t];
+            // var url = "https://bikespeci.blogspot.com/p/gateway.html?telelink=" + dataRow[k].groupLink;
+            //                 var url = "https://chat.whatsapp.com/" + dataRow[k].groupLink;
             var groupName = dataRow[k].groupName;
             var groupLink = "https://chat.whatsapp.com/invite/" + dataRow[k].groupLink;
             // var groupLink = "/p/telegram-links.html?tablename=" + tableName + "/" + tableRow[t];
             var groupLogo = dataRow[k].groupLogo;
-            var groupCount = dataRow[k].groupCount;
-            var groupType = dataRow[k].groupType;
+            var groupLanguage = dataRow[k].language;
+            var groupCategory = dataRow[k].category;
             var groupDescri = dataRow[k].groupDescri;
+            var groupCountry = dataRow[k].country;
+
             // insertRow(groupName, groupLink);
-            insertBlock(groupName, groupLink, groupLogo, groupCount, groupType, groupDescri, dataRow[k].groupLink)
+            insertBlock(groupName, groupLink, groupLogo, groupLanguage, groupCategory, groupCountry, groupDescri, dataRow[k].groupLink)
             // console.log(name, url);
             
         }
