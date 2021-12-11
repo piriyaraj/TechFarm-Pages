@@ -13,11 +13,40 @@ from bs4 import BeautifulSoup
 import requests
 from PIL import Image, ImageDraw
 import facebook as fb
+from firebase import firebase
+
 
 url = "https://www.brainyquote.com/quote_of_the_day"
+databaseUrl = "https://colabfacebook-default-rtdb.firebaseio.com/facebook/DailyQuote/"
+dataBase = firebase.FirebaseApplication(databaseUrl, None)
+
 
 access_token = os.environ.get('FB_QUOTES_ACCESS', None)
 path = ""
+
+def insertData(tableName, data, dataBase, format="post"):
+    if(format == "patch"):
+        result = dataBase.patch(tableName, data)
+    else:
+        result = dataBase.post(tableName, data)
+
+def getLastUrl():
+    dic = dataBase.get(databaseUrl, "data")
+
+    try:                                   # if scrapdata table not exist then add it in database
+        lastUrl = dic['lastImageUrl']
+    except:
+        loopCount = 0
+        data = {}
+        data["loopCount"] = 0
+        insertData("data", data, dataBase, format="patch")
+    return lastUrl
+
+
+def setLastUrl(lastUrl):
+    data = {}
+    data["lastImageUrl"] = lastUrl
+    insertData("data", data, dataBase, format="patch")
 
 
 
@@ -97,9 +126,9 @@ def Run():
     soup = BeautifulSoup(reqs.text, 'html.parser')
     imgUrl = "https://www.brainyquote.com" + soup.find_all("a", {"class": "oncl_q"})[0].find_all("img")[0].get_attribute_list("src")[0]
 
-    dailyQuotes = open("Facebook/data/dailyQuotes.txt", "r")
-    lastImgUrl = dailyQuotes.readline()
-    dailyQuotes.close()
+    
+    lastImgUrl = getLastUrl()
+    
 
     if(imgUrl == lastImgUrl):
         print("No new updates")
@@ -108,9 +137,8 @@ def Run():
     print("New Post available")
     downloadImage(imgUrl)
     postToFacebookImage()
-    dailyQuotes = open("Facebook/data/dailyQuotes.txt", "w")
-    dailyQuotes.write(imgUrl)
-    dailyQuotes.close()
+    setLastUrl(imgUrl)
+
 
     # Quotes=getTextQuotes(soup)
     # postToFacebookText(Quotes)
