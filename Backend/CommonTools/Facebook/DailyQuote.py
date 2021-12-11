@@ -60,7 +60,7 @@ def postToFacebookText(postQuotes):
         title = post["title"]
         quote = post['quote']
         author = post['author']
-        postText="😊😊😊"+title+"😊😊😉\n\n"+quote+"\n\n"+"By : "+author
+        postText = "😊😊😊"+title+"😊😊😊\n\n▶▶▶"+quote+"◀◀◀\n\n"+"💫By : "+author
         asafb.put_object("me", "feed", message=postText)
 
 def postToFacebookImage():
@@ -140,8 +140,8 @@ def Run():
     setLastUrl(imgUrl)
 
 
-    # Quotes=getTextQuotes(soup)
-    # postToFacebookText(Quotes)
+    Quotes=getTextQuotes(soup)
+    postToFacebookText(Quotes)
 
 if __name__=="__main__":
     # path=os.path.dirname(os.path.abspath(__file__))
