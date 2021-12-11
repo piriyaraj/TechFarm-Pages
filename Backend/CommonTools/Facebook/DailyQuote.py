@@ -112,8 +112,8 @@ def Run():
     dailyQuotes.write(imgUrl)
     dailyQuotes.close()
 
-    Quotes=getTextQuotes(soup)
-    postToFacebookText(Quotes)
+    # Quotes=getTextQuotes(soup)
+    # postToFacebookText(Quotes)
 
 if __name__=="__main__":
     # path=os.path.dirname(os.path.abspath(__file__))
