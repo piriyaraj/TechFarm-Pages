@@ -60,7 +60,8 @@ def postToFacebookText(postQuotes):
         title = post["title"]
         quote = post['quote']
         author = post['author']
-        postText = "😊😊😊"+title+"😊😊😊\n\n▶▶▶"+quote+"◀◀◀\n\n"+"💫By : "+author
+        postText = "😊😊😊"+title+"😊😊😊\n\n▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶\n" + \
+            quote+"\n▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶\n\n"+"💫By : "+author
         asafb.put_object("me", "feed", message=postText)
 
 def postToFacebookImage():
