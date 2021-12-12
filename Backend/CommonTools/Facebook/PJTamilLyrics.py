@@ -109,8 +109,9 @@ def Run():
             indexOfLastPost=0
         for j in allPostLinks[indexOfLastPost:]:
             movie, title, actor, enlishLyrics, tamilLyrics = extractLyrics(j)
-            postText = "🎼Song  : "+title+"\n🎬Movie : "+movie+"\n👨‍🎤Actor : "+actor + \
-                "\n🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶\nIn English :\n\n"+enlishLyrics+"\n🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶\nIn Tamil"+tamilLyrics
+            postText = "🎼Song  : "+title+"\n🎬Movie : "+movie+"\n👨‍🎤Actor  : "+actor + \
+                "\n❤🧡💛💚💙💜🤎🖤🤍💕💓💗💖💘💝💟\nIn English :\n❤🧡💛💚💙💜🤎🖤🤍💕💓💗💖💘💝💟\n"+enlishLyrics + \
+                "\n❤🧡💛💚💙💜🤎🖤🤍💕💓💗💖💘💝💟\nIn Tamil\n❤🧡💛💚💙💜🤎🖤🤍💕💓💗💖💘💝💟\n"+tamilLyrics
             
             try:
                 postToFacebookText(postText)
