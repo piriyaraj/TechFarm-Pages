@@ -11,8 +11,7 @@ databaseUrl = "https://colabfacebook-default-rtdb.firebaseio.com/facebook/PJTami
 dataBase = firebase.FirebaseApplication(databaseUrl, None)
 mainSitemap= "https://www.tamil2lyrics.com/sitemap.xml"
 postLink = "https://www.tamil2lyrics.com/lyrics/amma-amma-nee-engha-amma-song-lyrics/"
-access_token = os.environ.get('FB_QUOTES_ACCESS', None)
-access_token = "EAAMgF7ZAd4icBAKZA1spbhqknhfHFCNjWyhamarJTyPuypnuO6rL1AATGMmeZB6HcdkbNjvBxirHKX3Lzbs2HSDhR3YlN2z9i1zZBPHANh5GEBOEGlp1nCuFiGEP89GkGSqX3YmmZBatpR9jyCeEknx2AmcmWjgvryWH8R3TCNWOmVz2S9db9ySOo2CIhtxzPEoFbdlrgFwZDZD"
+access_token = os.environ.get('FB_PJTAMILLYRICS_ACCESS', None)
 
 
 def exract(url):
@@ -127,3 +126,5 @@ def Run():
                 return -1
 
             
+if __name__=="__main__":
+    postToFacebookText("hello1")
