@@ -70,8 +70,14 @@ def extractLyrics(postLink):
     reqs = requests.get(postLink)
     soup = BeautifulSoup(reqs.text, 'html.parser')
     title=soup.find("h1").text
-    movie = soup.find_all("div",{"class":"lyrics-title"})[0].find_all("div")[1].find("a").text
-    actor = soup.find_all("div", {"class": "lyrics-title"})[0].find("h3").find("a").text
+    try:
+        movie = soup.find_all("div",{"class":"lyrics-title"})[0].find_all("div")[1].find("a").text
+    except:
+        movie="-"
+    try:
+        actor = soup.find_all("div", {"class": "lyrics-title"})[0].find("h3").find("a").text
+    except:
+        actor="-"
 
     enlishLyrics=""
     for i in soup.find("div", {"id": "English"}).find_all("p"):
@@ -80,6 +86,11 @@ def extractLyrics(postLink):
     tamilLyrics = ""
     for i in soup.find("div", {"id": "Tamil"}).find_all("p"):
         tamilLyrics = tamilLyrics+i.text+"\n\n"
+    
+    postText = "🎼Song   : "+title+"\n🎬Movie : "+movie+"\n👨‍🎤Actor  : "+actor + \
+        "\n❤🧡💛💚💙💜🤎🖤🤍💕💓💗💖💘💝💟\nIn Tamil\n❤🧡💛💚💙💜🤎🖤🤍💕💓💗💖💘💝💟\n"+tamilLyrics +\
+        "\n❤🧡💛💚💙💜🤎🖤🤍💕💓💗💖💘💝💟\nIn English :\n❤🧡💛💚💙💜🤎🖤🤍💕💓💗💖💘💝💟\n"+enlishLyrics
+        
 
     return movie,title,actor,enlishLyrics,tamilLyrics
 
@@ -100,7 +111,6 @@ def Run():
         indexOflastSitemap=0
     for i in allLyricsSitemap[indexOflastSitemap:]:
         setLastSitemap(i)
-        print(i)
         allPostLinks=exract(i)
         lastPostLink=getLastPostLink()
         try:
@@ -108,15 +118,16 @@ def Run():
         except:
             indexOfLastPost=0
         for j in allPostLinks[indexOfLastPost:]:
-            movie, title, actor, enlishLyrics, tamilLyrics = extractLyrics(j)
-            postText = "🎼Song  : "+title+"\n🎬Movie : "+movie+"\n👨‍🎤Actor  : "+actor + \
-                "\n❤🧡💛💚💙💜🤎🖤🤍💕💓💗💖💘💝💟\nIn English :\n❤🧡💛💚💙💜🤎🖤🤍💕💓💗💖💘💝💟\n"+enlishLyrics + \
-                "\n❤🧡💛💚💙💜🤎🖤🤍💕💓💗💖💘💝💟\nIn Tamil\n❤🧡💛💚💙💜🤎🖤🤍💕💓💗💖💘💝💟\n"+tamilLyrics
+            print("===> "+j, end=" : ")
+
+            songLyrics = extractLyrics(j)
+            
             
             try:
-                postToFacebookText(postText)
+                postToFacebookText(songLyrics)
                 setLastPostLink(j)
-                print("===> "+j)
+                print(" : posted")
+                return -1
                 time.sleep(60)
 
                 # print(postText)
@@ -128,4 +139,4 @@ def Run():
 
             
 if __name__=="__main__":
-    postToFacebookText("hello1")
+    Run()
