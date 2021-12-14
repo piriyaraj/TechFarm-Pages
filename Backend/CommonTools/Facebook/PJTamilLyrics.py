@@ -126,7 +126,7 @@ def Run():
                 postToFacebookText(songLyrics)
                 setLastPostLink(j)
                 print(" : posted")
-                return -1
+                # return -1
                 time.sleep(60)
 
                 # print(postText)
