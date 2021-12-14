@@ -91,8 +91,7 @@ def extractLyrics(postLink):
         "\n❤🧡💛💚💙💜🤎🖤🤍💕💓💗💖💘💝💟\nIn Tamil\n❤🧡💛💚💙💜🤎🖤🤍💕💓💗💖💘💝💟\n"+tamilLyrics +\
         "\n❤🧡💛💚💙💜🤎🖤🤍💕💓💗💖💘💝💟\nIn English :\n❤🧡💛💚💙💜🤎🖤🤍💕💓💗💖💘💝💟\n"+enlishLyrics
         
-
-    return movie,title,actor,enlishLyrics,tamilLyrics
+    return postText
 
 
 def postToFacebookText(postText):
@@ -121,7 +120,7 @@ def Run():
             print("===> "+j, end=" : ")
 
             songLyrics = extractLyrics(j)
-            
+            # print(songLyrics)
             
             try:
                 postToFacebookText(songLyrics)
