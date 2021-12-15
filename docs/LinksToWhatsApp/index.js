@@ -117,10 +117,10 @@ const firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-
+const WhatsAppLogo ="https://blogger.googleusercontent.com/img/a/AVvXsEgG3r_yaB3M7pTMV7OBBm3WhfqmguSfqGtNg-Bpkz3rjr84I1MjcT7PV94jRMo6IcwDral_zI5I3M_S-RnfjYmYY1A8i-nDDtmAr6ZuwAr5O1-Ezm121q3C8kROUbx3RrE5ARLF5mGz4UCe1LKv4urCbDEAJWqhwkN5oCMx4L6itjm1x4mz1uY5hmH-4w=s320"
 function imgError(image) {
     image.onerror = "";
-    image.src = "https://blogger.googleusercontent.com/img/a/AVvXsEgG3r_yaB3M7pTMV7OBBm3WhfqmguSfqGtNg-Bpkz3rjr84I1MjcT7PV94jRMo6IcwDral_zI5I3M_S-RnfjYmYY1A8i-nDDtmAr6ZuwAr5O1-Ezm121q3C8kROUbx3RrE5ARLF5mGz4UCe1LKv4urCbDEAJWqhwkN5oCMx4L6itjm1x4mz1uY5hmH-4w=s320";
+    image.src = WhatsAppLogo;
     return true;
 }
 function insertBlock(groupName, groupLink, groupLogo, groupLanguage, groupCategory, groupCountry, groupDescri,groupId) {
@@ -130,7 +130,11 @@ function insertBlock(groupName, groupLink, groupLogo, groupLanguage, groupCatego
     newDiv.className = "maindiv";
     var tag = groupBlock;
     tag = tag.replaceAll('groupName', groupName);
-    tag = tag.replaceAll('groupLogo', 'https://web.whatsapp.com/invite/icon/' + groupId);
+    if (groupCategory.indexOf("18+") > 0) {
+        tag = tag.replaceAll('groupLogo', WhatsAppLogo);
+    } else {
+        tag = tag.replaceAll('groupLogo', 'https://web.whatsapp.com/invite/icon/' + groupId);
+    }
     tag = tag.replaceAll('groupLink', groupLink);
     tag = tag.replaceAll('groupCountry', groupCountry);
     tag = tag.replaceAll('groupLanguage', groupLanguage);
