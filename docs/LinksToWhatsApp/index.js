@@ -1,234 +1,5 @@
 var articalSectionId = "root";
-var addButtonCode = `
-<div style="position: fixed;
-        bottom: 20px;
-        left: 20px;
-        z-index: 101;">
-    <a class="addbtn" href="#" title="Add New telegram Group" onclick="openForm()">+Add</a>
-</div>
-<div class="form-popup" id="myForm">
-    <h2>Add your telegram link</h2>
-    <form action="javascript:handleIt(this)" class="form-container">
-        <div id='inputSection'>
-            <input type="text" id="addwalink" placeholder="Enter the link" required />
-            <select name="category" id="addcategory" class="selector" required>
-                <option value="">Any Category</option>
-                </option>
-                <option value='Adult/18+/Hot'>Adult/18+/Hot</option>
-                <option value='Art/Design/Photography'>Art/Design/Photography</option>
-                <option value='Auto/Vehicle'>Auto/Vehicle</option>
-                <option value='Business/Advertising/Marketing'>Business/Advertising/Marketing</option>
-                <option value='Comedy/Funny'>Comedy/Funny</option>
-                <option value='Dating/Flirting/Chatting'>Dating/Flirting/Chatting</option>
-                <option value='Education/School'>Education/School</option>
-                <option value='Entertainment/Masti'>Entertainment/Masti</option>
-                <option value='Family/Relationships'>Family/Relationships</option>
-                <option value='Fan Club/Celebrities'>Fan Club/Celebrities</option>
-                <option value='Fashion/Style/Clothing'>Fashion/Style/Clothing</option>
-                <option value='Film/Animation'>Film/Animation</option>
-                <option value='Food/Drinks'>Food/Drinks</option>
-                <option value='Gaming/Apps'>Gaming/Apps</option>
-                <option value='Health/Beauty/Fitness'>Health/Beauty/Fitness</option>
-                <option value='Jobs/Career'>Jobs/Career</option>
-                <option value='Money/Earning'>Money/Earning</option>
-                <option value='Music/Audio/Songs'>Music/Audio/Songs</option>
-                <option value='News/Magazines/Politics'>News/Magazines/Politics</option>
-                <option value='Pets/Animals/Nature'>Pets/Animals/Nature</option>
-                <option value='Roleplay/Comics'>Roleplay/Comics</option>
-                <option value='Science/Technology'>Science/Technology</option>
-                <option value='Shopping/Buy/Sell'>Shopping/Buy/Sell</option>
-                <option value='Social/Friendship/Community'>Social/Friendship/Community</option>
-                <option value='Spiritual/Devotional'>Spiritual/Devotional</option>
-                <option value='Sports/Games'>Sports/Games</option>
-                <option value='Thoughts/Quotes/Jokes'>Thoughts/Quotes/Jokes</option>
-                <option value='ravel/Local/Place'>ravel/Local/Place</option>
-            </select>
-            <select name="language" id="addlanguage" class="selector" required>
-                <option value="">Any Language</option>
-                <option value='Afrikaans'>Afrikaans</option>
-                <option value='Albanian'>Albanian</option>
-                <option value='Amharic'>Amharic</option>
-                <option value='Arabic'>Arabic</option>
-                <option value='Armenian'>Armenian</option>
-                <option value='Azerbaijani'>Azerbaijani</option>
-                <option value='Bangla'>Bangla</option>
-                <option value='Basque'>Basque</option>
-                <option value='Belarusian'>Belarusian</option>
-                <option value='Bosnian'>Bosnian</option>
-                <option value='Bulgarian'>Bulgarian</option>
-                <option value='Catalan'>Catalan</option>
-                <option value='Chinese'>Chinese</option>
-                <option value='Croatian'>Croatian</option>
-                <option value='Czech'>Czech</option>
-                <option value='Danish'>Danish</option>
-                <option value='Dutch'>Dutch</option>
-                <option value='English'>English</option>
-                <option value='Estonian'>Estonian</option>
-                <option value='Filipino'>Filipino</option>
-                <option value='Finnish'>Finnish</option>
-                <option value='French'>French</option>
-                <option value='Galician'>Galician</option>
-                <option value='Georgian'>Georgian</option>
-                <option value='German'>German</option>
-                <option value='Greek'>Greek</option>
-                <option value='Gujarati'>Gujarati</option>
-                <option value='Hebrew'>Hebrew</option>
-                <option value='Hindi'>Hindi</option>
-                <option value='Hungarian'>Hungarian</option>
-                <option value='Icelandic'>Icelandic</option>
-                <option value='Indonesian'>Indonesian</option>
-                <option value='Italian'>Italian</option>
-                <option value='Japanese'>Japanese</option>
-                <option value='Kannada'>Kannada</option>
-                <option value='Kazakh'>Kazakh</option>
-                <option value='Khmer'>Khmer</option>
-                <option value='Korean'>Korean</option>
-                <option value='Kyrgyz'>Kyrgyz</option>
-                <option value='Lao'>Lao</option>
-                <option value='Latvian'>Latvian</option>
-                <option value='Lithuanian'>Lithuanian</option>
-                <option value='Macedonian'>Macedonian</option>
-                <option value='Malay'>Malay</option>
-                <option value='Malayalam'>Malayalam</option>
-                <option value='Marathi'>Marathi</option>
-                <option value='Mongolian'>Mongolian</option>
-                <option value='Myanmar'>Myanmar</option>
-                <option value='Nepali'>Nepali</option>
-                <option value='Norwegian'>Norwegian</option>
-                <option value='Persian'>Persian</option>
-                <option value='Polish'>Polish</option>
-                <option value='Portuguese'>Portuguese</option>
-                <option value='Punjabi</lue="44">Romanian'>Punjabi</lue="44">Romanian</option>
-                <option value='Russian'>Russian</option>
-                <option value='Serbian'>Serbian</option>
-                <option value='Sinhala'>Sinhala</option>
-                <option value='Slovak'>Slovak</option>
-                <option value='Slovenian'>Slovenian</option>
-                <option value='Spanish'>Spanish</option>
-                <option value='Swahili'>Swahili</option>
-                <option value='Swedish'>Swedish</option>
-                <option value='Tamil'>Tamil</option>
-                <option value='Telugu'>Telugu</option>
-                <option value='Thai'>Thai</option>
-                <option value='Turkish'>Turkish</option>
-                <option value='Ukrainian'>Ukrainian</option>
-                <option value='Urdu'>Urdu</option>
-                <option value='Uzbek'>Uzbek</option>
-                <option value='Vietnamese'>Vietnamese</option>
-                <option value='Zulu'>Zulu</option>
-            </select>
-            <select name="country" id="addcountry" class="selector" required>
-                <option value="">Any Country</option>
-                <option value='Algeria'>Algeria</option>
-                <option value='Argentina'>Argentina</option>
-                <option value='Australia'>Australia</option>
-                <option value='Austria'>Austria</option>
-                <option value='Azerbaijan'>Azerbaijan</option>
-                <option value='Bahrain'>Bahrain</option>
-                <option value='Bangladesh'>Bangladesh</option>
-                <option value='Belarus'>Belarus</option>
-                <option value='Belgium'>Belgium</option>
-                <option value='Bolivia'>Bolivia</option>
-                <option value='Bosnia and Herzegovina'>Bosnia and Herzegovina</option>
-                <option value='Brazil'>Brazil</option>
-                <option value='Bulgaria'>Bulgaria</option>
-                <option value='Canada'>Canada</option>
-                <option value='Chile'>Chile</option>
-                <option value='China'>China</option>
-                <option value='Colombia'>Colombia</option>
-                <option value='Croatia'>Croatia</option>
-                <option value='Czechia'>Czechia</option>
-                <option value='Denmark'>Denmark</option>
-                <option value='Egypt'>Egypt</option>
-                <option value='Estonia'>Estonia</option>
-                <option value='Ethiopia'>Ethiopia</option>
-                <option value='Finland'>Finland</option>
-                <option value='France'>France</option>
-                <option value='Georgia'>Georgia</option>
-                <option value='Germany'>Germany</option>
-                <option value='Ghana'>Ghana</option>
-                <option value='Greece'>Greece</option>
-                <option value='Hong Kong'>Hong Kong</option>
-                <option value='Hungary'>Hungary</option>
-                <option value='Iceland'>Iceland</option>
-                <option value='India'>India</option>
-                <option value='Indonesia'>Indonesia</option>
-                <option value='Iraq'>Iraq</option>
-                <option value='Ireland'>Ireland</option>
-                <option value='Israel'>Israel</option>
-                <option value='Italy'>Italy</option>
-                <option value='Jamaica'>Jamaica</option>
-                <option value='Japan'>Japan</option>
-                <option value='Jordan'>Jordan</option>
-                <option value='Kazakhstan'>Kazakhstan</option>
-                <option value='Kenya'>Kenya</option>
-                <option value='Kuwait'>Kuwait</option>
-                <option value='Latvia'>Latvia</option>
-                <option value='Lebanon'>Lebanon</option>
-                <option value='Libya'>Libya</option>
-                <option value='Lithuania'>Lithuania</option>
-                <option value='Luxembourg'>Luxembourg</option>
-                <option value='Macedonia'>Macedonia</option>
-                <option value='Malawi'>Malawi</option>
-                <option value='Malaysia'>Malaysia</option>
-                <option value='Mexico'>Mexico</option>
-                <option value='Montenegro'>Montenegro</option>
-                <option value='Morocco'>Morocco</option>
-                <option value='Mozambique'>Mozambique</option>
-                <option value='Nepal'>Nepal</option>
-                <option value='Netherlands'>Netherlands</option>
-                <option value='New Zealand'>New Zealand</option>
-                <option value='Nigeria'>Nigeria</option>
-                <option value='Norway'>Norway</option>
-                <option value='Oman'>Oman</option>
-                <option value='Pakistan'>Pakistan</option>
-                <option value='Panama'>Panama</option>
-                <option value='Peru'>Peru</option>
-                <option value='Philippines'>Philippines</option>
-                <option value='Poland'>Poland</option>
-                <option value='Portugal'>Portugal</option>
-                <option value='Puerto Rico'>Puerto Rico</option>
-                <option value='Qatar'>Qatar</option>
-                <option value='Romania'>Romania</option>
-                <option value='Russia'>Russia</option>
-                <option value='Saudi Arabia'>Saudi Arabia</option>
-                <option value='Senegal'>Senegal</option>
-                <option value='Serbia'>Serbia</option>
-                <option value='Singapore'>Singapore</option>
-                <option value='Slovakia'>Slovakia</option>
-                <option value='Slovenia'>Slovenia</option>
-                <option value='South Africa'>South Africa</option>
-                <option value='South Korea'>South Korea</option>
-                <option value='Spain'>Spain</option>
-                <option value='Sri Lanka'>Sri Lanka</option>
-                <option value='Sweden'>Sweden</option>
-                <option value='Switzerland'>Switzerland</option>
-                <option value='Taiwan'>Taiwan</option>
-                <option value='Tanzania'>Tanzania</option>
-                <option value='Thailand'>Thailand</option>
-                <option value='Togo'>Togo</option>
-                <option value='Tunisia'>Tunisia</option>
-                <option value='Turkey'>Turkey</option>
-                <option value='Uganda'>Uganda</option>
-                <option value='Ukraine'>Ukraine</option>
-                <option value='United Arab Emirates'>United Arab Emirates</option>
-                <option value='United Kingdom'>United Kingdom</option>
-                <option value='United States'>United States</option>
-                <option value='Venezuela'>Venezuela</option>
-                <option value='Vietnam'>Vietnam</option>
-                <option value='Yemen'>Yemen</option>
-                <option value='Zimbabwe'>Zimbabwe</option>
-            </select>
-        </div>
-        <h2 id="addmessage"></h2>
-        <div id="showGroup"></div>
-        <div class="loader" id="loader"></div>
-        <br /><br />
-        <input type="submit" value="Submit" class="btn" id="submitButton" />
-        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-    </form>
-</div>
-`;
+
 var groupBlock = `
 <div>
     <a style="color: #5a5a5a" target="_blank" href="groupLink" title="WhatsApp group invite link: groupName">
@@ -277,48 +48,6 @@ var groupBlock = `
     </div>
 </div>
 `;
-var description =`
-<p class="postDescri">If you are looking for <b>groupName Telegram groups and channels links</b>, then use the list to get your desired one. Here we have shared the complete list of groupName Telegram groups. Use the group links to participate in a community.</p>
-`;
-var preArticalContent=``;
-
-var PostArticalContent=`
-<h2 class="postfaq">
-    <em>FAQ of groupName telegram groups and channels</em></h2>
-<ol>
-    <li>
-        <h2>Why groupName telegram group and channel links?</h2>
-        <p>The groupName telegram groups and channels give you what you searching for. it's easy to find the most important things easily instead of wasting time on other social media. you can get all the information through the groupName groups and channels.
-            in groupName groups, you can interact with others for getting information or make fun of.</p>
-    </li>
-    <li>
-        <h2>How to join the groupName telegram group or channels?</h2>
-        <p><a title="TeleLinking Telegram group and channel links provider" href="/">TeleLinking</a> provides most of the categories of telegram group and channels links. In Here we are sharing groupName telegram links you can join these groups by just clicking.
-            After that telegram open and you can join.</p>
-    </li>
-    <li>
-        <h2>How do I find groups on Telegram and channels?</h2>
-        <p><a title="TeleLinking Telegram group and channel links provider" href="/">TeleLinking</a> provides all types of telegram groups and channel links. At the right bottom, you can see the filter button using that you can find most of the categories
-            of telegram groups channels links to the groupName category. we classify the filters category, language, and country.</p>
-    </li>
-    <li>
-        <h2>What is the difference between a groupName channel and a groupName group on Telegram?</h2>
-        <p>The key difference between the groupName group and the channel is how to interact with it. In channel admin only can share their content but in the groupName group, you also can share your content.</p>
-    </li>
-    <li>
-        <h2>Conclusion</h2>
-        Thank you for visiting here. we sure you can get all the wanted links. if want to add your groupName group links and channels in the left bottom corner you can see the add button and click it after that fill the group link category, language, country after
-        that submit after that it will be added to our website.</li>
-</ol>
-`;
-
-function initAddButton() {
-    tableDiv = document.body;
-    newSection = document.createElement("section");
-    newSection.id = "addButton";
-    newSection.innerHTML = addButtonCode;
-    tableDiv.parentNode.insertBefore(newSection, tableDiv)
-}
 
 function initLoading() {
     var mainContent = document.getElementById(articalSectionId);
@@ -330,7 +59,7 @@ function initLoading() {
     mainContent.insertBefore(newSection, mainContent.lastChild)
 }
 function initmainloader(tag){  // wait until load group details from firebase
-    console.log(tag)
+    // console.log(tag)
     var mainContent = document.getElementById(tag);
     newSection = document.createElement('section'); //create a div
     newSection.id = "loadermain";
@@ -366,28 +95,6 @@ function initGroupLinks() {
     mainContent.insertBefore(newSection, mainContent.lastChild)
 }
 
-function initPreArtical(groupName) {
-    var mainContent = document.getElementById(articalSectionId);
-    newSection = document.createElement('section'); //create a div
-    newSection.className = "preArtical";
-    newSection.id = "preArtical"
-    // var tag = `<div id="results" style="display: none;">`;
-    newSection.innerHTML = description.replaceAll("groupName",groupName);
-    mainContent.appendChild(newSection); //append to the doc.body
-    mainContent.insertBefore(newSection, mainContent.lastChild)
-}
-
-function initPostArtical(groupName) {
-    var mainContent = document.getElementById(articalSectionId);
-    newSection = document.createElement('section'); //create a div
-    newSection.className = "PostArtical";
-    newSection.id = "PostArtical"
-    // var tag = `<div id="results" style="display: none;">`;
-    newSection.innerHTML = PostArticalContent.replaceAll("groupName", groupName );
-    mainContent.appendChild(newSection); //append to the doc.body
-    mainContent.insertBefore(newSection, mainContent.lastChild)
-}
-
 function initLoadMoreLink() {
     var mainContent = document.getElementById(articalSectionId);
     newSection = document.createElement('section'); //create a div
@@ -400,20 +107,20 @@ function initLoadMoreLink() {
 }
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCS4okSW3m4HAjyrUyuzTTVSIp7w4INCMU",
-    authDomain: "smart-shopping-cart-ssc.firebaseapp.com",
-    databaseURL: "https://smart-shopping-cart-ssc-default-rtdb.firebaseio.com",
-    projectId: "smart-shopping-cart-ssc",
-    storageBucket: "smart-shopping-cart-ssc.appspot.com",
-    messagingSenderId: "160224436712",
-    appId: "1:160224436712:web:fd9c34e6c8467a34a3845d"
+    apiKey: "AIzaSyDVwUfxkzIfeDgav_ZWwukDDy81-hIGmfs",
+    authDomain: "links-to-whatsapp.firebaseapp.com",
+    databaseURL: "https://links-to-whatsapp-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "links-to-whatsapp",
+    storageBucket: "links-to-whatsapp.appspot.com",
+    messagingSenderId: "1098223504691",
+    appId: "1:1098223504691:web:354efcc9747e6a0ad14246"
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-
+const WhatsAppLogo ="https://blogger.googleusercontent.com/img/a/AVvXsEgG3r_yaB3M7pTMV7OBBm3WhfqmguSfqGtNg-Bpkz3rjr84I1MjcT7PV94jRMo6IcwDral_zI5I3M_S-RnfjYmYY1A8i-nDDtmAr6ZuwAr5O1-Ezm121q3C8kROUbx3RrE5ARLF5mGz4UCe1LKv4urCbDEAJWqhwkN5oCMx4L6itjm1x4mz1uY5hmH-4w=s320"
 function imgError(image) {
     image.onerror = "";
-    image.src = "https://w7.pngwing.com/pngs/419/837/png-transparent-telegram-icon-telegram-logo-computer-icons-telegram-blue-angle-triangle-thumbnail.png";
+    image.src = WhatsAppLogo;
     return true;
 }
 function insertBlock(groupName, groupLink, groupLogo, groupLanguage, groupCategory, groupCountry, groupDescri,groupId) {
@@ -423,7 +130,11 @@ function insertBlock(groupName, groupLink, groupLogo, groupLanguage, groupCatego
     newDiv.className = "maindiv";
     var tag = groupBlock;
     tag = tag.replaceAll('groupName', groupName);
-    tag = tag.replaceAll('groupLogo', 'https://web.whatsapp.com/invite/icon/' + groupId);
+    if (groupCategory.indexOf("18+") > 0) {
+        tag = tag.replaceAll('groupLogo', WhatsAppLogo);
+    } else {
+        tag = tag.replaceAll('groupLogo', 'https://web.whatsapp.com/invite/icon/' + groupId);
+    }
     tag = tag.replaceAll('groupLink', groupLink);
     tag = tag.replaceAll('groupCountry', groupCountry);
     tag = tag.replaceAll('groupLanguage', groupLanguage);
@@ -445,7 +156,7 @@ function loadMorelink(lastcount) {
     //     alert(tableName,loadButtonid);
     document.getElementById("loadermain").style.display = "block";
 
-    tableName = document.title.split(" Telegram")[0];
+    tableName = document.title.split(" WhatsApp")[0];
 
     firebase.database().ref(tableName).once("value", function (tableValue) {
         var dataRow = tableValue.val();
@@ -471,15 +182,19 @@ function loadMorelink(lastcount) {
                 break;
             }
             var k = tableRow[t];
+            // var url = "https://bikespeci.blogspot.com/p/gateway.html?telelink=" + dataRow[k].groupLink;
+            //                 var url = "https://chat.whatsapp.com/" + dataRow[k].groupLink;
             var groupName = dataRow[k].groupName;
-            // var groupLink = "https://t.me/" + dataRow[k].groupLink;
-            var groupLink = "/p/telegram-links.html?tablename=" + tableName + "/" + tableRow[t];
+            var groupLink = "https://chat.whatsapp.com/invite/" + dataRow[k].groupLink;
+            // var groupLink = "/p/telegram-links.html?tablename=" + tableName + "/" + tableRow[t];
             var groupLogo = dataRow[k].groupLogo;
-            var groupCount = dataRow[k].groupCount;
-            var groupType = dataRow[k].groupType;
+            var groupLanguage = dataRow[k].language;
+            var groupCategory = dataRow[k].category;
             var groupDescri = dataRow[k].groupDescri;
+            var groupCountry = dataRow[k].country;
+
             // insertRow(groupName, groupLink);
-            insertBlock(groupName, groupLink, groupLogo, groupCount, groupType, groupDescri, dataRow[k].groupLink)
+            insertBlock(groupName, groupLink, groupLogo, groupLanguage, groupCategory, groupCountry, groupDescri, dataRow[k].groupLink)
             // console.log(name, url);
             
         }
@@ -488,6 +203,7 @@ function loadMorelink(lastcount) {
 }
 
 function loadLinks(tableName) {
+    // alert(tableName)
     var i = tableName;
     // document.getElementById("tableHead").innerText = i;
     database = firebase.database();
@@ -513,8 +229,8 @@ function loadLinks(tableName) {
             // var url = "https://bikespeci.blogspot.com/p/gateway.html?telelink=" + dataRow[k].groupLink;
             //                 var url = "https://chat.whatsapp.com/" + dataRow[k].groupLink;
             var groupName = dataRow[k].groupName;
-            // var groupLink = "https://t.me/" + dataRow[k].groupLink;
-            var groupLink = "/p/telegram-links.html?tablename=" + tableName + "/" + tableRow[t];
+            var groupLink = "https://chat.whatsapp.com/invite/" + dataRow[k].groupLink;
+            // var groupLink = "/p/telegram-links.html?tablename=" + tableName + "/" + tableRow[t];
             var groupLogo = dataRow[k].groupLogo;
             var groupLanguage=dataRow[k].language;
             var groupCategory=dataRow[k].category;
@@ -530,196 +246,6 @@ function loadLinks(tableName) {
 
 }
 
-function move() {
-    var elem = document.getElementById("myBar");
-    var width = 0;
-    var time = 0;
-    var id = setInterval(frame, 10 * time);
-
-    function frame() {
-        if (width >= 100) {
-            clearInterval(id);
-            document.getElementById("results").style.display = "block";
-            elem.style.display = "none";
-        } else {
-            width++;
-            elem.style.width = width + '%';
-            elem.innerHTML = "Wait until load all links ";
-
-        }
-    }
-}
-
-// add new group section
-function insertWalink(teleId, table) {
-    var tableAllLink = firebase.database().ref("AllLinks")
-    tableAllLink.child(teleId).set(table);
-    // console.log("inserted into table allLink");
-    return 0;
-}
-// isAvailable("PJ1");
-// insert link in specific table
-function insertSpeciTable(table, waLink, response) {
-    var tableAllLink = firebase.database().ref(table).push();
-    tableAllLink.child("groupName").set(response[0]);
-    tableAllLink.child("groupLink").set(waLink);
-    tableAllLink.child("groupDescri").set(response[4]);
-    tableAllLink.child("groupLogo").set(response[2]);
-    tableAllLink.child("groupType").set(response[1]);
-    tableAllLink.child("groupCount").set(response[3]);
-    // console.log("inserted into table specific one");
-    // document.getElementById("showGroup").style.display = 'block';
-    // document.getElementById("addmessage").innerText = 'Your Group link added in WaLink.link';
-    // document.getElementById("addgroupname").innerText = waName;
-    // document.getElementById("addwaimg").setAttribute("src", "https://web.whatsapp.com/invite/icon/" + waId);
-
-
-    return 0;
-}
-async function insertData(table, waId, response) {
-    // alert(table);
-    database = firebase.database();
-    var ref = await database.ref("AllLinks/" + waId);
-    // console.log(ref.key);
-    ref.once("value", function (tableValue) {
-        var dataRow = tableValue.val();
-        if (dataRow == null) {
-            // console.log("Not in database");
-            insertWalink(waId, table);
-            insertSpeciTable(table, waId, response);
-            if (table.match("Hot") == null) {
-                insertLatestTable("latestUpdates", waId, response);
-            }
-
-        } else {
-            // console.log("This group link already in our site");
-            // alert("This link already in our site");
-            document.getElementById("showGroup").style.display = 'block';
-            // document.getElementById("inputSection").style.display = 'none';
-            document.getElementById("addmessage").innerText = 'This link already in our site';
-            // document.getElementById("addgroupname").innerText = waName;
-            // document.getElementById("addwaimg").setAttribute("src", "https://web.whatsapp.com/invite/icon/" + waId);
-
-            return 1;
-        }
-    });
-}
-
-function insertLatestTable(table, waLink, response) {
-    var tableAllLink = firebase.database().ref(table).push();
-    tableAllLink.child("groupName").set(response[0]);
-    tableAllLink.child("groupLink").set(waLink);
-    tableAllLink.child("groupDescri").set(response[4]);
-    tableAllLink.child("groupLogo").set(response[2]);
-    tableAllLink.child("groupType").set(response[1]);
-    tableAllLink.child("groupCount").set(response[3]);
-    // console.log("inserted into table specific one");
-    document.getElementById("showGroup").style.display = 'block';
-    document.getElementById("addmessage").innerText = 'Your Group link added in telelinking.link';
-
-
-    return 0;
-}
-
-function openForm() {
-    document.getElementById("submitButton").style.display = 'block';
-    document.getElementById("myForm").style.display = "block";
-    document.getElementById("inputSection").style.display = 'block';
-    document.getElementById("submitButton").style.display = "block";
-    document.getElementById("loader").style.display = "none";
-    document.getElementById("showGroup").style.display = "none";
-}
-function closeForm() {
-    document.getElementById("myForm").style.display = "none";
-    document.getElementById("addmessage").innerText = "";
-}
-
-
-const handleIt = async () => {
-
-
-    var waId = await document.getElementById("addwalink").value.split("/").reverse()[0];
-    var category = await document.getElementById("addcategory").value;
-    var language = await document.getElementById("addlanguage").value;
-    var country = await document.getElementById("addcountry").value;
-    var tableName = await country + " " + language + " " + category.replaceAll("/", " ");
-    document.getElementById("inputSection").style.display = 'none';
-    document.getElementById("loader").style.display = 'block';
-    document.getElementById("submitButton").style.display = 'none';
-    console.log(tableName);
-    // document.getElementById("submitButton").disabled = true;
-    fetchText(waId)
-        .then((response) => {
-            // console.log(response);
-            var title = response[0];
-            if (title == -2) {
-                // document.getElementById("showGroup").style.display = 'block';
-                document.getElementById("addmessage").innerText = 'Connection Error Try again later';
-            } else if (title == undefined) {
-                document.getElementById("inputSection").style.display = 'none';
-                // document.getElementById("showGroup").style.display = 'block';
-                // document.getElementById("showGroup").innerHTML="";
-                document.getElementById("addmessage").innerText = 'This link is invalid';
-
-
-                // document.getElementById("addgroupname").innerText = 'waName';
-                // document.getElementById("addwaimg").setAttribute("src", "https://web.whatsapp.com/invite/icon/" + waId);
-            } else {
-                // alert(tableName);
-                var showgroupdiv=document.getElementById("showGroup");
-                showgroupdiv.style.display="block";
-                var tag =groupBlock;
-                tag = tag.replaceAll('groupName', response[0]);
-                tag = tag.replaceAll('groupLogo', response[2]);
-                tag = tag.replaceAll('groupLink', "https://t.me/"+waId);
-                tag = tag.replaceAll('groupCount', response[3]);
-                tag = tag.replaceAll('groupType', response[1]);
-                tag = tag.replaceAll('grouplinkText', waId);
-                tag = tag.replaceAll('groupDescri', response[4]);
-                tag = tag.replaceAll('currentPostLink', document.location.href);
-                showgroupdiv.innerHTML=tag;
-                insertData(tableName, waId, response);
-            }
-
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-        .finally(() => {
-            // document.getElementById("myForm").style.display = 'none';
-            document.getElementById("loader").style.display = 'none';
-            // document.getElementById("inputSection").style.display = 'block';
-            // document.getElementById("submitButton").disabled = false;
-
-
-
-        })
-
-}
-async function fetchText(waId) {
-    console.log('https://telelinking.herokuapp.com/groupetails/' + waId)
-    let response = await fetch('https://telelinking.herokuapp.com/groupetails/' + waId);
-
-    // console.log(response.status); // 200
-    // console.log(response.statusText); // OK
-
-    if (response.status === 200) {
-        // console.log(response);
-
-        let data = await response.json();
-        console.log(data);
-        if(data[0]==0){
-            // alert(data[0]);
-            return({"title": -1});
-        }
-        return data;
-    } else {
-        // console.log(response);
-        return ({
-            "title": -2
-        });
-    }
-}
 // show latest
 function initLoadLatestMoreLink() {
     var mainContent = document.getElementById("loadlatestmorebutton");
@@ -732,19 +258,23 @@ function initLoadLatestMoreLink() {
     mainContent.insertBefore(newSection, mainContent.lastChild)
 }
 
-function insertLatestBlock(groupName, groupLink, groupLogo, groupCount, groupType, groupDescri) {
+function insertLatestBlock(groupName, groupLink, groupLogo, groupLanguage, groupCategory, groupCountry, groupDescri, groupId) {
     var resultDiv = document.getElementById("showlatest");
     newDiv = document.createElement('div'); //create a div
     newDiv.className = "maindiv";
     var tag = groupBlock;
     tag = tag.replaceAll('groupName', groupName);
-    tag = tag.replaceAll('groupLogo', groupLogo);
+    tag = tag.replaceAll('groupLogo', 'https://web.whatsapp.com/invite/icon/' + groupId);
     tag = tag.replaceAll('groupLink', groupLink);
-    tag = tag.replaceAll('groupCount', groupCount);
-    tag = tag.replaceAll('groupType', groupType);
-    tag = tag.replaceAll('grouplinkText', groupLink.split("/").pop());
+    tag = tag.replaceAll('groupCountry', groupCountry);
+    tag = tag.replaceAll('groupLanguage', groupLanguage);
+    tag = tag.replaceAll('groupCategory', groupCategory);
+    tag = tag.replaceAll('grouplinkText', groupId);
     tag = tag.replaceAll('groupDescri', groupDescri);
     tag = tag.replaceAll('currentPostLink', document.location.href);
+    tag = tag.replaceAll('languageLink', "/");
+    tag = tag.replaceAll('countryLink', "/");
+    tag = tag.replaceAll('categoryLink', "/");
 
     newDiv.innerHTML = tag; //add an id
     resultDiv.appendChild(newDiv); //append to the doc.body
@@ -777,15 +307,21 @@ function loadLatestMorelink(lastcount) {
                 break;
             }
             var k = tableRow[t];
-            var groupName = dataRow[k].groupName;
-            var groupLink = "https://t.me/" + dataRow[k].groupLink;
-            var groupLogo = dataRow[k].groupLogo;
-            var groupCount = dataRow[k].groupCount;
-            var groupType = dataRow[k].groupType;
-            var groupDescri = dataRow[k].groupDescri;
+            
             // insertRow(groupName, groupLink);
-            insertLatestBlock(groupName, groupLink, groupLogo, groupCount, groupType, groupDescri)
+            // insertLatestBlock(groupName, groupLink, groupLogo, groupCount, groupType, groupDescri)
             // console.log(name, url);
+            var groupName = dataRow[k].groupName;
+            var groupLink = "https://chat.whatsapp.com/invite/" + dataRow[k].groupLink;
+            // var groupLink = "/p/telegram-links.html?tablename=" + tableName + "/" + tableRow[t];
+            var groupLogo = dataRow[k].groupLogo;
+            var groupLanguage = dataRow[k].language;
+            var groupCategory = dataRow[k].category;
+            var groupDescri = dataRow[k].groupDescri;
+            var groupCountry = dataRow[k].country;
+
+            // insertRow(groupName, groupLink);
+            insertLatestBlock(groupName, groupLink, groupLogo, groupLanguage, groupCategory, groupCountry, groupDescri, dataRow[k].groupLink)
 
         }
         // console.log(tableRow);
@@ -859,13 +395,16 @@ function loadLatest() {
             // var url = "https://bikespeci.blogspot.com/p/gateway.html?telelink=" + dataRow[k].groupLink;
             //                 var url = "https://chat.whatsapp.com/" + dataRow[k].groupLink;
             var groupName = dataRow[k].groupName;
-            var groupLink = "https://t.me/" + dataRow[k].groupLink;
+            var groupLink = "https://chat.whatsapp.com/invite/" + dataRow[k].groupLink;
+            // var groupLink = "/p/telegram-links.html?tablename=" + i + "/" + tableRow[t];
             var groupLogo = dataRow[k].groupLogo;
-            var groupCount = dataRow[k].groupCount;
-            var groupType = dataRow[k].groupType;
+            var groupLanguage = dataRow[k].language;
+            var groupCategory = dataRow[k].category;
             var groupDescri = dataRow[k].groupDescri;
+            var groupCountry = dataRow[k].country;
+
             // insertRow(groupName, groupLink);
-            insertLatestBlock(groupName, groupLink, groupLogo, groupCount, groupType, groupDescri)
+            insertLatestBlock(groupName, groupLink, groupLogo, groupLanguage, groupCategory, groupCountry, groupDescri, dataRow[k].groupLink)
             // console.log(name, url);
         }
         // console.log(tableRow);
@@ -873,18 +412,15 @@ function loadLatest() {
 }
 
 const main=async()=>{
-    initAddButton();
     var postSection = document.getElementById(articalSectionId);
     if (postSection != null) {
-        var groupName = await document.title.split(" Telegram")[0];
-        initPreArtical(groupName);         // insert per artical section
+        var groupName = await document.title.split(" WhatsApp")[0];
         //initLoading();            // insert loading bar section
 
         initGroupLinks(groupName);         // insert groups section
         initmainloader(articalSectionId);
 
         initLoadMoreLink()        // insert load button
-        initPostArtical(groupName);        // insert post artical section
                  // insert add group button
         // move();
         loadLinks(groupName);
