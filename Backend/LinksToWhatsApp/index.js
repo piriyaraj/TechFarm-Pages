@@ -54,6 +54,7 @@ app.get("/invalidcheck", (req, res) => {
 
 })
 app.get("/test", (req, res) => {
+    res.sendFile("timepagevalid.html", options)
     console.log("hello");
 
 })
