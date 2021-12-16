@@ -1,22 +1,10 @@
 const express = require("express");
 const axios = require("axios");
 const cheerio = require("cheerio");
-var apps = require('firebase/app');
 var databases = require('firebase/database');
-// const serviceAccount = require('./path/to/key.json');
-const firebaseConfig = {
-    apiKey: "AIzaSyDVwUfxkzIfeDgav_ZWwukDDy81-hIGmfs",
-    authDomain: "links-to-whatsapp.firebaseapp.com",
-    databaseURL: "https://links-to-whatsapp-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "links-to-whatsapp",
-    storageBucket: "links-to-whatsapp.appspot.com",
-    messagingSenderId: "1098223504691",
-    appId: "1:1098223504691:web:354efcc9747e6a0ad14246"
-};
 
-const app = apps.initializeApp(firebaseConfig);
-const db = databases.getDatabase(app);
 
+var db;
 
 
 // ===========================================================================
@@ -217,7 +205,8 @@ const addLink = async (i, toPost)=>{
 
 }
 var starCountRef;
-const main= async ()=>{
+const main= async (db1)=>{
+    db=db1;
     starCountRef = await databases.ref(db, '/');
     // var lastPost =await lastCrewel();
     await lastCrewel();
@@ -252,12 +241,11 @@ const main= async ()=>{
 }
 
 
-const test=async ()=>{
-    
-    
-}
+const test = async (db1) => {
+    console.log(db1);
 
-// test();
+    console.log("hello")
+}
 // main()
 module.exports.run = main;
 

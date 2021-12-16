@@ -4,10 +4,28 @@ const schedule = require('node-schedule');;
 
 const axios = require("axios");
 const cheerio = require("cheerio");
-// const groupsorExtract= require('./groupsorExtract');
 const waTools=require("./groupsorExtract");
+const invaildRemover = require("./invaildRemover")
 
-// const { default: scrap } = require("./src/scrap");
+
+var { initializeApp } = require('firebase/app');
+var { getDatabase, get, ref, child, set, push, remove } = require('firebase/database');
+const { async } = require("@firebase/util");
+
+// const serviceAccount = require('./path/to/key.json');
+const firebaseConfig = {
+    apiKey: "AIzaSyCS4okSW3m4HAjyrUyuzTTVSIp7w4INCMU",
+    authDomain: "smart-shopping-cart-ssc.firebaseapp.com",
+    databaseURL: "https://smart-shopping-cart-ssc-default-rtdb.firebaseio.com",
+    projectId: "smart-shopping-cart-ssc",
+    storageBucket: "smart-shopping-cart-ssc.appspot.com",
+    messagingSenderId: "160224436712",
+    appId: "1:160224436712:web:fd9c34e6c8467a34a3845d"
+};
+
+const firebaseApp = initializeApp(firebaseConfig);
+const db = getDatabase(firebaseApp);
+
 const app = express();
 app.use(cors());
 let port = process.env.PORT || 3000;
@@ -27,14 +45,14 @@ app.get("/", (req, res) => {
 })
 app.get("/extractfromgroupsor",(req,res)=>{
     res.sendFile("timepage.html", options);
-    waTools.run();
+    waTools.run(db);
     
 })
-// app.get("/invalidcheck", (req, res) => {
-//     res.sendFile("timepagevalid.html", options)
-//     waTools.invalidChecker();
+app.get("/invalidcheck", (req, res) => {
+    res.sendFile("timepagevalid.html", options)
+    invaildRemover.run(db)
 
-// })
+})
 // app.get("/getmail",(req,res)=>{
 //     mailer.sent("piriyaraj1998@gmail.com", "Groupsor Extract started");
 //     res.send("mail send");

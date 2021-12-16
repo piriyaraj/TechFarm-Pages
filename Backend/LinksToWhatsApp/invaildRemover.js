@@ -1,30 +1,19 @@
 // constants
 const { async } = require('@firebase/util');
-var { initializeApp} = require('firebase/app');
+var { initializeApp } = require('firebase/app');
 const axios = require("axios");
 const cheerio = require("cheerio")
-var { getDatabase, ref, child, remove, set, push, get, onDisconnect} = require('firebase/database');
+var { getDatabase, ref, child, remove, set, push, get, onValue } = require('firebase/database');
 var lastchekedtable;
 var waLinkKeys;
-var titles=[0,0];
-var alllinkscheck="-1";
+var titles = [0, 0];
+var alllinkscheck = "-1";
 
 var allTableName = [];
 var groupData;
+var db;
 
-// const serviceAccount = require('./path/to/key.json');
-const firebaseConfig = {
-    apiKey: "AIzaSyCS4okSW3m4HAjyrUyuzTTVSIp7w4INCMU",
-    authDomain: "smart-shopping-cart-ssc.firebaseapp.com",
-    databaseURL: "https://smart-shopping-cart-ssc-default-rtdb.firebaseio.com",
-    projectId: "smart-shopping-cart-ssc",
-    storageBucket: "smart-shopping-cart-ssc.appspot.com",
-    messagingSenderId: "160224436712",
-    appId: "1:160224436712:web:fd9c34e6c8467a34a3845d"
-};
 
-const app =initializeApp(firebaseConfig);
-const db = getDatabase(app);
 
 const getalllinkscheck = async (waid) => {
     starCountRef = await ref(db, '/');
@@ -66,10 +55,10 @@ const getallTableName = async () => {
     starCountRef = await ref(db, '/');
     await get(child(starCountRef, "/")).then((snapshot) => {
         if (snapshot.exists()) {
-            allTableName = [];
+            groupData = [];
             snapshot.forEach(childSnapshot => {
-                allTableName.push(childSnapshot.key)
-                // console.log(childSnapshot.key)
+                // allTableName.push(childSnapshot.key)
+                allTableName.push(childSnapshot.key);
             })
             // lastPostUrl = snapshot.val()['lastchekedtable'];
         } else {
@@ -81,6 +70,7 @@ const getallTableName = async () => {
         lastPostUrl = -1;
         console.error(error);
     });
+
 }
 
 const getWaLinkKey = async (tableName) => {
@@ -120,18 +110,18 @@ const getLastCrewl = async () => {
 }
 
 // deleteTabledata
-const deleteTabelData=async (path)=>{
+const deleteTabelData = async (path) => {
     await remove(ref(db, path));
 }
 // deleteTabelData();
 // insert data into firbase
 // tableName, data, format = "post"
-function insertData(tableName, data, format = "post"){
+function insertData(tableName, data, format = "post") {
     var tableref = ref(db, tableName);
-    if(format=="patch"){
+    if (format == "patch") {
         set(tableref, data);
         // child("waLink").set("table")
-    }else{
+    } else {
         push(tableref, data);
     }
 }
@@ -155,66 +145,56 @@ const check = async (url) => {
 
         return titles;
     } catch (error) {
-        return ["-1","-1"];
+        return ["-1", "-1"];
         throw error;
     }
 };
 
 
 // control all functions
-const main=async ()=>{
-    await getallTableName()
-    console.log(allTableName)
+const main = async (db1) => {
+    db=db1;
     titles = [0, 0];
     // await getWaLinkKey('testing');
     await getLastCrewl();
     if(lastchekedtable==null){
-        lastchekedtable=0
+        lastchekedtable=0;
     }
-    console.log(lastchekedtable)
-
-    // console.log(lastchekedtable);
-    // console.log(allTableName.length);
-    for (var i = lastchekedtable; i < allTableName.length;i++){
+    await getallTableName();
+    console.log(allTableName.length);
+    for (var i = lastchekedtable; i < allTableName.length; i++) {
         // console.log(allTableName[i]);
-        if (allTableName[i] == "ScrapData"| allTableName[i] == "AllLinks"){
+        if (allTableName[i] == "ScrapData" | allTableName[i] == "AAgroupsorDetail" | allTableName[i] == "AllLinks") {
             continue;
         }
         if (titles[0] == -1) {
             // await insertData("scrapData", { lastchekedtable: i }, format = "post")
             break;
         }
-        console.log(i,"/",allTableName.length,"===>",allTableName[i]);
+        console.log(i, "/", allTableName.length, "===>", allTableName[i]);
         await getWaLinkKey(allTableName[i]);
-        for (var j = 0; j<waLinkKeys.length;j++){
+        for (var j = 0; j < waLinkKeys.length; j++) {
+            if(waLinkKeys)
             await singleGroup(allTableName[i] + "/" + waLinkKeys[j]);
-            var titles = await check("https://chat.whatsapp.com/"+groupData[0]);
-            if(titles[0]==-1){
-                await insertData("scrapData", { lastchekedtable: i}, format = "post")
+            var titles = await check("https://chat.whatsapp.com/" + groupData[3]);
+            if (titles[0] == -1) {
+                await insertData("scrapData", { lastchekedtable: i }, format = "post")
                 break;
             }
-            if(titles[0]==""){
+            if (titles[0] == "") {
                 await deleteTabelData(allTableName[i] + "/" + waLinkKeys[j])
-                await deleteTabelData("AllLinks/" + groupData[0]);
-                console.log("=====>",groupData[0],"Invalid", groupData[1],j,'/',waLinkKeys.length);
-                break;
-            }else{
-                await getalllinkscheck(groupData[0]);
-                if (alllinkscheck==0){
-                    var waid = groupData[0];
-                    insertData("AllLinks/" + waid, allTableName[i], format = "patch")
-                    alllinkscheck=-1;
-                }
-                console.log("=====>", groupData[0], "Valid", groupData[1], j, '/', waLinkKeys.length);
-            }   
+                await deleteTabelData("AllLinks/" + groupData[3]);
+                console.log("=====>", "Invalid | ", j, '/', waLinkKeys.length, groupData[3]);
+            } else {
+                // console.log("=====>", "Valid   | ", j, '/', waLinkKeys.length, groupData[4]);
+            }
         }
     }
 }
 
-
-const test = async () => {
-    
-    console.log(allTableName)
+const test = async (db1)=>{
+    db=db1;
+    // console.log(db);
+    getallTableName();
 }
-// main()
-module.exports.run=main;
+module.exports.run = main;
