@@ -53,6 +53,10 @@ app.get("/invalidcheck", (req, res) => {
     invaildRemover.run(db)
 
 })
+app.get("/test", (req, res) => {
+    console.log("hello");
+
+})
 // app.get("/getmail",(req,res)=>{
 //     mailer.sent("piriyaraj1998@gmail.com", "Groupsor Extract started");
 //     res.send("mail send");
