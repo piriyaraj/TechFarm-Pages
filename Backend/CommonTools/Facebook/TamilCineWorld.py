@@ -166,8 +166,7 @@ def Run():
 
 
 def test():
-    imgUrl, title, postText = getPostData(postLink1)
-    downloadImage(imgUrl)
-    makeImage(title)
+    print("hello")
+    postToFacebookImage()
 if __name__ == "__main__":
     test()
