@@ -60,7 +60,7 @@ def tamillyrics():
 
 @app.route("/facebook/tamilcineworld")
 def tamilcineworld():
-    thread_a = Thread(target=TamilCineWorld.test, args=())
+    thread_a = Thread(target=TamilCineWorld.Run, args=())
     thread_a.start()
     return render_template("timepage.html", title="Tamil Cine World")
 
