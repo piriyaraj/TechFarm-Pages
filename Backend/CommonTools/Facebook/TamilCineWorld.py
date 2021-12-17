@@ -403,7 +403,7 @@ def getPostData(postLink):
     postText = ""
 
     for i in soup.find("section", {"id": "mvp-content-main"}).find_all("p")[:-1]:
-        postText = postText+i.text+"\n"
+        postText = postText+i.text+"\n\n"
     
     
 
@@ -471,7 +471,7 @@ def Run():
             # print(songLyrics)
 
             try:
-                postToFacebookImage(title+"\n\n"+postText)
+                postToFacebookImage(title+"\n----------------------\n"+postText)
                 setLastPostLink(j)
                 print(" : posted")
                 return -1
