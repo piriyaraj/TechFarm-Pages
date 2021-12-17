@@ -13,8 +13,8 @@ dataBase = firebase.FirebaseApplication(databaseUrl, None)
 mainSitemap = "https://www.cinemapettai.com/sitemap_index.xml"
 postLink = "https://www.cinemapettai.com/behaving-abnormally-dia-menon-in-depression/"
 postLink1 = "https://www.cinemapettai.com/vivek-wont-celebrate-newyear/"
-access_token = os.environ.get('FB_PJTAMILLYRICS_ACCESS', None)
-access_token="EAAIuPIuu0W4BAGncIIcOt8ilBhBad71NlrAEK6sZB98eCleZAStpy4ZCD1QNYmUeqZAO2cmARDcXn6U34ks2bj6k5yoMoySzNTD9lvea7h1GY9soQEbFAWTLKas6pKRL18xhyTwA7cigtAIVD2RD8Y4LXQx06mcz4YmwnRoGQ0eewsuB8GTBBk1z2SrBU5V3XoipG8fxAgZDZD"
+access_token = os.environ.get('FB_TAMILCINEWORLD_ACCESS', None)
+
 
 
 def exract(url):
