@@ -471,7 +471,8 @@ def Run():
             # print(songLyrics)
 
             try:
-                postToFacebookImage(title+"\n---------------------------------------------------------\n"+postText)
+                postToFacebookImage(
+                    title+"\n----------------------------------------------------------------\n"+postText)
                 setLastPostLink(j)
                 print(" : posted")
                 time.sleep(5)
