@@ -10,7 +10,7 @@ from threading import Thread
 
 app = Flask(__name__)
 
-noOfPost = 100
+noOfPost = 2
 databaseUrl = "https://colabfacebook-default-rtdb.firebaseio.com/"
 
 firebase = firebase.FirebaseApplication(databaseUrl, None)
@@ -71,7 +71,7 @@ def postTitlesInBlogger(postName, argv):
         }
         blog = thisusersblogs['items'][0]
         
-        posts.insert(blogId="5317390335310223575",body=body, isDraft=True).execute()
+        posts.insert(blogId="5317390335310223575",body=body).execute()
         
         return ["posted",""]
 
