@@ -463,7 +463,7 @@ def Run():
         except:
             indexOfLastPost = 0
         for j in allPostLinks[indexOfLastPost:]:
-            print("===> "+j, end=" : ")
+            
 
             imgUrl, title, postText = getPostData(j)
             downloadImage(imgUrl)
@@ -474,7 +474,7 @@ def Run():
                 postToFacebookImage(
                     title+"\n----------------------------------------------------------------\n"+postText)
                 setLastPostLink(j)
-                print(" : posted")
+                print("===> "+j, end=" : posted\n")
                 time.sleep(5)
 
                 # print(postText)

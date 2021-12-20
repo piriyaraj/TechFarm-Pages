@@ -93,27 +93,26 @@ def Run():
         except:
             break                    
 
+        if(i < 9):
+            print(" ", end="")
 
-        
+        print(i+1, end=">>>")
+        print(postTitle, end="")
+        print("-"*(60-len(postTitle)), end="status:")
         #postnow(driver,ptitle,ptag,pdescri,pcontent,pimage):
 
         status = postTitlesInBlogger(postTitle, sys.argv)
         
-        print(status[0])
+        if(status[0]=="posted"):
+            print(i+1, ">>>", postTitle, "-"*(60-len(postTitle)),"status:posted")
 
         # postToblogger.postnow()
         if(status[0] == "failed"):
-            print(i+1, end=">>>")
-            print(postTitle, end="")
-            print("-"*(60-len(postTitle)), end="status:")
-            print(status[1])
+            print(i+1, ">>>", postTitle, "-" *(60-len(postTitle)), "status:Failed")
             break
 
         if(status[0]=="limit"):
-            print(i+1, end=">>>")
-            print(postTitle, end="")
-            print("-"*(60-len(postTitle)), end="status:")
-            print(status[1])
+            print(i+1, ">>>", postTitle, "-" *(60-len(postTitle)), "status:Limit")
             return status[1]
 
         # print("")
