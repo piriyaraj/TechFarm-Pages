@@ -71,7 +71,7 @@ def postTitlesInBlogger(postName, argv):
         }
         blog = thisusersblogs['items'][0]
         
-        posts.insert(blogId="5317390335310223575",body=body).execute()
+        posts.insert(blogId="5317390335310223575",body=body,published=True).execute()
         
         return ["posted",""]
 
