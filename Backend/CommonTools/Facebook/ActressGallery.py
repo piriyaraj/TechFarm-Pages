@@ -208,7 +208,7 @@ def postToFacebook(userName, fullName, imgList, noOfpost):
         os.remove(imgFolderPath+imgList[i])
         # print("posted:", imgFolderPath+imgList[i])
         # postTime=postTime+timeDivision
-    print("======>"+str(noOfpost), "photos uploaded")
+    # print("======>"+str(noOfpost), "photos uploaded")
 
 
 def getFullName(userName):
@@ -285,7 +285,7 @@ def downloadImage(userName):
     timeList = []
     try:
         for post in takewhile(lambda p: p.date > UNTIL, dropwhile(lambda p: p.date > SINCE, posts)):
-            print(post.date)
+            # print(post.date)
 
             timeList.append(str(post.date))
             L.download_post(post, userName)
