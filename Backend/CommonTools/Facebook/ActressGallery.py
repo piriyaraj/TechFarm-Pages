@@ -281,7 +281,7 @@ def downloadImage(userName):
 
     UNTIL = datetime.datetime.strptime(lastposttime[2:], "%y-%m-%d %H:%M:%S")
 
-    print("Start Time:", UNTIL, "\nEnd   Time:", SINCE)
+    # print("Start Time:", UNTIL, "\nEnd   Time:", SINCE)
     timeList = []
     try:
         for post in takewhile(lambda p: p.date > UNTIL, dropwhile(lambda p: p.date > SINCE, posts)):
@@ -317,8 +317,7 @@ def download():
             # print(instaIds[i])
             # print(str(i+1))
             # print(str(len(instaIds)))
-            print("=============="+instaIds[i]+"==============\n==>Starting download "+str(
-                i+1)+"/"+str(len(instaIds)))
+            # print("=============="+instaIds[i]+"==============\n==>Starting download "+str(i+1)+"/"+str(len(instaIds)))
             t = instaIds[i]
             try:
                 threading.Thread(target=downloadImage, args=(t,)).start()
@@ -326,7 +325,7 @@ def download():
                 pass
             # downloadImage(t)
             # noOfpost+=downloadImage(instaIds[i].split("\n")[0])
-            print("\n==>End Download\n\n")
+            # print("\n==>End Download\n\n")
     except Exception as e:
         loopCount = loopCount-1
         print(e)
