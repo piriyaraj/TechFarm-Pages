@@ -206,7 +206,7 @@ def postToFacebook(userName, fullName, imgList, noOfpost):
         # ,is_published=False,scheduled_publish_time=seconds)
         asafb.put_photo(open(imgFolderPath+imgList[i], "rb"), message=message)
         os.remove(imgFolderPath+imgList[i])
-        print("posted:", imgFolderPath+imgList[i])
+        # print("posted:", imgFolderPath+imgList[i])
         # postTime=postTime+timeDivision
     print("======>"+str(noOfpost), "photos uploaded")
 
@@ -233,9 +233,9 @@ def uploadImage():
         # if(len(imgList)<noOfpost):
         noOfpost = len(imgList)
         if(noOfpost == 0):
-            print("\n\n==>Start Facebook page posting " + fullName+">>"+str(i+1)+"/"+str(len(instaIds)))
+            # print("\n\n==>Start Facebook page posting " + fullName+">>"+str(i+1)+"/"+str(len(instaIds)))
             print("======>"+str(noOfpost), "photos uploaded")
-            print("==>End  Facebook  page posting "+fullName)
+            # print("==>End  Facebook  page posting "+fullName)
             continue
 
         fullName = getFullName(userName)
@@ -244,9 +244,9 @@ def uploadImage():
         # if(noOfpost>0):
         #     continue
         try:
-            print("\n\n==>Start Facebook page posting "+fullName)
+            # print("\n\n==>Start Facebook page posting "+fullName)
             postToFacebook(userName, fullName, imgList, noOfpost)
-            print("==>End  Facebook  page posting "+fullName)
+            # print("==>End  Facebook  page posting "+fullName)
 
         except Exception as e:
             print(e)
