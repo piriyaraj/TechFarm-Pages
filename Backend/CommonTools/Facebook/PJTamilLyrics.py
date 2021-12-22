@@ -108,7 +108,7 @@ def Run():
         indexOflastSitemap=allLyricsSitemap.index(lastSitemap)
     except:
         indexOflastSitemap=0
-    for i in allLyricsSitemap[indexOflastSitemap:indexOflastSitemap+2]:
+    for i in allLyricsSitemap[indexOflastSitemap:]:
         setLastSitemap(i)
         allPostLinks=exract(i)
         lastPostLink=getLastPostLink()
@@ -116,7 +116,7 @@ def Run():
             indexOfLastPost=allPostLinks.index(lastPostLink)+1
         except:
             indexOfLastPost=0
-        for j in allPostLinks[indexOfLastPost:]:
+        for j in allPostLinks[indexOfLastPost:indexOfLastPost+5]:
             print("===> "+j, end=" : ")
 
             songLyrics = extractLyrics(j)
