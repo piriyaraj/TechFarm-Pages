@@ -116,7 +116,7 @@ def Run():
             indexOfLastPost=allPostLinks.index(lastPostLink)+1
         except:
             indexOfLastPost=0
-        count=1
+        count = indexOfLastPost
         for j in allPostLinks[indexOfLastPost:indexOfLastPost+5]:
             print(count,"====> "+j, end=" : "   )
             count=count+1
