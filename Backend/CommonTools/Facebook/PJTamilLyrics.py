@@ -108,7 +108,7 @@ def Run():
         indexOflastSitemap=allLyricsSitemap.index(lastSitemap)
     except:
         indexOflastSitemap=0
-    for i in allLyricsSitemap[indexOflastSitemap:]:
+    for i in allLyricsSitemap[indexOflastSitemap:indexOflastSitemap+2]:
         setLastSitemap(i)
         allPostLinks=exract(i)
         lastPostLink=getLastPostLink()
