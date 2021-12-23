@@ -92,7 +92,7 @@ def Run():
         try:
             # postToFacebookImage()
             setLastImgUrl(j)
-            print("===> ",count,+j, end=" : posted\n")
+            print("===> ",count,j, end=" : posted\n")
             Count = Count+1
             time.sleep(5)
 
