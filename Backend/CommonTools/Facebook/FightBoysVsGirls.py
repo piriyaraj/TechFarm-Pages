@@ -16,7 +16,7 @@ postUrl = "https://sharechat.com/tag/7dMwQ/fresh"
 
 access_token = os.environ.get('FB_FIGHTBOYSVSGIRLS_ACCESS', None)
 
-tags = "#வடிவேலு_மீம்ஸ் #தமிழ்_மீம்ஸ் #லொள்ளு #100%_சிரிப்பு_இலவசம் #இன்றைய_ட்ரெண்டிங்_மீம்ஸ் #வயிறு_குலுங்க_சிரி"
+tags = "#வடிவேலு_மீம்ஸ் #தமிழ்_மீம்ஸ் #லொள்ளு #சிரிப்பு_இலவசம் #இன்றைய_ட்ரெண்டிங்_மீம்ஸ் #வயிறு_குலுங்க_சிரி"
 
 
 def insertData(tableName, data, dataBase, format="post"):
