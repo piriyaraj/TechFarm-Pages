@@ -2,7 +2,7 @@ from flask import Flask, render_template, send_from_directory
 import os
 from threading import Thread
 from AllBikeSpecification import Allbikespecification, ExtractPostLinks, PostMaker
-from Facebook import ActressGallery,DailyQuote,PJTamilLyrics,TamilCineWorld
+from Facebook import ActressGallery, DailyQuote, PJTamilLyrics, TamilCineWorld,FightBoysVsGirls
 app = Flask(__name__)
 
 
@@ -64,6 +64,12 @@ def tamilcineworld():
     thread_a.start()
     return render_template("timepage.html", title="Tamil Cine World")
 
+
+@app.route("/facebook/fightboysvsgirls")
+def fightboysvsgirls():
+    thread_a = Thread(target=FightBoysVsGirls.Run, args=())
+    thread_a.start()
+    return render_template("timepage.html", title="Fight Boys Vs Girls")
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
     port = int(os.environ.get('PORT', 5000))
