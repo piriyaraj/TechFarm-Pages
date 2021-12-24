@@ -12,7 +12,7 @@ import string
 
 databaseUrl = "https://colabfacebook-default-rtdb.firebaseio.com/facebook/FightBoysVsGirls/"
 dataBase = firebase.FirebaseApplication(databaseUrl, None)
-postUrl = "https://sharechat.com/tag/7dMwQ/fresh"
+postUrl = "https://sharechat.com/profile/340561914"
 
 access_token = os.environ.get('FB_FIGHTBOYSVSGIRLS_ACCESS', None)
 
