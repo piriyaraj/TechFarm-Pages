@@ -21,7 +21,7 @@ access_token = os.environ.get('FB_DAILYRASI_ACCESS', None)
 tags = "#இன்றைய_ராசிபலன்"
 file_path = path.abspath(__file__)
 dir_path = path.dirname(file_path)
-
+print(dir_path)
 
 def unicodeChange(text):
     text = text.replace("ஸ்ரீ", "=")
@@ -367,8 +367,8 @@ def getPostData():
 
 
 def makeImg(date,rasiName,palan):
-    rasiTem = path.join(dir_path, 'Images/RasiTemplate.jpg')
-    rasiImg = path.join(dir_path, 'Images/'+rasiName+'.jpg')
+    rasiTem = dir_path+'/Images/RasiTemplate.jpg'
+    rasiImg = dir_path+'/Images/'+rasiName+'.jpg'
 
     template=Image.open(rasiTem)
     rasiImg=Image.open(rasiImg).resize((350,350))
@@ -376,8 +376,8 @@ def makeImg(date,rasiName,palan):
 
 
     newImg.paste(rasiImg,(0,0))
-    palanFont = ImageFont.truetype(dir_path+"Fonts/Bamini.ttf", 80)
-    dateFont = ImageFont.truetype(dir_path+"Fonts/Godzilla.ttf", 80)
+    palanFont = ImageFont.truetype(dir_path+"/Fonts/Bamini.ttf", 80)
+    dateFont = ImageFont.truetype(dir_path+"/Fonts/Godzilla.ttf", 80)
     draw = ImageDraw.Draw(newImg)
     draw.text((780, 120), date, fill=(0, 0, 0), font=dateFont)
     lines = textwrap.wrap(palan, width=45)
@@ -434,5 +434,5 @@ def Run():
 
 
 if __name__ == "__main__":
-    Run()
+    # Run()
     pass
