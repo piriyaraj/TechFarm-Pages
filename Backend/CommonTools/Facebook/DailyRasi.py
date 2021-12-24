@@ -391,7 +391,7 @@ def makeImg(date,rasiName,palan):
         # palan = unicodeChange(makeTextFixed(palan))
 
     #draw.text((50, 370), palan, fill=(0, 0, 0), font=palanFont)
-    newImg.save(dir_path+"/Facebook/rasiImg.jpg")
+    newImg.save(dir_path+"/rasiImg.jpg")
 
 
 
@@ -402,8 +402,8 @@ def postToFacebookImage(rasi,date):
     # The Graph API allows you to read and write data to and from the Facebook social graph
     asafb = fb.GraphAPI(access_token)
 
-    asafb.put_photo(open(dir_path+"/Facebook/rasiImg.png", "rb"), message=tags+" #"+rasi+" #"+date.replace("/", "_"))
-    os.remove(dir_path+"/Facebook/rasiImg.png")
+    asafb.put_photo(open(dir_path+"/rasiImg.png", "rb"), message=tags+" #"+rasi+" #"+date.replace("/", "_"))
+    os.remove(dir_path+"/rasiImg.png")
 
 
 def Run():
