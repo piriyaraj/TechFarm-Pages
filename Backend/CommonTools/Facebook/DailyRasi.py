@@ -376,11 +376,11 @@ def makeImg(date,rasiName,palan):
 
 
     newImg.paste(rasiImg,(0,0))
-    palanFont = ImageFont.truetype(dir_path+"/Fonts/Bamini.ttf", 90)
+    palanFont = ImageFont.truetype(dir_path+"/Fonts/Bamini.ttf", 110)
     dateFont = ImageFont.truetype(dir_path+"/Fonts/Godzilla.ttf", 80)
     draw = ImageDraw.Draw(newImg)
     draw.text((780, 120), date, fill=(0, 0, 0), font=dateFont)
-    lines = textwrap.wrap(palan, width=45)
+    lines = textwrap.wrap(palan, width=34)
     y_text = 380
     w=1920
     for line in lines:
@@ -422,7 +422,7 @@ def Run():
             postToFacebookImage(rasi,newPostData[0])
             print("===> ", rasi, end=" : posted\n")
             time.sleep(5)
-            # break
+            break
 
 
             # print(postText)
