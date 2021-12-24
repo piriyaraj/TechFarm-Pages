@@ -402,8 +402,8 @@ def postToFacebookImage(rasi,date):
     # The Graph API allows you to read and write data to and from the Facebook social graph
     asafb = fb.GraphAPI(access_token)
 
-    asafb.put_photo(open(dir_path+"/rasiImg.png", "rb"), message=tags+" #"+rasi+" #"+date.replace("/", "_"))
-    os.remove(dir_path+"/rasiImg.png")
+    asafb.put_photo(open(dir_path+"/rasiImg.jpg", "rb"), message=tags+" #"+rasi+" #"+date.replace("/", "_"))
+    os.remove(dir_path+"/rasiImg.jpg")
 
 
 def Run():
