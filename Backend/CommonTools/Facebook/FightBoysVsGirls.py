@@ -81,7 +81,8 @@ def Run():
 
     lastImgLink = getLastImgUrl()
     newImgUrls = getPostData()
-    newImgUrls.reverse()
+    setLastImgUrl(newImgUrls[0])
+    # print(lastImgLink,"\n",newImgUrls[0])
     count=1
     for j in newImgUrls:
         if(lastImgLink==j):
@@ -91,7 +92,6 @@ def Run():
 
         try:
             postToFacebookImage()
-            setLastImgUrl(j)
             print("===> ",count,j, end=" : posted\n")
             count = count+1
             time.sleep(5)
@@ -107,3 +107,6 @@ def Run():
 
 if __name__ == "__main__":
     Run()
+    # data=getPostData()
+    # for i in data:
+    #     print(i)
