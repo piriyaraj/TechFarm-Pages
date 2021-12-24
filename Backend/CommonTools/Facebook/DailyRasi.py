@@ -367,16 +367,17 @@ def getPostData():
 
 
 def makeImg(date,rasiName,palan):
-    rasiTem = path.join(dir_path, 'Images\RasiTemplate.jpg')
-    rasiImg = path.join(dir_path, 'Images\\'+rasiName+'.jpg')
+    rasiTem = path.join(dir_path, 'Images/RasiTemplate.jpg')
+    rasiImg = path.join(dir_path, 'Images/'+rasiName+'.jpg')
 
     template=Image.open(rasiTem)
     rasiImg=Image.open(rasiImg).resize((350,350))
     newImg=template.copy()
 
+
     newImg.paste(rasiImg,(0,0))
-    palanFont = ImageFont.truetype(dir_path+"/Fonts/Bamini.ttf", 80)
-    dateFont = ImageFont.truetype(dir_path+"/Fonts/Godzilla.ttf", 80)
+    palanFont = ImageFont.truetype(dir_path+"Fonts/Bamini.ttf", 80)
+    dateFont = ImageFont.truetype(dir_path+"Fonts/Godzilla.ttf", 80)
     draw = ImageDraw.Draw(newImg)
     draw.text((780, 120), date, fill=(0, 0, 0), font=dateFont)
     lines = textwrap.wrap(palan, width=45)
