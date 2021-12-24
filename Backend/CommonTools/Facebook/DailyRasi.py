@@ -21,7 +21,7 @@ access_token = os.environ.get('FB_DAILYRASI_ACCESS', None)
 tags = "#இன்றைய_ராசிபலன்"
 file_path = path.abspath(__file__)
 dir_path = path.dirname(file_path)
-print(dir_path)
+# print(dir_path)
 
 def unicodeChange(text):
     text = text.replace("ஸ்ரீ", "=")
@@ -376,7 +376,7 @@ def makeImg(date,rasiName,palan):
 
 
     newImg.paste(rasiImg,(0,0))
-    palanFont = ImageFont.truetype(dir_path+"/Fonts/Bamini.ttf", 80)
+    palanFont = ImageFont.truetype(dir_path+"/Fonts/Bamini.ttf", 90)
     dateFont = ImageFont.truetype(dir_path+"/Fonts/Godzilla.ttf", 80)
     draw = ImageDraw.Draw(newImg)
     draw.text((780, 120), date, fill=(0, 0, 0), font=dateFont)
@@ -402,7 +402,7 @@ def postToFacebookImage(rasi,date):
     # The Graph API allows you to read and write data to and from the Facebook social graph
     asafb = fb.GraphAPI(access_token)
 
-    asafb.put_photo(open(dir_path+"/rasiImg.jpg", "rb"), message=tags+" #"+rasi+" #"+date.replace("/", "_"))
+    asafb.put_photo(open(dir_path+"/rasiImg.jpg", "rb"), message=tags+" #"+rasi)
     os.remove(dir_path+"/rasiImg.jpg")
 
 
@@ -422,7 +422,7 @@ def Run():
             postToFacebookImage(rasi,newPostData[0])
             print("===> ", rasi, end=" : posted\n")
             time.sleep(5)
-            break
+            # break
 
 
             # print(postText)
@@ -434,5 +434,5 @@ def Run():
 
 
 if __name__ == "__main__":
-    # Run()
+    Run()
     pass
