@@ -414,7 +414,6 @@ def Run():
         print("No New Update")
         return
     
-    setLastDate(newPostData[0])
     rasiPalan=newPostData[1]
     for rasi,palan in rasiPalan.items():
         makeImg(newPostData[0], rasi, palan)
@@ -431,6 +430,7 @@ def Run():
             # setLastPostLink(j)
             print(e)
             return -1
+    setLastDate(newPostData[0])
 
 
 if __name__ == "__main__":
