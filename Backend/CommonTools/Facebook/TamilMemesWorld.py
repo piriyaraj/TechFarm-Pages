@@ -209,7 +209,7 @@ def downloadImage(userName):
     timeList = []
     try:
         for post in takewhile(lambda p: p.date > UNTIL, dropwhile(lambda p: p.date > SINCE, posts)):
-            # print(post.date)
+            print(post.date)
 
             timeList.append(str(post.date))
             L.download_post(post, userName)
