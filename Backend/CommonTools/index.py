@@ -2,7 +2,7 @@ from flask import Flask, render_template, send_from_directory
 import os
 from threading import Thread
 from AllBikeSpecification import Allbikespecification, ExtractPostLinks, PostMaker
-from Facebook import ActressGallery, DailyQuote, PJTamilLyrics, TamilCineWorld,FightBoysVsGirls,DailyRasi
+from Facebook import ActressGallery, DailyQuote, PJTamilLyrics, TamilCineWorld,FightBoysVsGirls,DailyRasi,TamilMemesWorld
 app = Flask(__name__)
 
 
@@ -74,6 +74,12 @@ def fightboysvsgirls():
 @app.route("/facebook/dailyrasi")
 def dailyrasi():
     thread_a = Thread(target=DailyRasi.Run, args=())
+    thread_a.start()
+    return render_template("timepage.html", title="Daily Rasi")
+
+@app.route("/facebook/tamilmemesworld")
+def tamilmemesworld():
+    thread_a = Thread(target=TamilMemesWorld.Run, args=())
     thread_a.start()
     return render_template("timepage.html", title="Daily Rasi")
 
