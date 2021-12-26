@@ -421,6 +421,8 @@ def Run():
             postToFacebookImage(rasi,newPostData[0])
             print("===> ", rasi, end=" : posted\n")
             time.sleep(5)
+            setLastDate(newPostData[0])
+
             # break
 
 
@@ -430,7 +432,6 @@ def Run():
             # setLastPostLink(j)
             print(e)
             return -1
-    setLastDate(newPostData[0])
 
 
 if __name__ == "__main__":
