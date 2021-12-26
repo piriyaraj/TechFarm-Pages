@@ -125,7 +125,7 @@ def postToFacebook(userName, fullName, imgList, noOfpost):
             title = ""
         # tags=("#year_"+" #".join(title.split())).replace("-","_")
         # print(tags,title)
-        message = fullName+"\n#"+fullName.replace(" ", " #")
+        message = "#Tamil_memes_world"
 
         # ,is_published=False,scheduled_publish_time=seconds)
         asafb.put_photo(open(imgFolderPath+imgList[i], "rb"), message=message)
