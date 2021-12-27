@@ -1,6 +1,6 @@
 var articalSectionId = "root";
-var isMylink=1;
-var myLink ="DtPKCGVAGBfH1YnIdAUeFD";
+var isMyLink=1;
+var myLink ="https://chat.whatsapp.com/DtPKCGVAGBfH1YnIdAUeFD"
 var groupBlock = `
 <div>
     <a style="color: #5a5a5a" target="_blank" href="groupLink" title="WhatsApp group invite link: groupName">
@@ -134,15 +134,13 @@ function insertBlock(groupName, groupLink, groupLogo, groupLanguage, groupCatego
     if (groupCategory.indexOf("18+") > 0) {
         tag = tag.replaceAll('groupLogo', WhatsAppLogo);
     } else {
-        if(isMylink==1){
-            tag = tag.replaceAll('groupLogo', 'https://web.whatsapp.com/invite/icon/' + myLink);
-        }
-        else{
-            tag = tag.replaceAll('groupLogo', 'https://web.whatsapp.com/invite/icon/' + groupId);
-        }
-        
+        tag = tag.replaceAll('groupLogo', 'https://web.whatsapp.com/invite/icon/' + groupId);
     }
-    tag = tag.replaceAll('groupLink', groupLink);
+    if(isMyLink==1){
+        tag = tag.replaceAll('groupLink', myLink);
+    }else{
+        tag = tag.replaceAll('groupLink', groupLink);
+    }
     tag = tag.replaceAll('groupCountry', groupCountry);
     tag = tag.replaceAll('groupLanguage', groupLanguage);
     tag = tag.replaceAll('groupCategory', groupCategory);
@@ -271,14 +269,12 @@ function insertLatestBlock(groupName, groupLink, groupLogo, groupLanguage, group
     newDiv.className = "maindiv";
     var tag = groupBlock;
     tag = tag.replaceAll('groupName', groupName);
-    if(isMylink==1){
-        tag = tag.replaceAll('groupLogo', 'https://web.whatsapp.com/invite/icon/' + myLink);
+    tag = tag.replaceAll('groupLogo', 'https://web.whatsapp.com/invite/icon/' + groupId);
+    if(isMyLink==1){
+        tag = tag.replaceAll('groupLink', myLink);
+    }else{
+        tag = tag.replaceAll('groupLink', groupLink);
     }
-    else{
-        tag = tag.replaceAll('groupLogo', 'https://web.whatsapp.com/invite/icon/' + groupId);
-
-    }
-    tag = tag.replaceAll('groupLink', groupLink);
     tag = tag.replaceAll('groupCountry', groupCountry);
     tag = tag.replaceAll('groupLanguage', groupLanguage);
     tag = tag.replaceAll('groupCategory', groupCategory);
