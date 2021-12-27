@@ -81,7 +81,8 @@ def dailyrasi():
 def tamilmemesworld():
     thread_a = Thread(target=TamilMemesWorld.Run, args=())
     thread_a.start()
-    return render_template("timepage.html", title="Daily Rasi")
+    return render_template("timepage.html", title="Tamil Memes World")
+    return render_template("timepage.html", title="Tamil Memes World")
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
