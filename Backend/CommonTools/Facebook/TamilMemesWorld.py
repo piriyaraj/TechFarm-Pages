@@ -107,7 +107,6 @@ def postToFacebook(userName, fullName, imgList, noOfpost):
     imgFolderPath = "./"+userName+"/"
     # Get Access token - Follow the video on how to get access token for your fb account
     access_token = os.environ.get('FB_TAMILMEMESWORLD_ACCESS', None)
-
     # The Graph API allows you to read and write data to and from the Facebook social graph
     asafb = fb.GraphAPI(access_token)
 
@@ -178,7 +177,6 @@ def uploadImage():
         os.rmdir(userName)
 
 
-
 # =================================================Download image section===============================================
 
 # import firebaseSetup
@@ -200,16 +198,18 @@ def downloadImage(userName):
     lastposttime = getLastCrawlingData(userName)
     # lastposttime=int(2021, 4, 20)
     if(lastposttime == None):
-        lastposttime = str(datetime.datetime.now() -  datetime.timedelta(days=1)).split(".")[0]
+        lastposttime = str(datetime.datetime.now() -
+                           datetime.timedelta(days=1)).split(".")[0]
     SINCE = datetime.datetime.now()
-
+    date_string = "21 June, 2021"
     UNTIL = datetime.datetime.strptime(lastposttime[2:], "%y-%m-%d %H:%M:%S")
+    # UNTIL = datetime.datetime.strptime(date_string, "%d %B, %Y")
 
     # print("Start Time:", UNTIL, "\nEnd   Time:", SINCE)
     timeList = []
     try:
         for post in takewhile(lambda p: p.date > UNTIL, dropwhile(lambda p: p.date > SINCE, posts)):
-            print(post.date)
+            # print(post.date)
 
             timeList.append(str(post.date))
             L.download_post(post, userName)
@@ -245,7 +245,8 @@ def download():
             t = instaIds[i]
             print(t)
             try:
-                threading.Thread(target=downloadImage, args=(t,)).start()
+                downloadImage(t)
+                # threading.Thread(target=downloadImage, args=(t,)).start()
             except:
                 pass
             # downloadImage(t)
@@ -263,14 +264,15 @@ def download():
     return 1
 
 
-
 def Run():
     try:
         download()
-    except:
+    except Exception as e:
+        print(e)
         pass
-    time.sleep(60*10)
+    # time.sleep(60*10)
     uploadImage()
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     Run()
