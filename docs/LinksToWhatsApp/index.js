@@ -1,5 +1,5 @@
 var articalSectionId = "root";
-var isMyLink=1;
+var isMyLink=0;
 var myLink ="https://chat.whatsapp.com/DtPKCGVAGBfH1YnIdAUeFD"
 var groupBlock = `
 <div>
