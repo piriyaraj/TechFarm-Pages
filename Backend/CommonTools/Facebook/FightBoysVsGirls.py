@@ -40,6 +40,10 @@ def setLastImgUrl(imgUrl):
     data["lastImage"] = imgUrl
     insertData("Data", data, dataBase, format="patch")
 
+def getGroupIds():
+    dic = dataBase.get(databaseUrl, "groups")
+    return dic[1:]
+
 
 def getPostData():
     newUrls=[]
@@ -74,7 +78,13 @@ def postToFacebookImage():
     # The Graph API allows you to read and write data to and from the Facebook social graph
     asafb = fb.GraphAPI(access_token)
 
-    asafb.put_photo(open("Facebook/memeImage.png", "rb"), message=tags)
+    postId=asafb.put_photo(open("Facebook/memeImage.png", "rb"), message=tags)
+    groupIds = getGroupIds()
+    for group in groupIds:
+        try:
+            asafb.put_object(group,"feed", message="www.facebook.com/"+groupIds.replace("_","/"))
+        except:
+            pass
     os.remove("Facebook/memeImage.png")
 
 def Run():
@@ -106,7 +116,7 @@ def Run():
 
 
 if __name__ == "__main__":
-    Run()
+    print(getGroupIds())
     # data=getPostData()
     # for i in data:
     #     print(i)
