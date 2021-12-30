@@ -82,7 +82,7 @@ def postToFacebookImage():
     groupIds = getGroupIds()
     for group in groupIds:
         try:
-            asafb.put_object(group,"feed", message="www.facebook.com/"+groupIds.replace("_","/"))
+            asafb.put_object(group,"feed", message="www.facebook.com/"+postId['id'].replace("_","/"))
         except:
             pass
     os.remove("Facebook/memeImage.png")
