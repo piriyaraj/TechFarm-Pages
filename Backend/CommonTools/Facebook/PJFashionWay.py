@@ -60,8 +60,8 @@ def groupShare(pageId, page):
     for post in newPosts:
         for group in getGroupIds().values():
             try:
-                asafb.put_object(group, "feed", message="www.facebook.com/"+post.replace("_", "/"))
                 print(post)
+                asafb.put_object(group, "feed", message="www.facebook.com/"+post.replace("_", "/posts/"))
                 pass
 
             except:
