@@ -4,6 +4,15 @@ import facebook as fb
 from firebase import firebase
 import requests
 
+boys="""
+join for Men's dress collection
+https://chat.whatsapp.com/DtPKCGVAGBfH1YnIdAUeFD
+"""
+
+girls = """
+join for women's dress collection
+https://chat.whatsapp.com/DtPKCGVAGBfH1YnIdAUeFD
+"""
 
 databaseUrl = "https://colabfacebook-default-rtdb.firebaseio.com/facebook/PJFashionWay/"
 dataBase = firebase.FirebaseApplication(databaseUrl, None)
@@ -35,8 +44,10 @@ def groupShare(pageId, page):
     posts = asafb.get_connections(profile["id"], "posts")
     if(page == "womens"):
         lastPost = dataBase.get(databaseUrl, "Data/womens/lastPost")
+        message=girls
     if(page == "mens"):
         lastPost = dataBase.get(databaseUrl, "Data/mens/lastPost")
+        message=boys
 
     new = 1
     count=1
@@ -61,7 +72,7 @@ def groupShare(pageId, page):
         for group in getGroupIds().values():
             try:
                 print(post)
-                asafb.put_object(group, "feed", message="www.facebook.com/"+post.replace("_", "/posts/"))
+                asafb.put_object(group, "feed",message=message,link="www.facebook.com/"+post.replace("_", "/posts/"))
                 pass
 
             except:
@@ -70,7 +81,7 @@ def groupShare(pageId, page):
 
 def Run():
     groupShare("103787625468668", "womens")
-    # groupShare("106668551836797", "mens")
+    groupShare("106668551836797", "mens")
 
 if __name__ == "__main__":
     groupShare("me","womens")
