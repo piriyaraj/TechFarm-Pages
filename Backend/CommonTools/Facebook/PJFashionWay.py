@@ -70,7 +70,7 @@ def groupShare(pageId, page):
 
 def Run():
     groupShare("103787625468668", "womens")
-    groupShare("106668551836797", "mens")
+    # groupShare("106668551836797", "mens")
 
 if __name__ == "__main__":
     groupShare("me","womens")
