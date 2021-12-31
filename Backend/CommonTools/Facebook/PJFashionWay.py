@@ -121,9 +121,10 @@ def groupShare(pageId, page):
     for post in newPosts:
         teleMessage, images = getPostData(post, asafb)
         facebookPageToTelegram(telegram_token_news, "@pjfashionwaywomens", teleMessage,images)
+        print(post)
+
         for group in getGroupIds().values():
             try:
-                print(post)
                 asafb.put_object(group, "feed",message=message,link="www.facebook.com/"+post.replace("_", "/posts/"))
                 pass
 
