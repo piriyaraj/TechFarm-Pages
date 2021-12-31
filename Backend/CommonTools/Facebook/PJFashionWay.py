@@ -8,7 +8,7 @@ import requests
 # Telegram functions
 import requests
 import json
-telegram_token_news = "5068084974:AAHsrEn9jA4R0MlVzNbLCc0UdmrvUlbHmnQ"
+telegram_token_news = os.environ.get('TELE_PJFASHIONWAY_ACCESS', None)
 
 
 def send_photos(api_key, chat_id, photo_paths):
@@ -32,6 +32,8 @@ def sent_message(api_key, chat_id, text):
         "text": text
     }
     url = f'https://api.telegram.org/bot{api_key}/sendMessage'
+    return requests.post(url,data=params)
+
 
 
 def facebookPageToTelegram(api_key,telegramId,message,images):
@@ -81,7 +83,7 @@ def getPostData(postId, asafb):
     media=post['attachments']['data'][0]['subattachments']['data']
     images=[]
     for id in media:
-      images.append(id['media']['image']['src'].split("?")[0]) 
+      images.append(id['media']['image']['src']) 
     
     return message,images
 
@@ -115,7 +117,7 @@ def groupShare(pageId, page):
             posts = requests.get(posts["paging"]["next"]).json()
         except:
             break
-        
+
     for post in newPosts:
         teleMessage, images = getPostData(post, asafb)
         facebookPageToTelegram(telegram_token_news, "@pjfashionwaywomens", teleMessage,images)
