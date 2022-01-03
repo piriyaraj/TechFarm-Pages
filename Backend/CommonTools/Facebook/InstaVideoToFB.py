@@ -6,7 +6,6 @@ from firebase import firebase
 import pyrebase
 from requests.models import ReadTimeoutError
 from firebase import firebase
-import firebase
 import instaloader
 import datetime
 from itertools import dropwhile, takewhile

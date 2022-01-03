@@ -99,7 +99,7 @@ def pjfashionway():
 
 
 @app.route("/facebook/instareelspro")
-def pjfashionway():
+def instareelspro():
     thread_a = Thread(target=InstaVideoToFB.Run, args=())
     thread_a.start()
     return render_template("timepage.html", title="Insta Reels Pro")
