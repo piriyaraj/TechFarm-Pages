@@ -120,16 +120,16 @@ def upload_file():
             if i and IMGToPDF.allowedFile(i.filename):
                 # print(i)
                 filename = secure_filename(i.filename)
-                i.save("Self/Data/"+filename)
-                toConveredList.append("Self/Data/"+filename)
+                i.save("app/Self/Data/"+filename)
+                toConveredList.append("app/Self/Data/"+filename)
         print(toConveredList)
 
 
         IMGToPDF.converter(toConveredList)
-        return send_file('Self/Data/PJImageConveter.pdf', as_attachment=True)
+        return send_file('app/Self/Data/PJImageConveter.pdf', as_attachment=True)
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port,debug=True)
+    app.run(host='0.0.0.0', port=port)
     
