@@ -1,8 +1,13 @@
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template, send_from_directory, request, send_file
 import os
 from threading import Thread
+
+from werkzeug.datastructures import MultiDict
+from werkzeug.utils import redirect, secure_filename
+
 from AllBikeSpecification import Allbikespecification, ExtractPostLinks, PostMaker
 from Facebook import ActressGallery, DailyQuote, PJTamilLyrics, TamilCineWorld, FightBoysVsGirls, DailyRasi, TamilMemesWorld,PJFashionWay
+from Self import IMGToPDF
 app = Flask(__name__)
 
 
@@ -90,8 +95,41 @@ def pjfashionway():
     thread_a.start()
     return render_template("timepage.html", title="PJ Fashion Way")
 
+
+# self projects
+@app.route('/self/uploader', methods=['GET', 'POST'])
+def upload_file():
+    if request.method == 'POST':
+        toConveredList = []
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            # flash('No file part')
+            return 'No file part'
+
+        file = request.files['file']
+        print(file)
+        if file.filename == '':
+            # flash('No selected file')
+            return 'No selected file'
+
+        imgList = MultiDict(request.files).getlist('file')
+        # print(imgList)
+
+        for i in imgList:
+            # print(i.filename)
+            if i and IMGToPDF.allowedFile(i.filename):
+                # print(i)
+                filename = secure_filename(i.filename)
+                i.save("Self/Data/"+filename)
+                toConveredList.append("Self/Data/"+filename)
+        print(toConveredList)
+
+
+        IMGToPDF.converter(toConveredList)
+        return send_file('Self/Data/PJImageConveter.pdf', as_attachment=True)
+
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port,debug=True)
     
