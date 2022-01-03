@@ -14,6 +14,7 @@ def converter(images):
         imagelist.append(Image.open(img).convert('RGB'))
 
     Image.open(images[0]).convert('RGB').save(dir_path+'/Data/PJImageConveter.pdf', save_all=True,append_images=imagelist)
+    print("converted")
 
 
 ALLOWED_EXTENSION = set(['png', 'jpg', 'jpeg', 'gif'])
