@@ -7,7 +7,7 @@ from werkzeug.datastructures import MultiDict
 from werkzeug.utils import redirect, secure_filename
 
 from AllBikeSpecification import Allbikespecification, ExtractPostLinks, PostMaker
-from Facebook import ActressGallery, DailyQuote, PJTamilLyrics, TamilCineWorld, FightBoysVsGirls, DailyRasi, TamilMemesWorld,PJFashionWay
+from Facebook import ActressGallery, DailyQuote, PJTamilLyrics, TamilCineWorld, FightBoysVsGirls, DailyRasi, TamilMemesWorld,PJFashionWay,InstaVideoToFB
 from Self import IMGToPDF
 app = Flask(__name__)
 file_path_main = path.abspath(__file__)
@@ -96,6 +96,13 @@ def pjfashionway():
     thread_a = Thread(target=PJFashionWay.Run, args=())
     thread_a.start()
     return render_template("timepage.html", title="PJ Fashion Way")
+
+
+@app.route("/facebook/instareelspro")
+def pjfashionway():
+    thread_a = Thread(target=InstaVideoToFB.Run, args=())
+    thread_a.start()
+    return render_template("timepage.html", title="Insta Reels Pro")
 
 
 # self projects

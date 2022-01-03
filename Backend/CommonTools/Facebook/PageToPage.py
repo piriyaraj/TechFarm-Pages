@@ -1,5 +1,4 @@
 import requests
-auth_token = "EAANqtwUhevUBANVfGBgQLyO9qe2mufSVMJd1zMMnVK6ANHTdjLZAFvj3QkN9b1QU1cNVzBkpMgBqs4ppEdVYzwDROwrKWMca2MWNOdjywiNVHeZBZCv54VWunT84HZAcndfm9S0smof5nTZA9VV89WAMrZBJIXH9ZA5n2GCNCRKOZBPTc1SwoAQO"
 
 #  post single image
 def postImage(group_id, img):
@@ -36,4 +35,8 @@ def postVideo(pageId, video_path):
     files = {
         'file': open(video_path, 'rb'),
     }
-    requests.post(url, files=files)
+    payload={
+        "title":"Testing Title",
+        "description":"Testing Description",
+    }
+    requests.post(url, files=files, data=payload)
