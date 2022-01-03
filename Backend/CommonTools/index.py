@@ -127,7 +127,7 @@ def upload_file():
 
 
         IMGToPDF.converter(toConveredList)
-        return send_file(dir_path_main+'Self/Data/PJImageConveter.pdf', as_attachment=True)
+        return send_file(dir_path_main+'/Self/Data/PJImageConveter.pdf', as_attachment=True)
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.

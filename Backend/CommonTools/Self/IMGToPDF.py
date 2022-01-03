@@ -4,7 +4,7 @@ from os import path
 
 file_path = path.abspath(__file__)
 dir_path = path.dirname(file_path)
-
+print("converter",dir_path)
 def converter(images):
     imagelist = []
     if(len(images) == 1):
