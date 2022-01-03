@@ -120,8 +120,8 @@ def upload_file():
             if i and IMGToPDF.allowedFile(i.filename):
                 # print(i)
                 filename = secure_filename(i.filename)
-                i.save("/app/Self/Data/"+filename)
-                toConveredList.append("/app/Self/Data/"+filename)
+                i.save(filename)
+                toConveredList.append(filename)
         print(toConveredList)
 
 
