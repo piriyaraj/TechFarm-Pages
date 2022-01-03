@@ -1,6 +1,7 @@
 from flask import Flask, render_template, send_from_directory, request, send_file
 import os
 from threading import Thread
+from os import path
 
 from werkzeug.datastructures import MultiDict
 from werkzeug.utils import redirect, secure_filename
@@ -9,7 +10,8 @@ from AllBikeSpecification import Allbikespecification, ExtractPostLinks, PostMak
 from Facebook import ActressGallery, DailyQuote, PJTamilLyrics, TamilCineWorld, FightBoysVsGirls, DailyRasi, TamilMemesWorld,PJFashionWay
 from Self import IMGToPDF
 app = Flask(__name__)
-
+file_path = path.abspath(__file__)
+dir_path = path.dirname(file_path)
 
 @app.route('/')
 def hello():
@@ -120,13 +122,13 @@ def upload_file():
             if i and IMGToPDF.allowedFile(i.filename):
                 # print(i)
                 filename = secure_filename(i.filename)
-                i.save(filename)
-                toConveredList.append(filename)
+                i.save(dir_path+"/Self/Data/"+filename)
+                toConveredList.append(dir_path+"/Self/Data/"+filename)
         print(toConveredList)
 
 
         IMGToPDF.converter(toConveredList)
-        return send_file('PJImageConveter.pdf', as_attachment=True)
+        return send_file(dir_path+'Self/Data/PJImageConveter.pdf', as_attachment=True)
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
