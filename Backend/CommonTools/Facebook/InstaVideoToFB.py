@@ -13,25 +13,33 @@ import os
 import threading
 
 from instaloader import exceptions
+from os import path
+
+file_path = path.abspath(__file__)
+dir_path = path.dirname(file_path)
 
 totalPhotos = 0
-databaseUrl = "https://colabfacebook-default-rtdb.firebaseio.com/YouTube/shorts/"
+databaseUrl = "https://colabfacebook-default-rtdb.firebaseio.com/facebook/InstaReelsPro/"
 # databaseUrl = "https://colabfacebook-default-rtdb.firebaseio.com/"
 dataBase = firebase.FirebaseApplication(databaseUrl, None)
 # mainSitemapUrl = "https://www.whatsapgrouplinks.com/sitemap_index.xml"
 
 access_token = os.environ.get('FB_TESTING_ACCESS', None)
 
-instReelsProId="108475275046430"
+access_token = "EAANZCU5FqnjkBAGNpDWgBmxP2IZBVF6J5JJDQkwX5k7oHWqxozpoHtkP2iPdOzRADqZCnp9JgpvQhOoHEEd8yZBundq6hTBDzV6cZAo3xFw5vdZCNZBoaqJZCkaVyTcLsKJXZAgVp2qhTIsBSalaZBMnA3BZA5NZBgEf5TieQeVrFOn77ooHdNs6B8eZB"
 
-def getData(tableName, dataBase):
-    ResultSet = dataBase.get(
-        databaseUrl, tableName,)
-    try:
-        list(ResultSet.values()).index(data)
-        return 1
-    except:
-        return 0
+
+def postVideo(pageId, video_path, message):
+    url = f"https://graph-video.facebook.com/{pageId}/videos?access_token=" + access_token
+    files = {
+        'file': open(video_path, 'rb'),
+    }
+    payload = {
+        "title": message,
+        "description": message,
+    }
+    st = requests.post(url, files=files, data=payload)
+    print(st.json())
 
 
 def insertData(tableName, data, dataBase, format="post"):
@@ -92,20 +100,6 @@ def uploadInstaIdInFirebase(instaList):
     insertData("instaIds", data, dataBase, format="patch")
 
 
-
-def postVideo(pageId, video_path,message):
-    url = f"https://graph-video.facebook.com/{pageId}/videos?access_token=" + access_token
-    files = {
-        'file': open(video_path, 'rb'),
-    }
-    payload = {
-        "title": message,
-        "description": message,
-    }
-    requests.post(url, files=files, data=payload)
-
-
-
 def downloadImage(userName):
     # try:
     # userName="rashmika_mandanna"
@@ -130,29 +124,40 @@ def downloadImage(userName):
 
     print("Start Time:", UNTIL, "\nEnd   Time:", SINCE)
     timeList = []
-    for post in takewhile(lambda p: p.date > UNTIL, dropwhile(lambda p: p.date > SINCE, posts)):
+    try:
+        for post in takewhile(lambda p: p.date > UNTIL, dropwhile(lambda p: p.date > SINCE, posts)):
 
-        timeList.append(str(post.date))
-        if(post.is_video):
-            try:
-                title = userName+" "+post.caption
-                message=title
-            except:
-                title = userName
-                message = title
+            timeList.append(str(post.date))
+            if(post.is_video):
+                try:
+                    title = userName+" "+post.caption
+                    message = title
+                except:
+                    title = userName
+                    message = title
 
-            title = "Videos/"+title[:240]+".mp4"
+                title = dir_path+"/Videos/"+title[:240]+".mp4"
+                # print(post.date)
+                date = dir_path+"/Videos/"+str(post.date).replace(" ",
+                                                        "_").replace(":", "-")+"_UTC.mp4"
+                L.download_post(post, dir_path +"/Videos")
+                # os.rename(date, title)
+                # print(date)
+                postVideo("108475275046430", dir_path+"/"+date, message)
+                os.remove(dir_path+"/"+date)
 
-            date = "Videos/"+str(post.date).replace(" ",
-                                                    "_").replace(":", "-")+"_UTC.mp4"
-            L.download_post(post, 'Videos')
-            os.rename(date, title)
-            postVideo(instReelsProId, title, message)
-    if(len(timeList) > 0):
+                # postVideo(instReelsProId, "/content/"+title, message[:255])
+        if(len(timeList) > 0):
+            setLastCrawlingData(userName, timeList[0])
+            pass
+            # totalPhotos=totalPhotos+len(timeList)
+            return len(timeList)
+        return 0
+    except Exception as e:
+        print(e)
         setLastCrawlingData(userName, timeList[0])
-        # totalPhotos=totalPhotos+len(timeList)
-        return len(timeList)
-    return 0
+        pass
+
 # if __name__ == '__main__':
 #     # x="2021-04-26 10:12:27"
 #     # print()
@@ -192,6 +197,7 @@ def Run():
     # file.close()
 
     setLoopCount(loopCount)
+
     return 1
 
 
