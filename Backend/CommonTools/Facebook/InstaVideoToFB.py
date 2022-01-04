@@ -147,7 +147,7 @@ def downloadImage(userName):
                 print(a)
                 # os.rename(date, title)
                 # print(date)
-                postVideo("108475275046430", dir_path+"/Videos/hello.mp4", "test upload")
+                postVideo("108475275046430", "./Videos/"+absPath, "test upload")
                 os.remove(dir_path+"/"+date)
                 break
 
