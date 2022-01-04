@@ -26,7 +26,6 @@ dataBase = firebase.FirebaseApplication(databaseUrl, None)
 
 access_token = os.environ.get('FB_TESTING_ACCESS', None)
 
-access_token = "EAANZCU5FqnjkBAGNpDWgBmxP2IZBVF6J5JJDQkwX5k7oHWqxozpoHtkP2iPdOzRADqZCnp9JgpvQhOoHEEd8yZBundq6hTBDzV6cZAo3xFw5vdZCNZBoaqJZCkaVyTcLsKJXZAgVp2qhTIsBSalaZBMnA3BZA5NZBgEf5TieQeVrFOn77ooHdNs6B8eZB"
 
 
 def postVideo(pageId, video_path, message):
