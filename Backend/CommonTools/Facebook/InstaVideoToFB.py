@@ -142,21 +142,23 @@ def downloadImage(userName):
                 a=L.download_post(post, dir_path+"/Videos")
                 print(date)
                 print(post, dir_path+"/Videos/"+a)
+                print(path.abspath(a))
                 # os.rename(date, title)
                 # print(date)
                 postVideo("108475275046430", date, message)
                 os.remove(dir_path+"/"+date)
+                break
 
                 # postVideo(instReelsProId, "/content/"+title, message[:255])
         if(len(timeList) > 0):
-            setLastCrawlingData(userName, timeList[0])
+            # setLastCrawlingData(userName, timeList[0])
             pass
             # totalPhotos=totalPhotos+len(timeList)
             return len(timeList)
         return 0
     except Exception as e:
         print(e)
-        setLastCrawlingData(userName, timeList[0])
+        # setLastCrawlingData(userName, timeList[0])
         pass
 
 # if __name__ == '__main__':
@@ -175,7 +177,7 @@ def Run():
     # print(instaIds)
     try:
 
-        for i in range(len(instaIds)):
+        for i in range(len(instaIds))[:1]:
             i = loopCount
             loopCount += 1
             # print(instaIds[i])
@@ -197,7 +199,7 @@ def Run():
     # file.write(str(loopCount))
     # file.close()
 
-    setLoopCount(loopCount)
+    # setLoopCount(loopCount)
 
     return 1
 
