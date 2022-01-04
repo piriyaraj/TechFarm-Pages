@@ -147,7 +147,7 @@ def downloadImage(userName):
                 print(a)
                 # os.rename(date, title)
                 # print(date)
-                postVideo("108475275046430", "./Videos/"+absPath, message)
+                postVideo("108475275046430", "./Videos/"+absPath, message[:255])
                 os.remove("./Videos/"+absPath)
 
                 # postVideo(instReelsProId, "/content/"+title, message[:255])
