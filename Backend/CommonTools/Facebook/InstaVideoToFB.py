@@ -139,10 +139,10 @@ def downloadImage(userName):
                 # print(post.date)
                 date = dir_path+"/Videos/"+str(post.date).replace(" ",
                                                         "_").replace(":", "-")+"_UTC.mp4"
-                a=L.download_post(post, dir_path+"/Videos")
+                a=L.download_post(post, dir_path+"Videos")
                 print(date)
-                print(post, dir_path+"/Videos/"+a)
-                print(path.abspath(a))
+                print(str(post.date).replace(" ","_").replace(":", "-")+"_UTC.mp4")
+                print(a)
                 # os.rename(date, title)
                 # print(date)
                 postVideo("108475275046430", date, message)
