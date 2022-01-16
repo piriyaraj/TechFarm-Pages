@@ -359,7 +359,7 @@ def getPostData():
     rasiTags = soup.find_all("ul", {"class": "rasi-12-same"})[0].find_all("li")
     for i in rasiTags:
         rasiName=i.find("h1").text
-        rasiText=i.find("p").text.split(":")[1]
+        rasiText=i.find("p").text
         rasiPalan[rasiName]=rasiText
 
     # print(newUrls)
@@ -435,5 +435,5 @@ def Run():
 
 
 if __name__ == "__main__":
-    Run()
+    print(getPostData())
     pass
