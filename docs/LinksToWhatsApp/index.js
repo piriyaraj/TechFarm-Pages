@@ -1,5 +1,6 @@
 var articalSectionId = "root";
-
+var isMyLink=0;
+var myLink ="https://chat.whatsapp.com/DtPKCGVAGBfH1YnIdAUeFD"
 var groupBlock = `
 <div>
     <a style="color: #5a5a5a" target="_blank" href="groupLink" title="WhatsApp group invite link: groupName">
@@ -135,7 +136,11 @@ function insertBlock(groupName, groupLink, groupLogo, groupLanguage, groupCatego
     } else {
         tag = tag.replaceAll('groupLogo', 'https://web.whatsapp.com/invite/icon/' + groupId);
     }
-    tag = tag.replaceAll('groupLink', groupLink);
+    if(isMyLink==1){
+        tag = tag.replaceAll('groupLink', myLink);
+    }else{
+        tag = tag.replaceAll('groupLink', groupLink);
+    }
     tag = tag.replaceAll('groupCountry', groupCountry);
     tag = tag.replaceAll('groupLanguage', groupLanguage);
     tag = tag.replaceAll('groupCategory', groupCategory);
@@ -265,7 +270,11 @@ function insertLatestBlock(groupName, groupLink, groupLogo, groupLanguage, group
     var tag = groupBlock;
     tag = tag.replaceAll('groupName', groupName);
     tag = tag.replaceAll('groupLogo', 'https://web.whatsapp.com/invite/icon/' + groupId);
-    tag = tag.replaceAll('groupLink', groupLink);
+    if(isMyLink==1){
+        tag = tag.replaceAll('groupLink', myLink);
+    }else{
+        tag = tag.replaceAll('groupLink', groupLink);
+    }
     tag = tag.replaceAll('groupCountry', groupCountry);
     tag = tag.replaceAll('groupLanguage', groupLanguage);
     tag = tag.replaceAll('groupCategory', groupCategory);
