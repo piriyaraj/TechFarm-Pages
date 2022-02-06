@@ -159,22 +159,6 @@ def updateInstaId():
     uploadInstaIdInFirebase(instaList)
     return 0
 
-    for i in sitemaps[lastSitemap:-1]:  # ignore last sitemap its page sitemap
-        # for i in sitemaps[:1]:
-        # print(i)
-        resuslt = findlinks(i, lastSitemap, lastPost, dataBase)
-        lastSitemap += 1
-        if(lastSitemap >= len(sitemaps)-2):
-            lastSitemap = 0
-        lastPost = 0
-
-        if(resuslt < 0):
-            break
-        print("hello")
-        data = {}
-        data["lastSitemap"] = lastSitemap
-        data["lastPost"] = lastPost
-        insertData("ScrapData", data, dataBase, format="patch")
 
 # ====================================== upload images ======================================================
 
@@ -307,11 +291,11 @@ def download():
             # print(str(len(instaIds)))
             # print("=============="+instaIds[i]+"==============\n==>Starting download "+str(i+1)+"/"+str(len(instaIds)))
             t = instaIds[i]
-            try:
-                threading.Thread(target=downloadImage, args=(t,)).start()
-            except:
-                pass
-            # downloadImage(t)
+            # try:
+            #     threading.Thread(target=downloadImage, args=(t,)).start()
+            # except:
+            #     pass
+            downloadImage(t)
             # noOfpost+=downloadImage(instaIds[i].split("\n")[0])
             # print("\n==>End Download\n\n")
     except Exception as e:
