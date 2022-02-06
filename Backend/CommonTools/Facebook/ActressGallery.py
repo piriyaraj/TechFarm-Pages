@@ -311,6 +311,7 @@ def download():
 
 
 def Run():
+    print("Started Actress gallery")
     try:
         download()
     except:
