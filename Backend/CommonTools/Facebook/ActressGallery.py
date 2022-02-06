@@ -22,7 +22,6 @@ databaseUrl = "https://colabfacebook-default-rtdb.firebaseio.com/facebook/Actres
 
 dataBase = firebase.FirebaseApplication(databaseUrl, None)
 access_token = os.environ.get('FB_ACCESS', None)
-access_token="EAANEfkg9FMsBAMRfHSksjcARLmPotInTcHZAbEvPn0GuZB83LVHEd1XRxTkxbPPV7h0U1hrzycIdiES02ZC0TuZB7GRzECVKmHQyRMLjRhsch65EPIJo8hZB6ZA9n5JTldwvot0zfMSnNop8rIpXvZBZBoMCD099A8lXgZCUuZCDuvYgAB9egNpYRN"
 facebookId="103874471887645"
 # get last download images data
 
