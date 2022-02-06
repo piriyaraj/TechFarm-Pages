@@ -366,4 +366,3 @@ def Run():
     except:
         pass
     time.sleep(60*10)
-    uploadImage()
