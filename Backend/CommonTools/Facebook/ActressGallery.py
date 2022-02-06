@@ -291,11 +291,11 @@ def download():
             # print(str(len(instaIds)))
             # print("=============="+instaIds[i]+"==============\n==>Starting download "+str(i+1)+"/"+str(len(instaIds)))
             t = instaIds[i]
-            # try:
-            #     threading.Thread(target=downloadImage, args=(t,)).start()
-            # except:
-            #     pass
-            downloadImage(t)
+            try:
+                threading.Thread(target=downloadImage, args=(t,)).start()
+            except:
+                pass
+            # downloadImage(t)
             # noOfpost+=downloadImage(instaIds[i].split("\n")[0])
             # print("\n==>End Download\n\n")
     except Exception as e:
