@@ -14,7 +14,6 @@ from bs4.element import ResultSet
 import requests
 from bs4 import BeautifulSoup, dammit
 from firebase import firebase
-import pyrebase
 from requests.models import ReadTimeoutError
 from firebase import firebase
 
@@ -22,7 +21,9 @@ totalPhotos = 0
 databaseUrl = "https://colabfacebook-default-rtdb.firebaseio.com/facebook/ActressGallery/"
 
 dataBase = firebase.FirebaseApplication(databaseUrl, None)
-
+access_token = os.environ.get('FB_ACCESS', None)
+access_token="EAANEfkg9FMsBAMRfHSksjcARLmPotInTcHZAbEvPn0GuZB83LVHEd1XRxTkxbPPV7h0U1hrzycIdiES02ZC0TuZB7GRzECVKmHQyRMLjRhsch65EPIJo8hZB6ZA9n5JTldwvot0zfMSnNop8rIpXvZBZBoMCD099A8lXgZCUuZCDuvYgAB9egNpYRN"
+facebookId="103874471887645"
 # get last download images data
 
 
@@ -185,40 +186,6 @@ postTime1 = time.time()+10*60
 timeDivision = 10*60
 
 
-def postToFacebook(userName, fullName, imgList, noOfpost):
-    # print(timeDivision)
-    # print(postTime1)
-    imgFolderPath = "./"+userName+"/"
-    # Get Access token - Follow the video on how to get access token for your fb account
-    access_token = os.environ.get('FB_ACCESS', None)
-
-    # The Graph API allows you to read and write data to and from the Facebook social graph
-    asafb = fb.GraphAPI(access_token)
-
-    # Post a photo with captions
-    # asafb.put_photo(open("meme.jpg","rb"), message = "Automated meme post")
-
-    # asafb.put_object("me","feed",message =textQuote)
-    # if(noOfpost==0):
-    #     print("======>"+str(noOfpost)+" photos uploaded")
-    #     return 0
-
-    for i in range(noOfpost):
-        title = imgList[i].split(".")[0]
-        if(title.split("-") == "2021"):
-            title = ""
-        # tags=("#year_"+" #".join(title.split())).replace("-","_")
-        # print(tags,title)
-        message = fullName+"\n#"+fullName.replace(" ", " #")
-
-        # ,is_published=False,scheduled_publish_time=seconds)
-        asafb.put_photo(open(imgFolderPath+imgList[i], "rb"), message=message)
-        os.remove(imgFolderPath+imgList[i])
-        # print("posted:", imgFolderPath+imgList[i])
-        # postTime=postTime+timeDivision
-    # print("======>"+str(noOfpost), "photos uploaded")
-
-
 def getFullName(userName):
     L = instaloader.Instaloader(
         download_videos=False, save_metadata=False, post_metadata_txt_pattern='')
@@ -229,7 +196,7 @@ def getFullName(userName):
 
 
 def postImage(img):
-    url = f"https://graph.facebook.com/{pageId}/photos?access_token=" + auth_token
+    url = f"https://graph.facebook.com/{facebookId}/photos?access_token=" + access_token
 
     files = {
         'file': open(img, 'rb'),
@@ -243,10 +210,12 @@ def postImage(img):
 # upload multiple image
 
 
-def multiPostImage(message, img_list):
+def multiPostImage(message, imgFolder):
     imgs_id = []
+    img_list=os.listdir(imgFolder)
+
     for img in img_list:
-        post_id = postImage(pageId, img)
+        post_id = postImage(imgFolder+"/"+img)
 
         imgs_id.append(post_id['id'])
 
@@ -255,16 +224,10 @@ def multiPostImage(message, img_list):
     for img_id in imgs_id:
         key = "attached_media["+str(imgs_id.index(img_id))+"]"
         args[key] = "{'media_fbid': '"+img_id+"'}"
-    url = f"https://graph.facebook.com/{pageId}/feed?access_token=" + auth_token
+    url = f"https://graph.facebook.com/{facebookId}/feed?access_token=" + access_token
     requests.post(url, data=args)
 
 
-def uploadImg(message, fileName):
-    imgList = (os.listdir(fileName))
-    imgList.reverse()
-    userName = fileName.split('-')[1]
-    # fullName = getFullName(userName)
-    multiPostImage(message, imgList)
 # =================================================Download image section===============================================
 
 # import firebaseSetup
@@ -298,18 +261,22 @@ def downloadImage(userName):
         message = ""
         date = ""
         for post in takewhile(lambda p: p.date > UNTIL, dropwhile(lambda p: p.date > SINCE, posts)):
-            date = "-"+str(post.date).replace("-",
-                                              "_").replace(":", "_").replace(" ", "_")
+            date = "-"+str(post.date).replace("-",  "_").replace(":", "_").replace(" ", "_")
             # print(date)
             try:
-                title = userName+" "+post.caption
+                title = getFullName(userName)+">>\n "+post.caption
                 message = title
             except:
-                title = userName
+                title = getFullName(userName)
                 message = title
             timeList.append(str(post.date))
             L.download_post(post, "actphoto-"+userName+date)
-        multiPostImage(message, "./actphoto-"+userName+date)
+            time.sleep(60)
+            if(os.path.isdir("./actphoto-"+userName+date)):             
+              multiPostImage(message, "./actphoto-"+userName+date)
+              time.sleep(60)
+              shutil.rmtree("./actphoto-"+userName+date)
+        
     except:
         setLastCrawlingData(userName, timeList[0])
     if(len(timeList) > 0):
@@ -365,4 +332,3 @@ def Run():
         download()
     except:
         pass
-    time.sleep(60*10)
