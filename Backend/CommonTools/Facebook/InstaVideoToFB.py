@@ -3,7 +3,6 @@ from bs4.element import ResultSet
 import requests
 from bs4 import BeautifulSoup, dammit
 from firebase import firebase
-import pyrebase
 from requests.models import ReadTimeoutError
 from firebase import firebase
 import instaloader
@@ -11,12 +10,10 @@ import datetime
 from itertools import dropwhile, takewhile
 import os
 import threading
-
+import facebook as fb
 from instaloader import exceptions
 from os import path
 
-file_path = path.abspath(__file__)
-dir_path = path.dirname(file_path)
 
 totalPhotos = 0
 databaseUrl = "https://colabfacebook-default-rtdb.firebaseio.com/facebook/InstaReelsPro/"
@@ -26,6 +23,10 @@ dataBase = firebase.FirebaseApplication(databaseUrl, None)
 
 access_token = os.environ.get('FB_TESTING_ACCESS', None)
 
+
+def getGroupIds():
+    dic = dataBase.get(databaseUrl, "groups")
+    return dic
 
 
 def postVideo(pageId, video_path, message):
@@ -38,7 +39,7 @@ def postVideo(pageId, video_path, message):
         "description": message,
     }
     st = requests.post(url, files=files, data=payload)
-    print(st.json())
+    return st.json()['id']
 
 
 def insertData(tableName, data, dataBase, format="post"):
@@ -99,6 +100,17 @@ def uploadInstaIdInFirebase(instaList):
     insertData("instaIds", data, dataBase, format="patch")
 
 
+def postShare(postId):
+  asafb = fb.GraphAPI(access_token)
+  groupIds = getGroupIds()
+  for group in groupIds:
+      try:
+          asafb.put_object(
+              group, "feed", link="www.facebook.com/108475275046430/posts/"+postId)
+      except:
+          pass
+
+
 def downloadImage(userName):
     # try:
     # userName="rashmika_mandanna"
@@ -135,19 +147,19 @@ def downloadImage(userName):
                     title = userName
                     message = title
 
-                title = dir_path+"/Videos/"+title[:240]+".mp4"
-                # print(post.date)
-                date = dir_path+"/Videos/"+str(post.date).replace(" ",
-                                                        "_").replace(":", "-")+"_UTC.mp4"
+                title = "./Videos/"+title[:240]+".mp4"
+                # print("test1")
+                date = "./Videos/"+str(post.date).replace(" ",
+                                                          "_").replace(":", "-")+"_UTC.mp4"
                 a = L.download_post(post, "Videos")
-                print(date)
-                absPath=str(post.date).replace(
-                    " ", "_").replace(":", "-")+"_UTC.mp4"
-                print(absPath)
-                print(a)
-                # os.rename(date, title)
                 # print(date)
-                postVideo("108475275046430", "./Videos/"+absPath, message[:255])
+                absPath = str(post.date).replace(
+                    " ", "_").replace(":", "-")+"_UTC.mp4"
+                # os.rename(date, title)
+                # print(absPath)
+                postId = postVideo("108475275046430",
+                                   "./Videos/"+absPath, message[:255])
+                postShare(postId)
                 os.remove("./Videos/"+absPath)
 
                 # postVideo(instReelsProId, "/content/"+title, message[:255])
@@ -203,8 +215,3 @@ def Run():
     setLoopCount(loopCount)
 
     return 1
-
-
-if __name__ == '__main__':
-    Run()
-    print(totalPhotos)
