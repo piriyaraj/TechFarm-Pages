@@ -30,6 +30,7 @@ def getGroupIds():
 
 
 def postVideo(pageId, video_path, message):
+    # print("post video")
     url = f"https://graph-video.facebook.com/{pageId}/videos?access_token=" + access_token
     files = {
         'file': open(video_path, 'rb'),
@@ -39,6 +40,7 @@ def postVideo(pageId, video_path, message):
         "description": message,
     }
     st = requests.post(url, files=files, data=payload)
+    print(st.json())
     return st.json()['id']
 
 
@@ -101,13 +103,15 @@ def uploadInstaIdInFirebase(instaList):
 
 
 def postShare(postId):
+  # print("start sharing")
   asafb = fb.GraphAPI(access_token)
   groupIds = getGroupIds()
   for group in groupIds:
       try:
           asafb.put_object(
               group, "feed", link="www.facebook.com/108475275046430/posts/"+postId)
-      except:
+      except Exception as e:
+          print(e)
           pass
 
 
@@ -157,8 +161,10 @@ def downloadImage(userName):
                     " ", "_").replace(":", "-")+"_UTC.mp4"
                 # os.rename(date, title)
                 # print(absPath)
+                # message="summa"
                 postId = postVideo("108475275046430",
                                    "./Videos/"+absPath, message[:255])
+                # print(postId)
                 postShare(postId)
                 os.remove("./Videos/"+absPath)
 
