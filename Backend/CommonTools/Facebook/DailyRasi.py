@@ -18,10 +18,34 @@ postUrl = "https://astrology.dinakaran.com/rasi-index.asp"
 
 access_token = os.environ.get('FB_DAILYRASI_ACCESS', None)
 
-tags = "#இன்றைய_ராசிபலன்"
-file_path = path.abspath(__file__)
-dir_path = path.dirname(file_path)
+message = " ராசிபலன் #இன்றைய_ராசிபலன்"
+facebookId="106965915188479"
 # print(dir_path)
+
+
+def postImage():
+    url = f"https://graph.facebook.com/{facebookId}/photos?access_token=" + access_token
+
+    files = {
+        'file': open("./rasiImg.jpg", 'rb'),
+    }
+    data = {
+        "published": False
+    }
+    r = requests.post(url, files=files, data=data).json()
+    return r['id']
+
+# upload multiple image
+
+
+def multiPostImage(date, imgs_id):
+    args = dict()
+    args["message"] = date+message
+    for img_id in imgs_id:
+        key = "attached_media["+str(imgs_id.index(img_id))+"]"
+        args[key] = "{'media_fbid': '"+img_id+"'}"
+    url = f"https://graph.facebook.com/{facebookId}/feed?access_token=" + access_token
+    requests.post(url, data=args)
 
 def unicodeChange(text):
     text = text.replace("ஸ்ரீ", "=")
@@ -327,13 +351,11 @@ def unicodeChange(text):
     text = text.replace("ஃ", "/")
     return text
 
-
 def insertData(tableName, data, dataBase, format="post"):
     if(format == "patch"):
         result = dataBase.patch(tableName, data)
     else:
         result = dataBase.post(tableName, data)
-
 
 def getLastDate():
     dic = dataBase.get(databaseUrl, "Data")
@@ -344,12 +366,10 @@ def getLastDate():
         lastCount = 0
     return lastCount
 
-
 def setLastDate(imgUrl):
     data = {}
     data["date"] = imgUrl
     insertData("Data", data, dataBase, format="patch")
-
 
 def getPostData():
     rasiPalan={}
@@ -365,10 +385,9 @@ def getPostData():
     # print(newUrls)
     return date,rasiPalan
 
-
 def makeImg(date,rasiName,palan):
-    rasiTem = dir_path+'/Images/RasiTemplate.jpg'
-    rasiImg = dir_path+'/Images/'+rasiName+'.jpg'
+    rasiTem = './Images/RasiTemplate.jpg'
+    rasiImg = './Images/'+rasiName+'.jpg'
 
     template=Image.open(rasiTem)
     rasiImg=Image.open(rasiImg).resize((350,350))
@@ -376,8 +395,8 @@ def makeImg(date,rasiName,palan):
 
 
     newImg.paste(rasiImg,(0,0))
-    palanFont = ImageFont.truetype(dir_path+"/Fonts/Bamini.ttf", 110)
-    dateFont = ImageFont.truetype(dir_path+"/Fonts/Godzilla.ttf", 80)
+    palanFont = ImageFont.truetype("./Fonts/Bamini.ttf", 110)
+    dateFont = ImageFont.truetype("./Fonts/Godzilla.ttf", 80)
     draw = ImageDraw.Draw(newImg)
     draw.text((780, 120), date, fill=(0, 0, 0), font=dateFont)
     lines = textwrap.wrap(palan, width=34)
@@ -391,20 +410,7 @@ def makeImg(date,rasiName,palan):
         # palan = unicodeChange(makeTextFixed(palan))
 
     #draw.text((50, 370), palan, fill=(0, 0, 0), font=palanFont)
-    newImg.save(dir_path+"/rasiImg.jpg")
-
-
-
-def postToFacebookImage(rasi,date):
-
-    # Get Access token - Follow the video on how to get access token for your fb account
-
-    # The Graph API allows you to read and write data to and from the Facebook social graph
-    asafb = fb.GraphAPI(access_token)
-
-    asafb.put_photo(open(dir_path+"/rasiImg.jpg", "rb"), message=date+" ராசிபலன்\n"+tags+" #"+rasi)
-    os.remove(dir_path+"/rasiImg.jpg")
-
+    newImg.save("./rasiImg.jpg")
 
 def Run():
 
@@ -413,12 +419,13 @@ def Run():
     if(lastPostDate==newPostData[0]):
         print("No New Update")
         return
-    
+    postIds=[]
     rasiPalan=newPostData[1]
     for rasi,palan in rasiPalan.items():
         makeImg(newPostData[0], rasi, palan)
         try:
-            postToFacebookImage(rasi,newPostData[0])
+            postId=postImage()
+            postIds.append(postId)
             print("===> ", rasi, end=" : posted\n")
             time.sleep(5)
             setLastDate(newPostData[0])
@@ -432,7 +439,7 @@ def Run():
             # setLastPostLink(j)
             print(e)
             return -1
-
+    multiPostImage(newPostData[0], postIds)
 
 if __name__ == "__main__":
     print(getPostData())
