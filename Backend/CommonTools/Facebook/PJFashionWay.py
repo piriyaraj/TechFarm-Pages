@@ -8,41 +8,8 @@ import requests
 # Telegram functions
 import requests
 import json
-telegram_token_news = os.environ.get('TELE_PJFASHIONWAY_ACCESS', None)
 
-
-def send_photos(api_key, chat_id, photo_paths):
-    params = {
-        'chat_id': chat_id,
-        'media': [],
-    }
-    for path in photo_paths:
-        params['media'].append(
-            {'type': 'photo', 'media': path})
-    params['media'] = json.dumps(params['media'])
-    url = f'https://api.telegram.org/bot{api_key}/sendMediaGroup'
-    return requests.post(url, data=params)
-
-# sent text message
-
-
-def sent_message(api_key, chat_id, text):
-    params = {
-        "chat_id": chat_id,
-        "text": text
-    }
-    url = f'https://api.telegram.org/bot{api_key}/sendMessage'
-    return requests.post(url,data=params)
-
-
-
-def facebookPageToTelegram(api_key,telegramId,message,images):
-    send_photos(api_key,telegramId,images)
-    sent_message(api_key,telegramId,message)
-
-# Tele function end
-
-boys="""
+boys = """
 join for Men's dress collection
 https://chat.whatsapp.com/DtPKCGVAGBfH1YnIdAUeFD
 """
@@ -51,10 +18,8 @@ girls = """
 join for women's dress collection
 https://chat.whatsapp.com/DtPKCGVAGBfH1YnIdAUeFD
 """
-
 databaseUrl = "https://colabfacebook-default-rtdb.firebaseio.com/facebook/PJFashionWay/"
 dataBase = firebase.FirebaseApplication(databaseUrl, None)
-
 access_token = os.environ.get('FB_PJFASHIONWAY_ACCESS', None)
 
 
@@ -78,14 +43,15 @@ def getGroupIds():
 
 def getPostData(postId, asafb):
 
-    post = asafb.get_object(postId,fields ='message, attachments')
-    message=post['message']
-    media=post['attachments']['data'][0]['subattachments']['data']
-    images=[]
+    post = asafb.get_object(postId, fields='message, attachments')
+    message = post['message']
+    media = post['attachments']['data'][0]['subattachments']['data']
+    images = []
     for id in media:
-      images.append(id['media']['image']['src']) 
-    
-    return message,images
+      images.append(id['media']['image']['src'])
+
+    return message, images
+
 
 def groupShare(pageId, page):
     asafb = fb.GraphAPI(access_token)
@@ -93,48 +59,37 @@ def groupShare(pageId, page):
     posts = asafb.get_connections(profile["id"], "posts")
     if(page == "womens"):
         lastPost = dataBase.get(databaseUrl, "Data/womens/lastPost")
-        message=girls
+        message = girls
     if(page == "mens"):
         lastPost = dataBase.get(databaseUrl, "Data/mens/lastPost")
-        message=boys
+        message = boys
 
     new = 1
-    count=1
-    newPosts=[]
+    count = 1
+    newPosts = []
     while True:
         try:
             posts = asafb.get_connections(profile["id"], "posts")
             for post in posts['data']:
-                if(lastPost==post['id']):
-                    new=0
+                if(lastPost == post['id']):
+                    new = 0
                     break
                 if(count == 1):
                     setPostId(post['id'], page)
                     count = 0
                 newPosts.append(post['id'])
-            if(new==0):
+            if(new == 0):
                 break
             posts = requests.get(posts["paging"]["next"]).json()
         except:
             break
-
+    print(newPosts)
     for post in newPosts:
         teleMessage, images = getPostData(post, asafb)
-        facebookPageToTelegram(telegram_token_news, "@pjfashionwaywomens", teleMessage,images)
-        print(post)
-
         for group in getGroupIds().values():
             try:
-                asafb.put_object(group, "feed",message=message,link="www.facebook.com/"+post.replace("_", "/posts/"))
+                asafb.put_object(group, "feed", message=message,
+                                 link="www.facebook.com/"+post.replace("_", "/posts/"))
                 pass
-
             except:
                 pass
-
-
-def Run():
-    groupShare("103787625468668", "womens")
-    groupShare("106668551836797", "mens")
-
-if __name__ == "__main__":
-    pass
