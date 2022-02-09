@@ -93,3 +93,7 @@ def groupShare(pageId, page):
                 pass
             except:
                 pass
+
+def Run():
+    groupShare("103787625468668", "womens")
+    groupShare("106668551836797", "mens")
