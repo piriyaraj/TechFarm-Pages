@@ -18,10 +18,38 @@ postUrl = "https://astrology.dinakaran.com/rasi-index.asp"
 
 access_token = os.environ.get('FB_DAILYRASI_ACCESS', None)
 
-tags = "#இன்றைய_ராசிபலன்"
+postMessage = " ராசிபலன் \n #இன்றைய_ராசிபலன்"
 file_path = path.abspath(__file__)
 dir_path = path.dirname(file_path)
 # print(dir_path)
+
+def postImage():
+    url = f"https://graph.facebook.com/{facebookId}/photos?access_token=" + access_token
+
+    files = {
+        'file': open(dir_path+"/rasiImg.jpg", 'rb'),
+    }
+    data = {
+        "published": False
+    }
+    r = requests.post(url, files=files, data=data).json()
+    os.remove(dir_path+"/rasiImg.jpg")
+
+    return r['id']
+
+# upload multiple image
+
+
+def multiPostImage(message, imgs_id):
+    args = dict()
+    args["message"] = message
+    for img_id in imgs_id:
+        key = "attached_media["+str(imgs_id.index(img_id))+"]"
+        args[key] = "{'media_fbid': '"+img_id+"'}"
+    url = f"https://graph.facebook.com/{facebookId}/feed?access_token=" + access_token
+    requests.post(url, data=args)
+
+
 
 def unicodeChange(text):
     text = text.replace("ஸ்ரீ", "=")
@@ -407,7 +435,7 @@ def postToFacebookImage(rasi,date):
 
 
 def Run():
-
+    postIds=[]
     lastPostDate = getLastDate()
     newPostData = getPostData()
     if(lastPostDate==newPostData[0]):
@@ -418,7 +446,9 @@ def Run():
     for rasi,palan in rasiPalan.items():
         makeImg(newPostData[0], rasi, palan)
         try:
-            postToFacebookImage(rasi,newPostData[0])
+            # postToFacebookImage(rasi,newPostData[0])
+            postId=postImage()
+            postIds.append(postId)
             print("===> ", rasi, end=" : posted\n")
             time.sleep(5)
             setLastDate(newPostData[0])
@@ -432,8 +462,9 @@ def Run():
             # setLastPostLink(j)
             print(e)
             return -1
+    multiPostImage(newPostData[0]+postMessage, postIds)
 
 
 if __name__ == "__main__":
-    print(getPostData())
-    pass
+    files=os.listdir(dir_path+"/Images")
+    print(files)
