@@ -18,11 +18,11 @@ postUrl = "https://astrology.dinakaran.com/rasi-index.asp"
 
 access_token = os.environ.get('FB_DAILYRASI_ACCESS', None)
 
-postMessage = " ராசிபலன் \n #இன்றைய_ராசிபலன்"
+postMessage = " ராசிபலன் \n #இன்றைய_ராசிபலன் #கடகம் #கன்னி #கும்பம் #சிம்மம் #தனுசு #துலாம் #மகரம் #மிதுனம் #மீனம் #மேஷம் #ரிஷபம் #விருச்சிகம்"
 file_path = path.abspath(__file__)
 dir_path = path.dirname(file_path)
 # print(dir_path)
-
+facebookId = "106965915188479"
 def postImage():
     url = f"https://graph.facebook.com/{facebookId}/photos?access_token=" + access_token
 
