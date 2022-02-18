@@ -22,6 +22,8 @@ def hello():
 def favicon():
     return "hello"
 
+# ========================= WebSite====================================================================
+
 # all bike specification blogger autopost
 @app.route('/allbikespecification/autopost')
 def post():
@@ -43,7 +45,21 @@ def postmake():
     thread_a.start()
     return render_template("timepage.html", title="All bike specification post Maker")
 
+# mobileSpeci setup
+from website import mobileSpeci
 
+@app.route('/mobilespeci/checknewpost')
+def mobileSpeciCheckNewPost():
+    thread_a = Thread(target=mobileSpeci.checkForNewPost(), args=())
+    thread_a.start()
+    return render_template("timepage.html", title="MobileSpeci new post checking")
+
+
+@app.route('/mobilespeci/upadtepostdatainfirebase')
+def mobileSpeciupadtepostdatainfirebase():
+    thread_a = Thread(target=mobileSpeci.addPostDataIntoFirebase, args=())
+    thread_a.start()
+    return render_template("timepage.html", title="MobileSpeci add post data into firebase")
 
 # ========================= Facebook====================================================================
 @app.route('/facebook/actressgallery')
