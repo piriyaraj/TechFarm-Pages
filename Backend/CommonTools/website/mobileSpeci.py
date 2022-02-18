@@ -247,7 +247,7 @@ def checkForNewPost():
 def addPostDataIntoFirebase():
     postCount = getLastPostNumberForExtract()+1
     count = 0
-    for i in range(1):
+    for i in range(100):
 
         url = getNextPostUrlForExtract(postCount)
         # print(url)
