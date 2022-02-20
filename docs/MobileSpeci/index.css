@@ -119,13 +119,14 @@ button:focus {
 
 .container {
     position: relative;
+    background-color: white;
 }
 
 
 /* Hide the images by default */
 
 .mySlides {
-    /* border: 1px solid; */
+    border: 1px solid;
     height: 600px;
     text-align: center
 }
