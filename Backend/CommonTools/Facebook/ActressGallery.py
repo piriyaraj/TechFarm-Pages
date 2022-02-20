@@ -14,15 +14,16 @@ from bs4.element import ResultSet
 import requests
 from bs4 import BeautifulSoup, dammit
 from firebase import firebase
-import pyrebase
 from requests.models import ReadTimeoutError
 from firebase import firebase
 
 totalPhotos = 0
 databaseUrl = "https://colabfacebook-default-rtdb.firebaseio.com/facebook/ActressGallery/"
-# databaseUrl = "https://colabfacebook-default-rtdb.firebaseio.com/"
+
 dataBase = firebase.FirebaseApplication(databaseUrl, None)
-# mainSitemapUrl = "https://www.whatsapgrouplinks.com/sitemap_index.xml"
+access_token = os.environ.get('FB_ACCESS', None)
+facebookId="103874471887645"
+# get last download images data
 
 
 def getData(tableName, dataBase):
@@ -33,6 +34,7 @@ def getData(tableName, dataBase):
         return 1
     except:
         return 0
+# set last downloaded images data
 
 
 def insertData(tableName, data, dataBase, format="post"):
@@ -40,6 +42,7 @@ def insertData(tableName, data, dataBase, format="post"):
         result = dataBase.patch(tableName, data)
     else:
         result = dataBase.post(tableName, data)
+# get last downloaded actress name
 
 
 def getLoopCount():
@@ -53,12 +56,14 @@ def getLoopCount():
         data["loopCount"] = 0
         insertData("data", data, dataBase, format="patch")
     return loopCount
+# set last download actress name count
 
 
 def setLoopCount(coutValue):
     data = {}
     data["loopCount"] = coutValue
     insertData("data", data, dataBase, format="patch")
+# get all instagram id from firebase
 
 
 def getInstaId():
@@ -68,6 +73,7 @@ def getInstaId():
     except:
       pass
     return instaIds
+# get specific actress photots downloaded date
 
 
 def getLastCrawlingData(instaId):
@@ -76,6 +82,7 @@ def getLastCrawlingData(instaId):
     if(dic == None):
         return dic
     return dic[instaId]
+# set specific actress photots downloaded date
 
 
 def setLastCrawlingData(instaId, date):
@@ -152,63 +159,14 @@ def updateInstaId():
     uploadInstaIdInFirebase(instaList)
     return 0
 
-    for i in sitemaps[lastSitemap:-1]:  # ignore last sitemap its page sitemap
-        # for i in sitemaps[:1]:
-        # print(i)
-        resuslt = findlinks(i, lastSitemap, lastPost, dataBase)
-        lastSitemap += 1
-        if(lastSitemap >= len(sitemaps)-2):
-            lastSitemap = 0
-        lastPost = 0
-
-        if(resuslt < 0):
-            break
-        print("hello")
-        data = {}
-        data["lastSitemap"] = lastSitemap
-        data["lastPost"] = lastPost
-        insertData("ScrapData", data, dataBase, format="patch")
 
 # ====================================== upload images ======================================================
 
 # import firebaseSetup
 
+
 postTime1 = time.time()+10*60
 timeDivision = 10*60
-
-
-def postToFacebook(userName, fullName, imgList, noOfpost):
-    # print(timeDivision)
-    # print(postTime1)
-    imgFolderPath = "./"+userName+"/"
-    # Get Access token - Follow the video on how to get access token for your fb account
-    access_token = os.environ.get('FB_ACCESS', None)
-
-    # The Graph API allows you to read and write data to and from the Facebook social graph
-    asafb = fb.GraphAPI(access_token)
-
-    # Post a photo with captions
-    # asafb.put_photo(open("meme.jpg","rb"), message = "Automated meme post")
-
-    # asafb.put_object("me","feed",message =textQuote)
-    # if(noOfpost==0):
-    #     print("======>"+str(noOfpost)+" photos uploaded")
-    #     return 0
-
-    for i in range(noOfpost):
-        title = imgList[i].split(".")[0]
-        if(title.split("-") == "2021"):
-            title = ""
-        # tags=("#year_"+" #".join(title.split())).replace("-","_")
-        # print(tags,title)
-        message = fullName+"\n#"+fullName.replace(" ", " #")
-
-        # ,is_published=False,scheduled_publish_time=seconds)
-        asafb.put_photo(open(imgFolderPath+imgList[i], "rb"), message=message)
-        os.remove(imgFolderPath+imgList[i])
-        print("posted:", imgFolderPath+imgList[i])
-        # postTime=postTime+timeDivision
-    print("======>"+str(noOfpost), "photos uploaded")
 
 
 def getFullName(userName):
@@ -220,39 +178,37 @@ def getFullName(userName):
     # run(1)
 
 
-def uploadImage():
-    instaIds = getInstaId()
-    for i in range(len(instaIds)):
-        userName = instaIds[i].split("\n")[0]
-        imgFolderPath = "./"+userName+"/"
-        try:
-            imgList = (os.listdir(imgFolderPath))
-        except:
-            continue
-        imgList.reverse()
-        # if(len(imgList)<noOfpost):
-        noOfpost = len(imgList)
-        if(noOfpost == 0):
-            print("\n\n==>Start Facebook page posting " + fullName+">>"+str(i+1)+"/"+str(len(instaIds)))
-            print("======>"+str(noOfpost), "photos uploaded")
-            print("==>End  Facebook  page posting "+fullName)
-            continue
+def postImage(img):
+    url = f"https://graph.facebook.com/{facebookId}/photos?access_token=" + access_token
 
-        fullName = getFullName(userName)
-        # postToFacebook(userName,fullName)
-        # print(userName, fullName, imgList, noOfpost)
-        # if(noOfpost>0):
-        #     continue
-        try:
-            print("\n\n==>Start Facebook page posting "+fullName)
-            postToFacebook(userName, fullName, imgList, noOfpost)
-            print("==>End  Facebook  page posting "+fullName)
+    files = {
+        'file': open(img, 'rb'),
+    }
+    data = {
+        "published": False
+    }
+    r = requests.post(url, files=files, data=data).json()
+    return r
 
-        except Exception as e:
-            print(e)
-            continue
-        os.rmdir(userName)
+# upload multiple image
 
+
+def multiPostImage(message, imgFolder):
+    imgs_id = []
+    img_list=os.listdir(imgFolder)
+
+    for img in img_list:
+        post_id = postImage(imgFolder+"/"+img)
+
+        imgs_id.append(post_id['id'])
+
+    args = dict()
+    args["message"] = message
+    for img_id in imgs_id:
+        key = "attached_media["+str(imgs_id.index(img_id))+"]"
+        args[key] = "{'media_fbid': '"+img_id+"'}"
+    url = f"https://graph.facebook.com/{facebookId}/feed?access_token=" + access_token
+    requests.post(url, data=args)
 
 
 # =================================================Download image section===============================================
@@ -276,25 +232,41 @@ def downloadImage(userName):
     lastposttime = getLastCrawlingData(userName)
     # lastposttime=int(2021, 4, 20)
     if(lastposttime == None):
-        lastposttime = str(datetime.datetime.now() -  datetime.timedelta(days=1)).split(".")[0]
+        lastposttime = str(datetime.datetime.now() -
+                           datetime.timedelta(days=1)).split(".")[0]
     SINCE = datetime.datetime.now()
 
     UNTIL = datetime.datetime.strptime(lastposttime[2:], "%y-%m-%d %H:%M:%S")
 
-    print("Start Time:", UNTIL, "\nEnd   Time:", SINCE)
+    # print("Start Time:", UNTIL, "\nEnd   Time:", SINCE)
     timeList = []
     try:
+        message = ""
+        date = ""
         for post in takewhile(lambda p: p.date > UNTIL, dropwhile(lambda p: p.date > SINCE, posts)):
-            print(post.date)
-
+            date = "-"+str(post.date).replace("-",  "_").replace(":", "_").replace(" ", "_")
+            # print(date)
+            try:
+                title = getFullName(userName)+">>\n "+post.caption
+                message = title
+            except:
+                title = getFullName(userName)
+                message = title
             timeList.append(str(post.date))
-            L.download_post(post, userName)
+            L.download_post(post, "actphoto-"+userName+date)
+            time.sleep(60)
+            if(os.path.isdir("./actphoto-"+userName+date)):             
+              multiPostImage(message, "./actphoto-"+userName+date)
+              time.sleep(60)
+              shutil.rmtree("./actphoto-"+userName+date)
+        
     except:
         setLastCrawlingData(userName, timeList[0])
     if(len(timeList) > 0):
         setLastCrawlingData(userName, timeList[0])
         # totalPhotos=totalPhotos+len(timeList)
         return len(timeList)
+
     return 0
 # if __name__ == '__main__':
 #     # x="2021-04-26 10:12:27"
@@ -317,8 +289,7 @@ def download():
             # print(instaIds[i])
             # print(str(i+1))
             # print(str(len(instaIds)))
-            print("=============="+instaIds[i]+"==============\n==>Starting download "+str(
-                i+1)+"/"+str(len(instaIds)))
+            # print("=============="+instaIds[i]+"==============\n==>Starting download "+str(i+1)+"/"+str(len(instaIds)))
             t = instaIds[i]
             try:
                 threading.Thread(target=downloadImage, args=(t,)).start()
@@ -326,7 +297,7 @@ def download():
                 pass
             # downloadImage(t)
             # noOfpost+=downloadImage(instaIds[i].split("\n")[0])
-            print("\n==>End Download\n\n")
+            # print("\n==>End Download\n\n")
     except Exception as e:
         loopCount = loopCount-1
         print(e)
@@ -339,11 +310,9 @@ def download():
     return 1
 
 
-
 def Run():
+    print("Started Actress gallery")
     try:
         download()
     except:
         pass
-    time.sleep(60*10)
-    uploadImage()

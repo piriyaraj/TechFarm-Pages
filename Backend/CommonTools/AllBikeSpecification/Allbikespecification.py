@@ -71,7 +71,7 @@ def postTitlesInBlogger(postName, argv):
         }
         blog = thisusersblogs['items'][0]
         
-        posts.insert(blogId="5317390335310223575",body=body, isDraft=True).execute()
+        posts.insert(blogId="5317390335310223575",body=body,isDraft=False).execute()
         
         return ["posted",""]
 
@@ -103,15 +103,16 @@ def Run():
 
         status = postTitlesInBlogger(postTitle, sys.argv)
         
-        print(status[0])
+        if(status[0]=="posted"):
+            print(i+1, ">>>", postTitle, "-"*(60-len(postTitle)),"status:posted")
 
         # postToblogger.postnow()
         if(status[0] == "failed"):
-            print(status[1])
+            print(i+1, ">>>", postTitle, "-" *(60-len(postTitle)), "status:Failed")
             break
 
         if(status[0]=="limit"):
-            print(status[1])
+            print(i+1, ">>>", postTitle, "-" *(60-len(postTitle)), "status:Limit")
             return status[1]
 
         # print("")

@@ -4,10 +4,28 @@ const schedule = require('node-schedule');;
 
 const axios = require("axios");
 const cheerio = require("cheerio");
-// const groupsorExtract= require('./groupsorExtract');
 const waTools=require("./groupsorExtract");
+const invaildRemover = require("./invaildRemover")
 
-// const { default: scrap } = require("./src/scrap");
+
+var { initializeApp } = require('firebase/app');
+var { getDatabase, get, ref, child, set, push, remove } = require('firebase/database');
+const { async } = require("@firebase/util");
+
+// const serviceAccount = require('./path/to/key.json');
+const firebaseConfig = {
+    apiKey: "AIzaSyDVwUfxkzIfeDgav_ZWwukDDy81-hIGmfs",
+    authDomain: "links-to-whatsapp.firebaseapp.com",
+    databaseURL: "https://links-to-whatsapp-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "links-to-whatsapp",
+    storageBucket: "links-to-whatsapp.appspot.com",
+    messagingSenderId: "1098223504691",
+    appId: "1:1098223504691:web:354efcc9747e6a0ad14246"
+};
+
+const firebaseApp = initializeApp(firebaseConfig);
+const db = getDatabase(firebaseApp);
+
 const app = express();
 app.use(cors());
 let port = process.env.PORT || 3000;
@@ -27,14 +45,19 @@ app.get("/", (req, res) => {
 })
 app.get("/extractfromgroupsor",(req,res)=>{
     res.sendFile("timepage.html", options);
-    waTools.run();
+    waTools.run(db);
     
 })
-// app.get("/invalidcheck", (req, res) => {
-//     res.sendFile("timepagevalid.html", options)
-//     waTools.invalidChecker();
+app.get("/invalidcheck", (req, res) => {
+    res.sendFile("timepagevalid.html", options)
+    invaildRemover.run(db)
 
-// })
+})
+app.get("/test", (req, res) => {
+    res.sendFile("timepagevalid.html", options)
+    console.log("hello");
+
+})
 // app.get("/getmail",(req,res)=>{
 //     mailer.sent("piriyaraj1998@gmail.com", "Groupsor Extract started");
 //     res.send("mail send");

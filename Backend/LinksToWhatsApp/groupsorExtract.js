@@ -1,27 +1,35 @@
 const express = require("express");
 const axios = require("axios");
 const cheerio = require("cheerio");
-var apps = require('firebase/app');
 var databases = require('firebase/database');
-// const serviceAccount = require('./path/to/key.json');
-const firebaseConfig = {
-    apiKey: "AIzaSyDVwUfxkzIfeDgav_ZWwukDDy81-hIGmfs",
-    authDomain: "links-to-whatsapp.firebaseapp.com",
-    databaseURL: "https://links-to-whatsapp-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "links-to-whatsapp",
-    storageBucket: "links-to-whatsapp.appspot.com",
-    messagingSenderId: "1098223504691",
-    appId: "1:1098223504691:web:354efcc9747e6a0ad14246"
-};
 
-const app = apps.initializeApp(firebaseConfig);
-const db = databases.getDatabase(app);
 
-// constants
-databaseUrl = "https://links-to-whatsapp-default-rtdb.asia-southeast1.firebasedatabase.app"
+var db;
+
+
+// ===========================================================================
+// check whatsapp link available in database
+
+//=============================================================================
 
 // get last crwel
 var lastPostUrl;
+var isAvailable;  // to find the link already available in database
+
+const isDataExist = async (waId) => {
+    allLinksRef = await databases.ref(db, '/AllLinks');
+
+    await databases.get(databases.child(allLinksRef, waId)).then((snapshot) => {
+        if (snapshot.exists()) {
+            isAvailable = 1;
+        } else {
+            isAvailable = 0;
+        }
+    }).catch((error) => {
+        console.log(error);
+    });
+}
+
 const lastCrewel=async()=>{
     await databases.get(databases.child(starCountRef, `/ScrapData`)).then((snapshot) => {
         if (snapshot.exists()) {
@@ -41,6 +49,13 @@ const lastCrewel=async()=>{
 const updateLastCrewel = async (lastPostLink)=>{
     // console.log(lastPostLink);
     await databases.set(databases.ref(db, 'ScrapData/'), { lastpost: lastPostLink })
+
+}
+
+// All links update
+const allLinkUpdate = async (waId,tableName) => {
+    // console.log(lastPostLink);
+    await databases.set(databases.ref(db, 'AllLinks/' + waId), tableName)
 
 }
 
@@ -136,9 +151,16 @@ const addLink = async (i, toPost)=>{
         console.log(toPost.indexOf(i + " ") + 1, '/', toPost.length, '>>', tableName, '>>', "No Description")
         return 0
     }
+    await isDataExist(groupkey);
+    if (isAvailable) {
+        console.log(toPost.indexOf(i + " ") + 1, '/', toPost.length, '>>', tableName, '>>', "already available")
+        return 0;
+    }
     await check("https://chat.whatsapp.com/invite/" +groupkey)
         .then((groupNames)=>{
-            var groupName=groupNames[0];
+            
+            var groupName = groupNames[0];
+
             if (groupName == 0){
                 console.log(toPost.indexOf(i + " ") + 1, '/', toPost.length, '>>', tableName, '>>', "Link Invalid")
 
@@ -156,6 +178,11 @@ const addLink = async (i, toPost)=>{
             // console.log(data);
             console.log(toPost.indexOf(i+" ") + 1, '/', toPost.length,'>>', tableName, '>>', groupName)
             uploadWaLink(tableName, data);
+            uploadWaLink(language, data);
+            uploadWaLink(country, data);
+            uploadWaLink(category.split("/").join(' '), data);
+            allLinkUpdate(groupkey,groupName)
+
             if(tableName.match("Hot")==null){
                 var data1 = {
                     "groupLink": groupkey,
@@ -178,7 +205,8 @@ const addLink = async (i, toPost)=>{
 
 }
 var starCountRef;
-const main= async ()=>{
+const main= async (db1)=>{
+    db=db1;
     starCountRef = await databases.ref(db, '/');
     // var lastPost =await lastCrewel();
     await lastCrewel();
@@ -212,15 +240,13 @@ const main= async ()=>{
     }
 }
 
-const test=async ()=>{
-    getDataFromPost("https://groupsor.link/group/invite/DsAR5Da2srS7AExUQy6XQR")
-        .then((result)=>{
-        console.log(result.length);
-    })
-}
 
-// test();
-main()
+const test = async (db1) => {
+    console.log(db1);
+
+    console.log("hello")
+}
+// main()
 module.exports.run = main;
 
 // setInterval(() => {

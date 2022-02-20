@@ -1,10 +1,17 @@
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template, send_from_directory, request, send_file
 import os
 from threading import Thread
-from AllBikeSpecification import Allbikespecification, ExtractPostLinks, PostMaker
-from Facebook import ActressGallery,DailyQuote
-app = Flask(__name__)
+from os import path
 
+from werkzeug.datastructures import MultiDict
+from werkzeug.utils import redirect, secure_filename
+
+from AllBikeSpecification import Allbikespecification, ExtractPostLinks, PostMaker
+from Facebook import ActressGallery, DailyQuote, PJTamilLyrics, TamilCineWorld, FightBoysVsGirls, DailyRasi, TamilMemesWorld,PJFashionWay,InstaVideoToFB
+from Self import IMGToPDF
+app = Flask(__name__)
+file_path_main = path.abspath(__file__)
+dir_path_main = path.dirname(file_path_main)
 
 @app.route('/')
 def hello():
@@ -14,6 +21,8 @@ def hello():
 @app.route('/favicon.ico')
 def favicon():
     return "hello"
+
+# ========================= WebSite====================================================================
 
 # all bike specification blogger autopost
 @app.route('/allbikespecification/autopost')
@@ -36,7 +45,21 @@ def postmake():
     thread_a.start()
     return render_template("timepage.html", title="All bike specification post Maker")
 
+# mobileSpeci setup
+from website import mobileSpeci
 
+@app.route('/mobilespeci/checknewpost')
+def mobileSpeciCheckNewPost():
+    thread_a = Thread(target=mobileSpeci.checkForNewPost(), args=())
+    thread_a.start()
+    return render_template("timepage.html", title="MobileSpeci new post checking")
+
+
+@app.route('/mobilespeci/upadtepostdatainfirebase')
+def mobileSpeciupadtepostdatainfirebase():
+    thread_a = Thread(target=mobileSpeci.addPostDataIntoFirebase, args=())
+    thread_a.start()
+    return render_template("timepage.html", title="MobileSpeci add post data into firebase")
 
 # ========================= Facebook====================================================================
 @app.route('/facebook/actressgallery')
@@ -51,12 +74,86 @@ def dailyQuotes():
     thread_a.start()
     return render_template("timepage.html", title="Daily Quotes")
 
-@app.route("/check")
-def testing():
-    accessToken = os.environ.get('FB_ACCESS', None)
-    print(accessToken)
+@app.route("/facebook/tamillyrics")
+def tamillyrics():
+    thread_a = Thread(target=PJTamilLyrics.Run, args=())
+    thread_a.start()
+    return render_template("timepage.html", title="Tamil Lyrics")
+
+
+@app.route("/facebook/tamilcineworld")
+def tamilcineworld():
+    thread_a = Thread(target=TamilCineWorld.Run, args=())
+    thread_a.start()
+    return render_template("timepage.html", title="Tamil Cine World")
+
+
+@app.route("/facebook/fightboysvsgirls")
+def fightboysvsgirls():
+    thread_a = Thread(target=FightBoysVsGirls.Run, args=())
+    thread_a.start()
+    return render_template("timepage.html", title="Fight Boys Vs Girls")
+
+@app.route("/facebook/dailyrasi")
+def dailyrasi():
+    thread_a = Thread(target=DailyRasi.Run, args=())
+    thread_a.start()
+    return render_template("timepage.html", title="Daily Rasi")
+
+@app.route("/facebook/tamilmemesworld")
+def tamilmemesworld():
+    thread_a = Thread(target=TamilMemesWorld.Run, args=())
+    thread_a.start()
+    return render_template("timepage.html", title="Tamil Memes World")
+
+
+@app.route("/facebook/pjfashionway")
+def pjfashionway():
+    thread_a = Thread(target=PJFashionWay.Run, args=())
+    thread_a.start()
+    return render_template("timepage.html", title="PJ Fashion Way")
+
+
+@app.route("/facebook/instareelspro")
+def instareelspro():
+    thread_a = Thread(target=InstaVideoToFB.Run, args=())
+    thread_a.start()
+    return render_template("timepage.html", title="Insta Reels Pro")
+
+
+# self projects
+@app.route('/self/uploader', methods=['GET', 'POST'])
+def upload_file():
+    if request.method == 'POST':
+        toConveredList = []
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            # flash('No file part')
+            return 'No file part'
+
+        file = request.files['file']
+        if file.filename == '':
+            # flash('No selected file')
+            return 'No selected file'
+
+        imgList = MultiDict(request.files).getlist('file')
+        # print(imgList)
+
+        for i in imgList:
+            print(dir_path_main)
+            if i and IMGToPDF.allowedFile(i.filename):
+                # print(i)
+                filename = secure_filename(i.filename)
+                i.save(dir_path_main+"/Self/Data/"+filename)
+                toConveredList.append(dir_path_main+"/Self/Data/"+filename)
+        print(toConveredList)
+
+
+        IMGToPDF.converter(toConveredList)
+        return send_file(dir_path_main+'/Self/Data/PJImageConveter.pdf', as_attachment=True)
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
+    
