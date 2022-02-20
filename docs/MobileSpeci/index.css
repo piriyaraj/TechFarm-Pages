@@ -125,9 +125,9 @@ button:focus {
 /* Hide the images by default */
 
 .mySlides {
-    display: none;
     border: 1px solid;
     height: 600px;
+    text-align: center
 }
 
 
@@ -181,6 +181,7 @@ button:focus {
     padding: 8px 12px;
     position: absolute;
     top: 0;
+    background-color: white;
 }
 
 
@@ -221,5 +222,5 @@ button:focus {
 
 .sliderimg {
     max-height: 600px;
-    /* height: inherit; */
+    margin: auto;
 }
