@@ -112,7 +112,10 @@ def findimgurl():
 def contentTableMake():
     contentTable = {}
     for i in tables:
-        tableHead = i.findAll("th")[0].text
+        try:
+            tableHead = i.findAll("th")[0].text
+        except:
+            continue
         temp = {}
         for j in i.findAll("tr"):
             try:
