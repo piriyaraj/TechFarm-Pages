@@ -266,7 +266,8 @@ def addPostDataIntoFirebase():
         try:
             title, tag, descri, content, img_urls = getdata(url)
             addPostDatas(title, tag, descri, content, img_urls, postCount)
-        except:
+        except Exception as e:
+            print(e)
             break
 
         addPostedUrlForExtract(postCount, url)
