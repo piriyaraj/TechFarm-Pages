@@ -1,2 +1,2 @@
 # TechFarm-Pages
-pages for Techfarm js and css files
+works for techfarm frontend and backend
