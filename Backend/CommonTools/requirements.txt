@@ -88,3 +88,5 @@ Werkzeug==2.0.2
 sseclient==0.0.27
 Open-Tamil==1.0
 youtubetofacebook==0.0.2
+pytube==12.0.0
+scrapetube==2.2.2
