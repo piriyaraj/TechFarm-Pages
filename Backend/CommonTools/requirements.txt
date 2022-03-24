@@ -67,7 +67,6 @@ pytest==6.2.4
 python-facebook-api==0.11.2
 python-firebase @ git+https://github.com/ozgur/python-firebase@0d79d7609844569ea1cec4ac71cb9038e834c355
 python-jwt==2.0.1
-pytube==11.0.1
 PyTweening==1.0.3
 requests==2.25.1
 requests-oauthlib==1.3.0
