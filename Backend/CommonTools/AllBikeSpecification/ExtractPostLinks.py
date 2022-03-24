@@ -7,7 +7,6 @@ from bs4.element import ResultSet
 import requests
 from bs4 import BeautifulSoup, dammit
 from firebase import firebase
-import pyrebase
 from requests import models
 from requests.models import ReadTimeoutError
 from firebase import firebase

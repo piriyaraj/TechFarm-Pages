@@ -1,6 +1,5 @@
 import os
 from requests.models import ReadTimeoutError
-import pyrebase
 from firebase import firebase
 from bs4 import BeautifulSoup, dammit
 from bs4.element import ResultSet
