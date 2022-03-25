@@ -6,7 +6,6 @@ databaseUrl = "https://colabfacebook-default-rtdb.firebaseio.com/YouTube/dontbec
 dataBase = firebase.FirebaseApplication(databaseUrl, None)
 
 access_token = os.environ.get('FB_DONTBECORNER_ACCESS', None)
-access_token = "EAAOg0gqiaQEBAHD19GjSWF6XeZADgPsHnf6QeDR1R2dgZBJgZACT7ImXo2GMOX2oZCd6gKjS45IIuem3admfL666IrxHI08FnOE9rocRZBAJT7ZALpXFAkn9tcHsIJM3mRa9bgvGiKzRy78aZAZA9vAR65pLJCeolOv452ngtILfuHPafmEBZBfI0"
 def insertData(tableName, data, dataBase, format="post"):
     if(format == "patch"):
         result = dataBase.patch(tableName, data)

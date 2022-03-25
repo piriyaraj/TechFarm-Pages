@@ -99,7 +99,6 @@ class youtubetofb:
         pass
 
 
-access_token = "EAAOg0gqiaQEBAHD19GjSWF6XeZADgPsHnf6QeDR1R2dgZBJgZACT7ImXo2GMOX2oZCd6gKjS45IIuem3admfL666IrxHI08FnOE9rocRZBAJT7ZALpXFAkn9tcHsIJM3mRa9bgvGiKzRy78aZAZA9vAR65pLJCeolOv452ngtILfuHPafmEBZBfI0"
 facebookId = "DontBeCorner"
 
 
