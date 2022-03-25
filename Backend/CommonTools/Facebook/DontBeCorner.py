@@ -36,10 +36,11 @@ def Run():
     if(haveNewVideo):
         print("New Videos Available\n staring download")
         DontBeCorner.downloadVideo()
-        setLastPostId(lastVideoId)
         print("uploading Video")
         DontBeCorner.uploadVideo()
         print("Video uploaded")
+        setLastPostId(lastVideoId)
+
 
 
 if __name__=="__main__":
