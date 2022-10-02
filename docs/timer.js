@@ -39,7 +39,7 @@ window.open("https://www.telelinking.link/");
                     if (count == postVisit - 1) {
                         //count = 1;
                         if(c==0){
-                            document.getElementById('nextPostTimer').innerHTML = "<a href='#random-post' class='visitButton'>899111031</a>";
+                            document.getElementById('nextPostTimer').innerHTML = "<a href='#random-post' class='visitButton'>101110111</a>";
                         }
                         else{
                             document.getElementById('nextPostTimer').innerHTML = "";
